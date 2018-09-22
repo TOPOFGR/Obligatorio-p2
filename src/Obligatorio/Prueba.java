@@ -12,7 +12,7 @@ import java.util.*;
  * @author Santiago Rugnitz y Franco Galeano
  */
 public class Prueba {
-    
+
     public static void main(String[] args) {
         Sistema s = new Sistema();
         int opcion = 0;
@@ -25,21 +25,22 @@ public class Prueba {
                     s.agregarJugadores(RegistrarJugador(s));
                     break;
                 case 2:
-                    
+
                     break;
                 case 3:
-                    
+
                     break;
                 case 4:
-                    
+
                     break;
                 case 5:
                     System.out.println("Fin");
                     break;
             }
         } while (opcion != 5);
-        
+
     }
+
     //Case 1
     public static Jugador RegistrarJugador(Sistema s) {
         String nombre = leerTexto("Ingrese Nombre");
@@ -51,33 +52,36 @@ public class Prueba {
         Jugador j = new Jugador(nombre, alias, edad);
         return j;
     }
+
     //Se valida que el Alias no exista en el Sistema
     public static boolean ValidarAlias(String alias, Sistema s) {
         for (int i = 0; i < s.cantidadJugadores(); i++) {
             if (alias.equals(s.getListaJugadores().get(i).getAlias())) {
-                return true;                
+                return true;
             }
         }
         return false;
     }
+
     //Case 2
-    public static Partida RegistrarPartida(Sistema s){
-        String forma1 = leerTexto("Ingrese forma de visualización");
-        boolean forma2 =Visualizacion(forma1);
+    public static Partida RegistrarPartida(Sistema s) {
+        String formcolumna1 = leerTexto("Ingrese forma de visualización");
+        boolean formcolumna2 = Visualizacion(formcolumna1);
         Partida p = new Partida();
         return p;
     }
+
     //Método de para ver que tipo de visualización se quiere
-    public static boolean Visualizacion(String forma){
-        boolean visual=true;
-        if (!forma.equalsIgnoreCase("VERN")&& !forma.equalsIgnoreCase("VERR")) {
-            forma=leerTexto("Ingrese forma de visualización correcta");
+    public static boolean Visualizacion(String forma) {
+        boolean visual = true;
+        if (!forma.equalsIgnoreCase("VERN") && !forma.equalsIgnoreCase("VERR")) {
+            forma = leerTexto("Ingrese forma de visualización correcta");
         }
         if (forma.equalsIgnoreCase("VERN")) {
-            visual=true;
+            visual = true;
         }
         if (forma.equalsIgnoreCase("VERR")) {
-            visual=false;
+            visual = false;
         }
         return visual;
     }
@@ -115,4 +119,58 @@ public class Prueba {
         }
         return texto;
     }
+    /*
+    //Alineado 
+    public static int[] estaAlineado(Object[][] matriz, int fila, int columna) {
+        int [] esta = new int[4];
+        int aux = 0;
+        int fila1 = fila;
+        int fila2 = fila;
+        int columna1 = columna;
+        int columna2 = columna;
+        boolean diagonal1=false;
+        boolean diagonal2=false;
+        boolean diagonal3=false;
+        boolean diagonal4=false;
+        while ( 
+                columna2 >= 0 || columna1 < matriz.length || 
+                columna1 < matriz[0].length || columna2 >= 0) {
+            columna1++;
+            columna2--;
+            fila1++;
+            fila2--;
+            //Diagonal a la izquierda arriba
+            if (!diagonal1 && columna2 >= 0 && fila2 >= 0) {
+                if (matriz[columna2][fila2] != null) {
+                    esta[aux]= matriz[columna2][fila2] + matriz [fila][columna];
+                    diagonal1=true; 
+                    aux++;
+                }
+            }
+            //Diagonal a la derecha abajo
+            if (!diagonal2 && columna1 < matriz.length && fila1 < matriz[0].length) {
+                if (matriz[columna1][fila1] != null) {
+                    diagonal2=true;
+                    aux++;
+                }
+            }
+            //Diagonal a la derecha arriba
+            if (!diagonal3 && fila2 >= 0 && columna1 < matriz.length) {
+                if (matriz[columna1][fila2] != null) {
+                    diagonal3=true;
+                    aux++;
+                }
+            }
+            //Diagonal a la izquierda abajo
+            if (!diagonal4 && columna2 >= 0 && fila1 < matriz[0].length) {
+                if (matriz[columna2][fila1] != null) {
+                    diagonal4=true;
+                    aux++;
+                }
+            }
+            
+        }
+        return esta;
+    }
+*/
 }
