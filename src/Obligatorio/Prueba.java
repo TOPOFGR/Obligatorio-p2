@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  *
- * @author Santiago Rugnitz y Franco Galeano
+ * @author Santiago Rügnitz y Franco Galeano
  */
 public class Prueba {
 
@@ -25,7 +25,7 @@ public class Prueba {
                     s.agregarJugadores(RegistrarJugador(s));
                     break;
                 case 2:
-
+                    s.agregarPartida(RegistrarPartida(s));
                     break;
                 case 3:
 
@@ -35,6 +35,9 @@ public class Prueba {
                     break;
                 case 5:
                     System.out.println("Fin");
+                    break;
+                default:
+                    System.out.println("Ingrese ");
                     break;
             }
         } while (opcion != 5);
@@ -119,58 +122,144 @@ public class Prueba {
         }
         return texto;
     }
-    /*
+
     //Alineado 
-    public static int[] estaAlineado(Object[][] matriz, int fila, int columna) {
-        int [] esta = new int[4];
-        int aux = 0;
+    public static int[] estaAlineado(Ficha[][] matriz, int fila, int columna) {
+        int[] esta ={-1,-1,-1,-1};
         int fila1 = fila;
         int fila2 = fila;
         int columna1 = columna;
         int columna2 = columna;
-        boolean diagonal1=false;
-        boolean diagonal2=false;
-        boolean diagonal3=false;
-        boolean diagonal4=false;
-        while ( 
-                columna2 >= 0 || columna1 < matriz.length || 
-                columna1 < matriz[0].length || columna2 >= 0) {
+        boolean diagonal1 = false;
+        boolean diagonal2 = false;
+        boolean diagonal3 = false;
+        boolean diagonal4 = false;
+        boolean horizontal1 = false;
+        boolean horizontal2 = false;
+        boolean vertical1 = false;
+        boolean vertical2 = false;
+        while (columna2 >= 0 || columna1 < matriz.length
+                || columna1 < matriz[0].length || columna2 >= 0) {
             columna1++;
             columna2--;
             fila1++;
             fila2--;
+
             //Diagonal a la izquierda arriba
-            if (!diagonal1 && columna2 >= 0 && fila2 >= 0) {
-                if (matriz[columna2][fila2] != null) {
-                    esta[aux]= matriz[columna2][fila2] + matriz [fila][columna];
-                    diagonal1=true; 
-                    aux++;
+            if (!diagonal1 && columna2 >= 0 && fila2 >= 0
+                    && matriz[fila2][columna2].getValor() != 0) {
+                if (diagonal2) {
+                    esta[0] += matriz[fila2][columna2].getValor() + matriz[fila][columna].getValor();
+                    diagonal1 = true;
+
+                } else {
+                    esta[0] += matriz[fila2][columna2].getValor() + matriz[fila][columna].getValor();
+                    diagonal1 = true;
+
                 }
             }
             //Diagonal a la derecha abajo
-            if (!diagonal2 && columna1 < matriz.length && fila1 < matriz[0].length) {
-                if (matriz[columna1][fila1] != null) {
-                    diagonal2=true;
-                    aux++;
+            if (!diagonal2 && columna1 < matriz.length
+                    && fila1 < matriz[0].length && matriz[fila1][columna1].getValor() != 0) {
+
+                if (diagonal1) {
+                    esta[0] += matriz[fila1][columna1].getValor();
+                    diagonal2 = true;
+                } else {
+                    esta[0] += matriz[fila1][columna1].getValor() + matriz[fila][columna].getValor();
+                    diagonal2 = true;
+
                 }
             }
             //Diagonal a la derecha arriba
-            if (!diagonal3 && fila2 >= 0 && columna1 < matriz.length) {
-                if (matriz[columna1][fila2] != null) {
-                    diagonal3=true;
-                    aux++;
+            if (!diagonal3 && fila2 >= 0 && columna1 < matriz.length
+                    && matriz[fila2][columna1].getValor() != 0) {
+                if (diagonal4) {
+                    esta[1] += matriz[fila2][columna1].getValor();
+                    diagonal3 = true;
+                } else {
+                    esta[1] += matriz[fila2][columna1].getValor() + matriz[fila][columna].getValor();
+                    diagonal3 = true;
                 }
+
             }
             //Diagonal a la izquierda abajo
-            if (!diagonal4 && columna2 >= 0 && fila1 < matriz[0].length) {
-                if (matriz[columna2][fila1] != null) {
-                    diagonal4=true;
-                    aux++;
+            if (!diagonal4 && columna2 >= 0 && fila1 < matriz[0].length
+                    && matriz[fila1][columna2].getValor() != 0) {
+                if (diagonal3) {
+                    esta[1] += matriz[fila1][columna2].getValor();
+                    diagonal4 = true;
+
+                } else {
+                    esta[1] += matriz[fila1][columna2].getValor() + matriz[fila][columna].getValor();
+                    diagonal4 = true;
                 }
             }
-            
         }
+
+        if (!horizontal1 && columna2 >= 0 && matriz[fila][columna2].getValor() != 0) {
+            if (horizontal2) {
+                esta[2] += matriz[fila][columna2];
+                horizontal1 = true;
+            } else {
+                esta[2] += matriz[fila][columna2] + matriz[fila][columna];
+                horizontal1 = true;
+            }
+        }
+        if (!horizontal1 && columna1 < matriz.length && matriz[fila][columna2] + matriz[fila][columna]) {
+            if (horizontal2) {
+                esta[2] += matriz[fila][columna1];
+                horizontal2 = true;
+
+            } else {
+                esta[2] += matriz[fila][columna1] + matriz[fila][columna];
+                horizontal2 = true;
+
+            }
+        }
+        if (!vertical1 && fila1 < matriz[0].length && matriz[fila2][columna].getValor()
+                != 0) {
+            if (vertical2) {
+                esta[3] += matriz[fila1][columna];
+            } else {
+                esta[3] += matriz[fila1][columna] + matriz[fila][columna];
+
+            }
+        }
+        if (!vertical2 && fila2 >= 0 && matriz[fila2][columna].getValor()
+                != 0) {
+            if (vertical1) {
+                esta[3] += matriz[fila2][columna] + matriz[fila][columna];
+                vertical2 = true;
+            } else {
+                esta[3] += matriz[fila2][columna] + matriz[fila][columna];
+                vertical2 = true;
+            }
+        }
+
         return esta;
     }
-*/
+
+    public static void Turno(Ficha[][] matriz, int fila, int columna) {
+    int aux=0;
+    int [] turnos =  estaAlienado(matriz, fila, columna); 
+        for (int i = 0; i < turnos.length; i++) {
+            if (turnos[i]==0 && turnos[i]>8) {
+                aux++;
+            }
+        }
+        if (aux==turnos.length) {
+            System.out.println("No tiene más turnos");
+            return;
+        }else{
+            aux=0;
+            System.out.println("Puede mover ");
+            while(aux<turnos.length){
+                if (turnos[aux]>-1) {
+                    System.out.println(turnos[aux]+" ");
+                }
+                aux++;
+            }
+        }
+    }
 }
