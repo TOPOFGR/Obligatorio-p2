@@ -125,7 +125,7 @@ public class Prueba {
 
     //Alineado 
     public static int[] estaAlineado(Ficha[][] matriz, int fila, int columna) {
-        int[] esta ={-1,-1,-1,-1};
+        int[] esta = {-1, -1, -1, -1};
         int fila1 = fila;
         int fila2 = fila;
         int columna1 = columna;
@@ -240,26 +240,41 @@ public class Prueba {
         return esta;
     }
 
-    public static void Turno(Ficha[][] matriz, int fila, int columna) {
-    int aux=0;
-    int [] turnos =  estaAlienado(matriz, fila, columna); 
+    public static int Turno(Ficha[][] matriz, int fila, int columna) {
+        int aux = 0;
+        int[] turnos = estaAlienado(matriz, fila, columna);
         for (int i = 0; i < turnos.length; i++) {
-            if (turnos[i]==0 && turnos[i]>8) {
+            if (turnos[i] == 0 && turnos[i] > 8) {
                 aux++;
             }
         }
-        if (aux==turnos.length) {
+        if (aux == turnos.length) {
             System.out.println("No tiene más turnos");
-            return;
-        }else{
-            aux=0;
+            return -1;
+        } else {
+            aux = 0;
             System.out.println("Puede mover ");
-            while(aux<turnos.length){
-                if (turnos[aux]>-1) {
-                    System.out.println(turnos[aux]+" ");
+            while (aux < turnos.length) {
+                if (turnos[aux] > -1 && turnos[aux] > 8) {
+                    System.out.println(turnos[aux] + " ");
                 }
                 aux++;
             }
+            int ficha = leerNumero("Seleccione la ficha que quiere mover");
+            boolean esta = false;
+            int falta = 0;
+            while (!esta) {
+                aux = 0;
+                if (ficha == turnos[aux]) {
+                    esta = true;
+                }
+                if (aux == turnos.length) {
+                    ficha = leerNumero("El numero seleccionado no se encuentra "
+                            + "o no se puede seleccionar, elija nuevamente");
+                }
+            }
+
+            return ficha;
         }
     }
 }
