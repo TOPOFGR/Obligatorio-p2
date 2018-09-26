@@ -5,6 +5,8 @@
  */
 package Obligatorio;
 
+import java.util.*;
+
 /**
  *
  * @author TOPOF
@@ -18,6 +20,8 @@ public class Partida {
     private boolean TurnoRojo;
     private Ficha fichaVacia;
     private Ficha fichaBorde;
+    private String historial;
+    private boolean[] movimientos;
 
     public Jugador getJugadorRojo() {
         return jugadorRojo;
@@ -74,11 +78,8 @@ public class Partida {
     public void setFichaBorde(Ficha fichaBorde) {
         this.fichaBorde = fichaBorde;
     }
-
     
-    
-
-    public Partida(Jugador jugadorRojo, Jugador jugadorAzul, Ficha[][] tableroNuevo) {
+    public Partida(Jugador jugadorRojo, Jugador jugadorAzul) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
         this.tablero = new Ficha[10][11];
@@ -86,6 +87,8 @@ public class Partida {
         this.verN=true;
         this.fichaVacia= new Ficha("Vacio",0);
         this.fichaBorde= new Ficha("Borde",-1);
+        this.historial= "";
+        this.movimientos = new boolean[] {true,true,true,true,true,true,true,true};
         
         for (int i = 0; i < tablero.length - 1; i++) {
             for (int j = 0; j < tablero[0].length - 1; j++) {
@@ -118,7 +121,8 @@ public class Partida {
         }
         
         int ficha = Integer.parseInt(movimiento.substring(0,1));
-        int i = 0;
+        if (movimientos[ficha]){
+            int i = 0;
         int j = 0;
         for (int x = 0; x < tablero.length - 1; x++) {
             for (int y = 0; y < tablero[0].length - 1; y++) {
@@ -159,8 +163,85 @@ public class Partida {
             default:
                 System.out.println("Movimiento no válido");
         }
+        }else{
+            System.out.println("Movimiento no válido");
+        }
+        
     }
-
+    public void Juego(int formaTerm){
+        boolean terminado = false;
+        while (!terminado){
+            
+        }
+    }
     
+    public void cambioTurno(){
+        TurnoRojo=!TurnoRojo;
+        Arrays.fill(movimientos, 0, 7, true);
+        
+    }
     
+    public void sumaPuntos(){
+        int rojo=0;
+        int azul=0;
+        for (int j = 1; j < tablero[0].length - 1; j++) {
+            for (int i = 1; i < 5; i++) {
+                if(tablero[i][j].getTipo().equals("Rojo")){
+                    rojo+=tablero[i][j].getValor();
+                }
+            }
+            for (int i = 5; i < tablero.length-1; i++) {
+                if(tablero[i][j].getTipo().equals("Azul")){
+                    azul+=tablero[i][j].getValor();
+                }
+            }
+        }
+        if (rojo>azul){
+            jugadorRojo.setVictorias(jugadorRojo.getVictorias()+1);
+        }
+        if (azul>rojo){
+            jugadorAzul.setVictorias(jugadorAzul.getVictorias()+1);
+        }
+    }
+    
+    public void mostrarHistorial(){
+        
+    }
+    public static String pedirComando(String mensaje) {
+        Scanner input = new Scanner(System.in);
+        String dato = "";
+        boolean comandoCorrecto = false;
+        while (!comandoCorrecto) {
+            try {
+                dato = input.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Tipo de dato incorrecto");
+                input.next();
+            } catch (Exception ex) {
+                System.out.println("Error al ingresar comando");
+                input.next();
+            }
+            if (dato!= null && !dato.isEmpty() && dato.trim().length()>0){
+                if (dato.length()==2&&(Character.isDigit(dato.charAt(0)))&&Character.isLetter(dato.charAt(1))){
+                    comandoCorrecto=true;
+                    //mover
+                }
+                if (dato.equals("VERR")){
+                    comandoCorrecto=true;
+                }
+                if (dato.equals("VERN")){
+                    comandoCorrecto=true;
+                }
+                if (!comandoCorrecto){
+                    System.out.println("Comando incorrecto");
+                }
+                
+            }
+            else {
+                System.out.println("No se ingresó un comando");
+            }
+        }
+        
+        return dato;
+    }
 }
