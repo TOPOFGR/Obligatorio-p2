@@ -137,17 +137,15 @@ public class Partida {
         
         switch (direccion) {
             case 'A':
-                if (tablero[i + sentido][j].getTipo().equals("Vacio")) {
-                    tablero[i + sentido][j] = tablero[i][j];
-                    tablero[i][j] = fichaVacia;
-                } else {
-                    System.out.println("Movimiento no válido");
-                }
+                tablero[i + sentido][j + 1] = tablero[i][j];
+                tablero[i][j] = fichaVacia;
+                mostrarTablero();
                 break;
             case 'D':
                 if (tablero[i + sentido][j + 1].getTipo().equals("Vacio")) {
                     tablero[i + sentido][j + 1] = tablero[i][j];
                     tablero[i][j] = fichaVacia;
+                    mostrarTablero();
                 } else {
                     System.out.println("Movimiento no válido");
                 }
@@ -156,6 +154,8 @@ public class Partida {
                 if (tablero[i + sentido][j - 1].getTipo().equals("Vacio")) {
                     tablero[i + sentido][j - 1] = tablero[i][j];
                     tablero[i][j] = fichaVacia;
+                    mostrarTablero();
+                    
                 } else {
                     System.out.println("Movimiento no válido");
                 }
@@ -178,6 +178,35 @@ public class Partida {
     public void cambioTurno(){
         TurnoRojo=!TurnoRojo;
         Arrays.fill(movimientos, 0, 7, true);
+        
+    }
+    
+    public boolean sePuedeMover(int ficha){
+        String turno = "Azul";
+        int sentido = 1;
+        if (isTurnoRojo()) {
+            sentido = -1;
+            turno="Rojo";
+        }
+        int fila=0;
+        int columna=0;
+        
+        boolean ret = false;
+        for (int i = 0; i < tablero.length - 1; i++) {
+            for (int j = 0; j < tablero[0].length - 1; j++) {
+                if (tablero[i][j].getValor() == ficha && tablero[i][j].getTipo().equals(turno)) {
+                    fila = i;
+                    columna = j;
+                }
+            }
+        }
+        if (tablero[fila+sentido][columna].getTipo().equals("Vacio") || tablero[fila+sentido][columna-1].getTipo().equals("Vacio") || tablero[fila+sentido][columna+1].getTipo().equals("Vacio")){
+            ret=false;
+        }
+        
+        
+        
+        return ret;
         
     }
     
@@ -204,44 +233,43 @@ public class Partida {
         }
     }
     
+    public void mostrarTablero() {
+        if (verN) {
+            for (int i = 1; i < tablero.length - 1; i++) {
+                String linea = "";
+                for (int j = 1; j < tablero[0].length - 1; j++) {
+
+                    if (tablero[i][j].getTipo().equals("Azul") || tablero[i][j].getTipo().equals("Rojo")) {
+                        linea += "|" + tablero[i][j];
+                    } else {
+                        linea += "| ";
+                    }
+                }
+                System.out.println(linea + "|");
+                System.out.println("+-+-+-+-+-+-+-+-+-+");
+
+            }
+
+        } else {
+            for (int i = 1; i < tablero.length - 1; i++) {
+                String linea = "";
+                for (int j = 1; j < tablero[0].length - 1; j++) {
+
+                    if (tablero[i][j].getTipo().equals("Azul") || tablero[i][j].getTipo().equals("Rojo")) {
+                        linea += tablero[i][j] + " ";
+                    } else {
+                        linea += "- ";
+                    }
+                }
+                System.out.println(linea);
+
+            }
+
+        }
+    }
+    
     public void mostrarHistorial(){
         
     }
-    public static String pedirComando(String mensaje) {
-        Scanner input = new Scanner(System.in);
-        String dato = "";
-        boolean comandoCorrecto = false;
-        while (!comandoCorrecto) {
-            try {
-                dato = input.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("Tipo de dato incorrecto");
-                input.next();
-            } catch (Exception ex) {
-                System.out.println("Error al ingresar comando");
-                input.next();
-            }
-            if (dato!= null && !dato.isEmpty() && dato.trim().length()>0){
-                if (dato.length()==2&&(Character.isDigit(dato.charAt(0)))&&Character.isLetter(dato.charAt(1))){
-                    comandoCorrecto=true;
-                    //mover
-                }
-                if (dato.equals("VERR")){
-                    comandoCorrecto=true;
-                }
-                if (dato.equals("VERN")){
-                    comandoCorrecto=true;
-                }
-                if (!comandoCorrecto){
-                    System.out.println("Comando incorrecto");
-                }
-                
-            }
-            else {
-                System.out.println("No se ingresó un comando");
-            }
-        }
-        
-        return dato;
-    }
+    
 }
