@@ -16,6 +16,14 @@ public class Sistema {
     private ArrayList<Jugador> listaJugadores;
     private ArrayList<Partida> listaPartidas;
     private ArrayList<Partida> listaRankings;
+    
+    public String mostrarLista(ArrayList lista){
+        String ret="";
+        for (int i=0;i<lista.size();i++){
+            ret= ret+(""+(i+1)+"- "+lista.get(i)+"\n");
+        }
+        return ret;
+    }
 
     public Sistema() {
         listaJugadores = new ArrayList<>();
