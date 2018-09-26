@@ -51,10 +51,12 @@ public class Prueba {
                     s.agregarJugadores(RegistrarJugador(s));
                     break;
                 case 2:
-                    if (s.getListaJugadores().size() > 1) {
+                    if (s.getListaJugadores().size() < 2) {
                         System.out.println("No hay suficientes jugadores registrados");
                     } else {
-                        s.agregarPartida(RegistrarPartida(s));
+                        Partida p = RegistrarPartida(s);
+                        s.agregarPartida(p);
+                        pedirComando(p);
                     }
 
                     break;
@@ -99,25 +101,10 @@ public class Prueba {
 
     //Case 2
     public static Partida RegistrarPartida(Sistema s) {
-        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo", 1, s.getListaJugadores().size() - 1));
-        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul", 1, s.getListaJugadores().size() - 1));
+        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size() - 1));
+        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size() - 1));
         Partida p = new Partida(jugadorRojo, jugadorAzul);
         return p;
-    }
-
-    //Método de para ver que tipo de visualización se quiere
-    public static boolean Visualizacion(String forma) {
-        boolean visual = true;
-        if (!forma.equalsIgnoreCase("VERN") && !forma.equalsIgnoreCase("VERR")) {
-            forma = leerTexto("Ingrese forma de visualización correcta");
-        }
-        if (forma.equalsIgnoreCase("VERN")) {
-            visual = true;
-        }
-        if (forma.equalsIgnoreCase("VERR")) {
-            visual = false;
-        }
-        return visual;
     }
 
 //Se valida que el numero sea mayor a 0
@@ -155,7 +142,8 @@ public class Prueba {
     }
 
 //Alineado 
-    public static boolean[] estaAlineado(Ficha[][] matriz, int fila, int columna) {
+    public static boolean[] estaAlineado(Partida partida, int fila, int columna) {
+        Ficha[][] matriz = partida.getTablero();
         int numero = matriz[fila][columna].getValor();
         boolean[] esta = new boolean[8];
         int fila1 = fila;
@@ -166,8 +154,8 @@ public class Prueba {
         int horizontal = numero;
         int vertical = numero;
         int diagonals = numero;
-        while (columna2 >= 1 || columna1 < matriz.length-1
-                || columna1 < matriz[0].length-1 || columna2 >= 1) {
+        while (columna2 >= 1 || columna1 < matriz.length - 1
+                || columna1 < matriz[0].length - 1 || columna2 >= 1) {
             columna1++;
             columna2--;
             fila1++;
@@ -179,18 +167,18 @@ public class Prueba {
 
             }
             //Diagonal a la derecha abajo
-            if (columna1 < matriz.length && fila1 < matriz[0].length-1
+            if (columna1 < matriz.length && fila1 < matriz[0].length - 1
                     && matriz[fila1][columna1].getValor() != 0) {
                 diagonalp += matriz[fila1][columna1].getValor();
 
             }
             //Diagonal a la derecha arriba
-            if (fila2 >= 1 && columna1 < matriz.length-1
+            if (fila2 >= 1 && columna1 < matriz.length - 1
                     && matriz[fila2][columna1].getValor() != 0) {
                 diagonals += matriz[fila2][columna1].getValor();
             }
             //Diagonal a la izquierda abajo
-            if (columna2 >= 1 && fila1 < matriz[0].length-1
+            if (columna2 >= 1 && fila1 < matriz[0].length - 1
                     && matriz[fila1][columna2].getValor() != 0) {
                 diagonals += matriz[fila1][columna2].getValor();
             }
@@ -199,11 +187,11 @@ public class Prueba {
                 horizontal += matriz[fila][columna2].getValor();
             }
             //Horizontal hacia la derecha
-            if (columna1 < matriz.length-1 && matriz[fila][columna1].getValor() != 0) {
+            if (columna1 < matriz.length - 1 && matriz[fila][columna1].getValor() != 0) {
                 horizontal += matriz[fila][columna1].getValor();
             }
             //vertical hacia arriba
-            if (fila1 < matriz[0].length-1 && matriz[fila2][columna].getValor() != 0) {
+            if (fila1 < matriz[0].length - 1 && matriz[fila2][columna].getValor() != 0) {
                 vertical += matriz[fila1][columna].getValor();
             }
             //vertical hacia abajo            
@@ -226,9 +214,10 @@ public class Prueba {
         return esta;
     }
 
-    public static String Turno(Ficha[][] matriz, int fila, int columna) {
+    public static String Turno(Partida partida, int fila, int columna) {
+        Ficha[][] matriz = partida.getTablero();
         int aux = 0;
-        boolean[] turnos = estaAlineado(matriz, fila, columna);
+        boolean[] turnos = estaAlineado(partida, fila, columna);
         aux = 0;
         for (int i = 0; i < turnos.length; i++) {
             if (turnos[i]) {
@@ -245,10 +234,57 @@ public class Prueba {
         String ficha = leerTexto("Ingrese dato");
         int num = Integer.parseInt(ficha.substring(01));
         while (!turnos[num] && num < 0 && num > 8) {
-                ficha = leerTexto("El numero seleccionado no se encuentra "
-                        + "o no se puede seleccionar, elija nuevamente");
+            ficha = leerTexto("El numero seleccionado no se encuentra "
+                    + "o no se puede seleccionar, elija nuevamente");
         }
 
         return ficha;
+    }
+
+    public static void pedirComando(Partida partida) {
+        if (partida.isTurnoRojo()){
+            System.out.print("Turno del jugador rojo. ");
+        }
+        else{
+            System.out.println("Turno del jugador azul. ");
+        }
+        System.out.println("Ingrese un comando");
+        Scanner input = new Scanner(System.in);
+        String dato = "";
+        boolean comandoCorrecto = false;
+        while (!comandoCorrecto) {
+            try {
+                dato = input.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Tipo de dato incorrecto");
+                input.next();
+            } catch (Exception ex) {
+                System.out.println("Error al ingresar comando");
+                input.next();
+            }
+            if (dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
+                if (dato.length() == 2) {                                                     //COMPROBAR QUE ES UN INT Y UN CHAR
+                    int ficha = Integer.parseInt(dato.substring(0, 1));
+                    if (ficha > 0 && ficha < 9 && partida.sePuedeMover(ficha)) {
+                        partida.moverFicha(dato);
+                        comandoCorrecto = true;
+                    }
+                }
+                if (dato.equals("VERR")) {
+                    comandoCorrecto = true;
+                    partida.setVerN(false);
+                }
+                if (dato.equals("VERN")) {
+                    comandoCorrecto = true;
+                    partida.setVerN(true);
+                }
+                if (!comandoCorrecto) {
+                    System.out.println("Comando incorrecto");
+                }
+
+            } else {
+                System.out.println("No se ingresó un comando");
+            }
+        }
     }
 }
