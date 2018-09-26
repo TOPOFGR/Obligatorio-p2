@@ -12,20 +12,19 @@ import java.util.*;
  * @author Santiago Rügnitz y Franco Galeano
  */
 public class Prueba {
-    
+
     public static int pedirInt(String mensaje, int min, int max) {
         System.out.println(mensaje);
         Scanner input = new Scanner(System.in);
         boolean continuar = false;
         int dato = 0;
         while (!continuar) {
-            try{dato = input.nextInt();
-            }
-            catch(InputMismatchException e){
+            try {
+                dato = input.nextInt();
+            } catch (InputMismatchException e) {
                 System.out.println("Tipo de dato incorrecto");
                 input.next();
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Error al ingresar dato");
                 input.next();
             }
@@ -40,7 +39,7 @@ public class Prueba {
     }
 
     public static void main(String[] args) {
-        
+
         Sistema s = new Sistema();
         int opcion = 0;
         do {
@@ -52,12 +51,12 @@ public class Prueba {
                     s.agregarJugadores(RegistrarJugador(s));
                     break;
                 case 2:
-                    if(s.getListaJugadores().size()>1){
+                    if (s.getListaJugadores().size() > 1) {
                         System.out.println("No hay suficientes jugadores registrados");
-                    }else{
+                    } else {
                         s.agregarPartida(RegistrarPartida(s));
                     }
-                    
+
                     break;
                 case 3:
 
@@ -100,12 +99,11 @@ public class Prueba {
 
     //Case 2
     public static Partida RegistrarPartida(Sistema s) {
-        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo", 1, s.getListaJugadores().size()-1));
-        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul", 1, s.getListaJugadores().size()-1));
+        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo", 1, s.getListaJugadores().size() - 1));
+        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul", 1, s.getListaJugadores().size() - 1));
         Partida p = new Partida(jugadorRojo, jugadorAzul);
         return p;
     }
-    
 
     //Método de para ver que tipo de visualización se quiere
     public static boolean Visualizacion(String forma) {
@@ -156,160 +154,101 @@ public class Prueba {
         return texto;
     }
 
-    //Alineado 
-    public static int[] estaAlineado(Ficha[][] matriz, int fila, int columna) {
-        int[] esta = {-1, -1, -1, -1};
+//Alineado 
+    public static boolean[] estaAlineado(Ficha[][] matriz, int fila, int columna) {
+        int numero = matriz[fila][columna].getValor();
+        boolean[] esta = new boolean[8];
         int fila1 = fila;
         int fila2 = fila;
         int columna1 = columna;
         int columna2 = columna;
-        boolean diagonal1 = false;
-        boolean diagonal2 = false;
-        boolean diagonal3 = false;
-        boolean diagonal4 = false;
-        boolean horizontal1 = false;
-        boolean horizontal2 = false;
-        boolean vertical1 = false;
-        boolean vertical2 = false;
-        while (columna2 >= 0 || columna1 < matriz.length
-                || columna1 < matriz[0].length || columna2 >= 0) {
+        int diagonalp = numero;
+        int horizontal = numero;
+        int vertical = numero;
+        int diagonals = numero;
+        while (columna2 >= 1 || columna1 < matriz.length-1
+                || columna1 < matriz[0].length-1 || columna2 >= 1) {
             columna1++;
             columna2--;
             fila1++;
             fila2--;
 
             //Diagonal a la izquierda arriba
-            if (!diagonal1 && columna2 >= 0 && fila2 >= 0
-                    && matriz[fila2][columna2].getValor() != 0) {
-                if (diagonal2) {
-                    esta[0] += matriz[fila2][columna2].getValor() + matriz[fila][columna].getValor();
-                    diagonal1 = true;
+            if (columna2 >= 1 && fila2 >= 1 && matriz[fila2][columna2].getValor() != 0) {
+                diagonalp += matriz[fila2][columna2].getValor();
 
-                } else {
-                    esta[0] += matriz[fila2][columna2].getValor() + matriz[fila][columna].getValor();
-                    diagonal1 = true;
-
-                }
             }
             //Diagonal a la derecha abajo
-            if (!diagonal2 && columna1 < matriz.length
-                    && fila1 < matriz[0].length && matriz[fila1][columna1].getValor() != 0) {
+            if (columna1 < matriz.length && fila1 < matriz[0].length-1
+                    && matriz[fila1][columna1].getValor() != 0) {
+                diagonalp += matriz[fila1][columna1].getValor();
 
-                if (diagonal1) {
-                    esta[0] += matriz[fila1][columna1].getValor();
-                    diagonal2 = true;
-                } else {
-                    esta[0] += matriz[fila1][columna1].getValor() + matriz[fila][columna].getValor();
-                    diagonal2 = true;
-
-                }
             }
             //Diagonal a la derecha arriba
-            if (!diagonal3 && fila2 >= 0 && columna1 < matriz.length
+            if (fila2 >= 1 && columna1 < matriz.length-1
                     && matriz[fila2][columna1].getValor() != 0) {
-                if (diagonal4) {
-                    esta[1] += matriz[fila2][columna1].getValor();
-                    diagonal3 = true;
-                } else {
-                    esta[1] += matriz[fila2][columna1].getValor() + matriz[fila][columna].getValor();
-                    diagonal3 = true;
-                }
-
+                diagonals += matriz[fila2][columna1].getValor();
             }
             //Diagonal a la izquierda abajo
-            if (!diagonal4 && columna2 >= 0 && fila1 < matriz[0].length
+            if (columna2 >= 1 && fila1 < matriz[0].length-1
                     && matriz[fila1][columna2].getValor() != 0) {
-                if (diagonal3) {
-                    esta[1] += matriz[fila1][columna2].getValor();
-                    diagonal4 = true;
-
-                } else {
-                    esta[1] += matriz[fila1][columna2].getValor() + matriz[fila][columna].getValor();
-                    diagonal4 = true;
-                }
+                diagonals += matriz[fila1][columna2].getValor();
+            }
+            //Horizontal hacia la izquierda
+            if (columna2 >= 1 && matriz[fila][columna2].getValor() != 0) {
+                horizontal += matriz[fila][columna2].getValor();
+            }
+            //Horizontal hacia la derecha
+            if (columna1 < matriz.length-1 && matriz[fila][columna1].getValor() != 0) {
+                horizontal += matriz[fila][columna1].getValor();
+            }
+            //vertical hacia arriba
+            if (fila1 < matriz[0].length-1 && matriz[fila2][columna].getValor() != 0) {
+                vertical += matriz[fila1][columna].getValor();
+            }
+            //vertical hacia abajo            
+            if (fila2 >= 1 && matriz[fila2][columna].getValor() != 0) {
+                vertical += matriz[fila2][columna].getValor();
             }
         }
-
-        if (!horizontal1 && columna2 >= 0 && matriz[fila][columna2].getValor() != 0) {
-            if (horizontal2) {
-                esta[2] += matriz[fila][columna2];
-                horizontal1 = true;
-            } else {
-                esta[2] += matriz[fila][columna2] + matriz[fila][columna];
-                horizontal1 = true;
-            }
+        if (vertical < 9 && vertical != numero) {
+            esta[vertical] = true;
         }
-        if (!horizontal1 && columna1 < matriz.length && matriz[fila][columna2] + matriz[fila][columna]) {
-            if (horizontal2) {
-                esta[2] += matriz[fila][columna1];
-                horizontal2 = true;
-
-            } else {
-                esta[2] += matriz[fila][columna1] + matriz[fila][columna];
-                horizontal2 = true;
-
-            }
+        if (horizontal < 9 && horizontal != numero) {
+            esta[horizontal] = true;
         }
-        if (!vertical1 && fila1 < matriz[0].length && matriz[fila2][columna].getValor()
-                != 0) {
-            if (vertical2) {
-                esta[3] += matriz[fila1][columna];
-            } else {
-                esta[3] += matriz[fila1][columna] + matriz[fila][columna];
-
-            }
+        if (diagonalp < 9 && diagonalp != numero) {
+            esta[diagonalp] = true;
         }
-        if (!vertical2 && fila2 >= 0 && matriz[fila2][columna].getValor()
-                != 0) {
-            if (vertical1) {
-                esta[3] += matriz[fila2][columna] + matriz[fila][columna];
-                vertical2 = true;
-            } else {
-                esta[3] += matriz[fila2][columna] + matriz[fila][columna];
-                vertical2 = true;
-            }
+        if (diagonals < 9 && diagonals != numero) {
+            esta[diagonals] = true;
         }
-
         return esta;
     }
 
-    public static int Turno(Ficha[][] matriz, int fila, int columna) {
+    public static String Turno(Ficha[][] matriz, int fila, int columna) {
         int aux = 0;
-        int[] turnos = estaAlienado(matriz, fila, columna);
+        boolean[] turnos = estaAlineado(matriz, fila, columna);
+        aux = 0;
         for (int i = 0; i < turnos.length; i++) {
-            if (turnos[i] == 0 && turnos[i] > 8) {
+            if (turnos[i]) {
                 aux++;
             }
         }
-        if (aux == turnos.length) {
-            System.out.println("No tiene más turnos");
-            return -1;
-        } else {
-            aux = 0;
-            System.out.println("Puede mover ");
-            while (aux < turnos.length) {
-                if (turnos[aux] > -1 && turnos[aux] > 8) {
-                    System.out.println(turnos[aux] + " ");
-                }
-                aux++;
+        System.out.print("Puede mover ");
+        while (aux < turnos.length) {
+            if (turnos[aux]) {
+                System.out.print(aux + " ");
             }
-            int ficha = leerNumero("Seleccione la ficha que quiere mover");
-            boolean esta = false;
-            int falta = 0;
-            while (!esta) {
-                aux = 0;
-                if (ficha == turnos[aux]) {
-                    esta = true;
-                }
-                if (aux == turnos.length) {
-                    ficha = leerNumero("El numero seleccionado no se encuentra "
-                            + "o no se puede seleccionar, elija nuevamente");
-                }
-            }
+            aux++;
+        }
+        String ficha = leerTexto("Ingrese dato");
+        int num = Integer.parseInt(ficha.substring(01));
+        while (!turnos[num] && num < 0 && num > 8) {
+                ficha = leerTexto("El numero seleccionado no se encuentra "
+                        + "o no se puede seleccionar, elija nuevamente");
+        }
 
-            return ficha;
-        }
+        return ficha;
     }
-    
-    
 }
