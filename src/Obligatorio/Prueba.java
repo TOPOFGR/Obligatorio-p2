@@ -12,8 +12,35 @@ import java.util.*;
  * @author Santiago Rügnitz y Franco Galeano
  */
 public class Prueba {
+    
+    public static int pedirInt(String mensaje, int min, int max) {
+        System.out.println(mensaje);
+        Scanner input = new Scanner(System.in);
+        boolean continuar = false;
+        int dato = 0;
+        while (!continuar) {
+            try{dato = input.nextInt();
+            }
+            catch(InputMismatchException e){
+                System.out.println("Tipo de dato incorrecto");
+                input.next();
+            }
+            catch(Exception ex){
+                System.out.println("Error al ingresar dato");
+                input.next();
+            }
+            if (dato >= min && dato <= max) {
+                continuar = true;
+            } else {
+                System.out.println("Valor no válido, ingrese un entero entre " + min + " y " + max);
+            }
+        }
+        input.nextLine();
+        return dato;
+    }
 
     public static void main(String[] args) {
+        
         Sistema s = new Sistema();
         int opcion = 0;
         do {
@@ -25,7 +52,12 @@ public class Prueba {
                     s.agregarJugadores(RegistrarJugador(s));
                     break;
                 case 2:
-                    s.agregarPartida(RegistrarPartida(s));
+                    if(s.getListaJugadores().size()>1){
+                        System.out.println("No hay suficientes jugadores registrados");
+                    }else{
+                        s.agregarPartida(RegistrarPartida(s));
+                    }
+                    
                     break;
                 case 3:
 
@@ -68,11 +100,12 @@ public class Prueba {
 
     //Case 2
     public static Partida RegistrarPartida(Sistema s) {
-        String formcolumna1 = leerTexto("Ingrese forma de visualización");
-        boolean formcolumna2 = Visualizacion(formcolumna1);
-        Partida p = new Partida();
+        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo", 1, s.getListaJugadores().size()-1));
+        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul", 1, s.getListaJugadores().size()-1));
+        Partida p = new Partida(jugadorRojo, jugadorAzul);
         return p;
     }
+    
 
     //Método de para ver que tipo de visualización se quiere
     public static boolean Visualizacion(String forma) {
@@ -277,4 +310,6 @@ public class Prueba {
             return ficha;
         }
     }
+    
+    
 }
