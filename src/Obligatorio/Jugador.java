@@ -14,19 +14,17 @@ public class Jugador {
     private String nombre;
     private String alias;
     private int edad;
+    private int victorias;
 
     //Constructores
-    public Jugador() {
-        this.setNombre("Pepe");
-        this.setAlias("xXPepeXx");
-        this.setEdad(18);
-    }
 
-    public Jugador(String unNombre, String unAlias, int unaEdad) {
-        this.setNombre(unNombre);
-        this.setAlias(unAlias);
-        this.setEdad(unaEdad);
-        }
+    public Jugador(String nombre, String alias, int edad) {
+        this.nombre = nombre;
+        this.alias = alias;
+        this.edad = edad;
+        this.victorias=0;
+    }
+    
 
     public String getNombre() {
         return nombre;
@@ -51,6 +49,17 @@ public class Jugador {
     public void setEdad(int unaEdad) {
         this.edad = unaEdad;
     }
+
+    public int getVictorias() {
+        return victorias;
+    }
+
+    public void setVictorias(int victorias) {
+        this.victorias = victorias;
+    }
+    
+    
+    
 
     @Override
     public String toString() {
