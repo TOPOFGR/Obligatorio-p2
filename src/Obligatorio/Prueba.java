@@ -39,7 +39,6 @@ public class Prueba {
     }
 
     public static void main(String[] args) {
-
         Sistema s = new Sistema();
         int opcion = 0;
         do {
@@ -56,7 +55,13 @@ public class Prueba {
                     } else {
                         Partida p = RegistrarPartida(s);
                         s.agregarPartida(p);
-                        pedirComando(p);
+                        boolean jugando=true;
+                        while (jugando){
+                            p.mostrarTablero();
+                            pedirComando(p);
+                            
+                        }
+                        
                     }
 
                     break;
@@ -101,9 +106,12 @@ public class Prueba {
 
     //Case 2
     public static Partida RegistrarPartida(Sistema s) {
-        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size() - 1));
-        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size() - 1));
-        Partida p = new Partida(jugadorRojo, jugadorAzul);
+        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size())-1);
+        s.getListaJugadores().remove(jugadorRojo);
+        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size())-1);
+        s.getListaJugadores().add(jugadorRojo);
+        int tipoTerm = pedirInt("Mensaje re lindo preguntando la forma de ganar", 1, 3);
+        Partida p = new Partida(jugadorRojo, jugadorAzul,tipoTerm);
         return p;
     }
 
@@ -263,7 +271,7 @@ public class Prueba {
                 input.next();
             }
             if (dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
-                if (dato.length() == 2) {                                                     //COMPROBAR QUE ES UN INT Y UN CHAR
+                if (dato.length() == 2 && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {                                                     //COMPROBAR QUE ES UN INT Y UN CHAR
                     int ficha = Integer.parseInt(dato.substring(0, 1));
                     if (ficha > 0 && ficha < 9 && partida.sePuedeMover(ficha)) {
                         partida.moverFicha(dato);
