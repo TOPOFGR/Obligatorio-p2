@@ -22,6 +22,7 @@ public class Partida {
     private Ficha fichaBorde;
     private String historial;
     private boolean[] movimientos;
+    private int tipoTerm;
 
     public Jugador getJugadorRojo() {
         return jugadorRojo;
@@ -79,7 +80,7 @@ public class Partida {
         this.fichaBorde = fichaBorde;
     }
     
-    public Partida(Jugador jugadorRojo, Jugador jugadorAzul) {
+    public Partida(Jugador jugadorRojo, Jugador jugadorAzul,int tipoTerm) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
         this.tablero = new Ficha[10][11];
@@ -88,7 +89,9 @@ public class Partida {
         this.fichaVacia= new Ficha("Vacio",0);
         this.fichaBorde= new Ficha("Borde",-1);
         this.historial= "";
-        this.movimientos = new boolean[] {true,true,true,true,true,true,true,true};
+        this.movimientos = new boolean[] {true,true,true,true,true,true,true,true,true};
+        this.tipoTerm=tipoTerm;
+        
         
         for (int i = 0; i < tablero.length - 1; i++) {
             for (int j = 0; j < tablero[0].length - 1; j++) {
@@ -137,9 +140,13 @@ public class Partida {
         
         switch (direccion) {
             case 'A':
-                tablero[i + sentido][j + 1] = tablero[i][j];
-                tablero[i][j] = fichaVacia;
-                mostrarTablero();
+                if (tablero[i + sentido][j].getTipo().equals("Vacio")) {
+                    tablero[i + sentido][j] = tablero[i][j];
+                    tablero[i][j] = fichaVacia;
+                    mostrarTablero();
+                } else {
+                    System.out.println("Movimiento no válido");
+                }
                 break;
             case 'D':
                 if (tablero[i + sentido][j + 1].getTipo().equals("Vacio")) {
@@ -155,7 +162,6 @@ public class Partida {
                     tablero[i + sentido][j - 1] = tablero[i][j];
                     tablero[i][j] = fichaVacia;
                     mostrarTablero();
-                    
                 } else {
                     System.out.println("Movimiento no válido");
                 }
@@ -168,12 +174,7 @@ public class Partida {
         }
         
     }
-    public void Juego(int formaTerm){
-        boolean terminado = false;
-        while (!terminado){
-            
-        }
-    }
+    
     
     public void cambioTurno(){
         TurnoRojo=!TurnoRojo;
@@ -201,7 +202,7 @@ public class Partida {
             }
         }
         if (tablero[fila+sentido][columna].getTipo().equals("Vacio") || tablero[fila+sentido][columna-1].getTipo().equals("Vacio") || tablero[fila+sentido][columna+1].getTipo().equals("Vacio")){
-            ret=false;
+            ret=true;
         }
         
         
@@ -269,7 +270,7 @@ public class Partida {
     }
     
     public void mostrarHistorial(){
-        
+        //soon
     }
     
 }
