@@ -120,7 +120,6 @@ public class Prueba {
                     break;
                 default:
                     System.out.println("Ingrese numero entre 1 y 5");
-                    System.out.println("Ingrese  número entre 1 y 5");
                     break;
             }
         } 
@@ -153,18 +152,15 @@ public class Prueba {
         if (tipoTerm == 1) {
             movMax = pedirInt("Ingrese el límite de movimientos", 1, 100);
         }
-        Partida p = new Partida(jugadorRojo, jugadorAzul, tipoTerm, movMax);
-        s.agregarPartida(p);
-
-        Partida partida = p;
+        Partida partida = new Partida(jugadorRojo, jugadorAzul, tipoTerm, movMax);
         //Jugar
         boolean jugando = true;
         int contador = 0;
         while (jugando) {
 
-            if (p.hayMovimientos()) {
+            if (partida.hayMovimientos()) {
                 contador = 0;
-                p.mostrarTablero();
+                partida.mostrarTablero();
                 //Aca iba pedirComando
                 if (partida.isTurnoRojo()) {
                     System.out.print("Turno del jugador rojo. ");
@@ -226,13 +222,13 @@ public class Prueba {
                     }
                 }
 
-                p.comprobarMov();
-                if (p.termino()) {
+                partida.comprobarMov();
+                if (partida.termino()) {
                     System.out.println("Se llegó a la condición de terminación");
                     jugando = false;
                 }
             } else {
-                p.cambioTurno();
+                partida.cambioTurno();
                 contador++;
             }
             if (contador == 2) {
