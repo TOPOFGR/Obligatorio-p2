@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  *
- * @author TOPOF
+ * @author Santiago Rügnitz y Franco Galeano
  */
 public class Partida {
 

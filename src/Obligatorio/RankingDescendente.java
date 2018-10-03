@@ -9,7 +9,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author TOPOF
+ * @author Santiago Rügnitz y Franco Galeano
  */
 public class RankingDescendente implements Comparator<Jugador> {
 

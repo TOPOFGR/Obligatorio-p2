@@ -10,7 +10,7 @@ import java.util.Collections;
 
 /**
  *
- * @author TOPOF
+ * @author Santiago Rügnitz y Franco Galeano
  */
 public class Sistema {
 
