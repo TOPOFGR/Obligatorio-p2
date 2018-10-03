@@ -63,7 +63,7 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return "Jugador de nombre " + this.getNombre() + ", alias" + this.getAlias() + " y de " + this.getEdad() + "años";
+        return "Jugador de nombre " + this.getNombre() + ", alias " + this.getAlias() + " y de " + this.getEdad() + " años";
     }
 
 }
