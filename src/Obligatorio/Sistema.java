@@ -6,6 +6,7 @@
 package Obligatorio;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Sistema {
 
     private ArrayList<Jugador> listaJugadores;
     private ArrayList<Partida> listaPartidas;
-    private ArrayList<Partida> listaRankings;
+    private ArrayList<Jugador> listaRankings;
     
     public String mostrarLista(ArrayList lista){
         String ret="";
@@ -30,7 +31,12 @@ public class Sistema {
         listaPartidas = new ArrayList<>();
         listaRankings = new ArrayList<>();
     }
-
+    
+    public ArrayList<Jugador> ordenarDescendente() {
+        Collections.sort(this.getListaRankings(), new RankingDescendente());
+        return this.getListaRankings();
+    }
+    
     public ArrayList<Jugador> getListaJugadores() {
         return listaJugadores;
     }
@@ -55,12 +61,12 @@ public class Sistema {
         return this.getListaPartidas().size();
     }
 
-    public ArrayList<Partida> getListaRankings() {
+    public ArrayList<Jugador> getListaRankings() {
         return listaRankings;
     }
 
-    public void agregarRanking(Partida unaPartida) {
-        this.getListaRankings().add(unaPartida);
+    public void agregarRanking(Jugador unJugador) {
+        this.getListaRankings().add(unJugador);
     }
 
     public int cantidadRankings() {
