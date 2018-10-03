@@ -295,7 +295,7 @@ public class Partida {
         }
         switch (this.tipoTerm) {
             case 1:
-                if (this.movimientosActuales == this.movimientosMax) {
+                if (this.movimientosActuales >= this.movimientosMax) {
                     ret = true;
                 }
                 break;
