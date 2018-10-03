@@ -11,10 +11,10 @@ import java.util.Comparator;
  *
  * @author TOPOF
  */
+public class RankingDescendente implements Comparator<Jugador> {
 
-public class RankingDescendente implements Comparator <Jugador>{
-      @Override
-    public int compare (Jugador j1,Jugador j2){
-     return j2.getVictorias()-j1.getVictorias();
-}
+    @Override
+    public int compare(Jugador j1, Jugador j2) {
+        return j2.getVictorias() - j1.getVictorias();
+    }
 }
