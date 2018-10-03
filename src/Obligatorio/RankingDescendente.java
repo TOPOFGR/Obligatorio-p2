@@ -18,3 +18,4 @@ public class RankingDescendente implements Comparator<Jugador> {
         return j2.getVictorias() - j1.getVictorias();
     }
 }
+
