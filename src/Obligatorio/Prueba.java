@@ -89,10 +89,10 @@ public class Prueba {
                                 if (p.termino()) {
                                     System.out.println("Se llegó a la condición de terminación");
                                     p.setTerminado(false);
-                                } else {
-                                    p.cambioTurno();
-                                    contador++;
                                 }
+                            } else {
+                                p.cambioTurno();
+                                contador++;
                                 if (contador == 2) {
                                     System.out.println("Ya no hay movimientos posibles");
                                     p.setTerminado(false);
@@ -117,11 +117,9 @@ public class Prueba {
                     System.out.println("Ingrese  número entre 1 y 5");
                     break;
             }
-        } 
-    
-    while (opcion != 5);
-        
-        }
+        } while (opcion != 5);
+
+    }
 
 //Case 1
     public static Jugador RegistrarJugador(Sistema s) {
@@ -136,8 +134,6 @@ public class Prueba {
     }
 
 //Case 2
-    
-
 //Se valida si el String ingresado es vacio
     public static String leerTexto(String mensaje) {
         System.out.println(mensaje);
@@ -150,11 +146,7 @@ public class Prueba {
         return texto;
     }
 
-    
-
-
-
-public static void mostrarTablero(Partida p) {
+    public static void mostrarTablero(Partida p) {
         Ficha[][] tablero = p.getTablero();
         if (p.isVerN()) {
             for (int i = 1; i < tablero.length - 1; i++) {
