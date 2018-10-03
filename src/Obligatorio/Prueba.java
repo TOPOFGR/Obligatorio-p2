@@ -42,15 +42,12 @@ public class Prueba {
         Sistema s = new Sistema();
         int opcion = 0;
         do {
-<<<<<<< HEAD
             opcion = pedirInt("Ingrese opción deseada \n 1) Registrar Jugador"
                     + "\n 2) Jugar Partida \n 3) Replicar Partida\n 4) Ranking "
                     + "\n 5) Salir del juego", 1, 5);
-=======
             opcion = pedirInt("Ingrese opción deseada \n 1)Registrar Jugador"
                     + "\n 2) Jugar Partida \n 3) Replicar Partida\n 4)Ranking "
                     + "\n 5)Salir del juego", 1, 5);
->>>>>>> master
             switch (opcion) {
                 case 1:
                     s.agregarJugadores(RegistrarJugador(s));
@@ -59,10 +56,8 @@ public class Prueba {
                     if (s.getListaJugadores().size() < 2) {
                         System.out.println("No hay suficientes jugadores registrados");
                     } else {
-<<<<<<< HEAD
                         jugar(s);
 
-=======
                         Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size()) - 1);
                         s.getListaJugadores().remove(jugadorRojo);
                         Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size()) - 1);
@@ -111,7 +106,6 @@ public class Prueba {
                             }
                             //Guardar Resultados
                         }
->>>>>>> master
                     }
                     break;
 
@@ -125,11 +119,8 @@ public class Prueba {
                     System.out.println(".:GAME OVER:.");
                     break;
                 default:
-<<<<<<< HEAD
                     System.out.println("Ingrese numero entre 1 y 5");
-=======
                     System.out.println("Ingrese  número entre 1 y 5");
->>>>>>> master
                     break;
             }
         } 
@@ -141,11 +132,7 @@ public class Prueba {
 //Case 1
     public static Jugador RegistrarJugador(Sistema s) {
         String nombre = leerTexto("Ingrese Nombre");
-<<<<<<< HEAD
         String alias = leerTexto("Ingrese Alias ");
-=======
-        String alias = leerTexto("Ingrese Alias");
->>>>>>> master
         while (s.ValidarAlias(alias)) {
             alias = leerTexto("Alias no Disponible. Ingresa uno nuevo");
         }
@@ -155,7 +142,6 @@ public class Prueba {
     }
 
 //Case 2
-<<<<<<< HEAD
     public static void jugar(Sistema s) {
         //Crear Partida
         Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size()) - 1);
@@ -257,9 +243,6 @@ public class Prueba {
         }
         //Guardar Resultados
     }
-=======
-    
->>>>>>> master
 
 //Se valida si el String ingresado es vacio
     public static String leerTexto(String mensaje) {
@@ -273,7 +256,6 @@ public class Prueba {
         return texto;
     }
 
-<<<<<<< HEAD
     public static void pedirComando(Partida partida) {
         if (partida.isTurnoRojo()) {
             System.out.print("Turno del jugador rojo. ");
@@ -333,7 +315,4 @@ public class Prueba {
             }
         }
     }
-=======
-    
->>>>>>> master
 }
