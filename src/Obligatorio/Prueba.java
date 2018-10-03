@@ -42,9 +42,15 @@ public class Prueba {
         Sistema s = new Sistema();
         int opcion = 0;
         do {
+<<<<<<< HEAD
             opcion = pedirInt("Ingrese opción deseada \n 1) Registrar Jugador"
                     + "\n 2) Jugar Partida \n 3) Replicar Partida\n 4) Ranking "
                     + "\n 5) Salir del juego", 1, 5);
+=======
+            opcion = pedirInt("Ingrese opción deseada \n 1)Registrar Jugador"
+                    + "\n 2) Jugar Partida \n 3) Replicar Partida\n 4)Ranking "
+                    + "\n 5)Salir del juego", 1, 5);
+>>>>>>> master
             switch (opcion) {
                 case 1:
                     s.agregarJugadores(RegistrarJugador(s));
@@ -53,8 +59,59 @@ public class Prueba {
                     if (s.getListaJugadores().size() < 2) {
                         System.out.println("No hay suficientes jugadores registrados");
                     } else {
+<<<<<<< HEAD
                         jugar(s);
 
+=======
+                        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size()) - 1);
+                        s.getListaJugadores().remove(jugadorRojo);
+                        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size()) - 1);
+                        s.getListaJugadores().add(jugadorRojo);
+                        int tipoTerm = pedirInt("Ingrese el número de la forma de terminación: \n 1) Límite de movimientos  \n 2) Llegar con una pieza al lado opuesto \n 3) Llegar con todas las piezas al lado opuesto", 1, 3);
+                        int movMax = Integer.MAX_VALUE;
+                        if (tipoTerm == 1) {
+                            movMax = pedirInt("Ingrese el límite de movimientos", 1, 100);
+                        }
+                        Partida p = new Partida(jugadorRojo, jugadorAzul, tipoTerm, movMax);
+                        s.agregarPartida(p);
+                        int contador = 0;
+                        while (!p.isTerminado()) {
+                            if (p.hayMovimientos()) {
+                                contador = 0;
+                                p.mostrarTablero();
+                                String mensaje = "";
+                                if (p.isTurnoRojo()) {
+                                    mensaje += "Turno del jugador rojo. ";
+                                } else {
+                                    mensaje += "Turno del jugador azul. ";
+                                }
+                                mensaje += "Se pueden mover las fichas: " + p.mostrarMovimientos();
+                                boolean comandoCorrecto = false;
+                                while (!comandoCorrecto) {
+                                    String dato = leerTexto(mensaje);
+                                    if (p.recibirComando(dato)) {
+                                        comandoCorrecto = true;
+                                    } else {
+                                        System.out.println("Texto incorrecto");
+                                    }
+                                }
+                                p.comprobarMov();
+                                if (p.termino()) {
+                                    System.out.println("Se llegó a la condición de terminación");
+                                    p.setTerminado(false);
+                                } else {
+                                    p.cambioTurno();
+                                    contador++;
+                                }
+                                if (contador == 2) {
+                                    System.out.println("Ya no hay movimientos posibles");
+                                    p.setTerminado(false);
+                                }
+
+                            }
+                            //Guardar Resultados
+                        }
+>>>>>>> master
                     }
                     break;
 
@@ -68,17 +125,27 @@ public class Prueba {
                     System.out.println(".:GAME OVER:.");
                     break;
                 default:
+<<<<<<< HEAD
                     System.out.println("Ingrese numero entre 1 y 5");
+=======
+                    System.out.println("Ingrese  número entre 1 y 5");
+>>>>>>> master
                     break;
             }
-        } while (opcion != 5);
-
-    }
+        } 
+    
+    while (opcion != 5);
+        
+        }
 
 //Case 1
     public static Jugador RegistrarJugador(Sistema s) {
         String nombre = leerTexto("Ingrese Nombre");
+<<<<<<< HEAD
         String alias = leerTexto("Ingrese Alias ");
+=======
+        String alias = leerTexto("Ingrese Alias");
+>>>>>>> master
         while (s.ValidarAlias(alias)) {
             alias = leerTexto("Alias no Disponible. Ingresa uno nuevo");
         }
@@ -88,6 +155,7 @@ public class Prueba {
     }
 
 //Case 2
+<<<<<<< HEAD
     public static void jugar(Sistema s) {
         //Crear Partida
         Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size()) - 1);
@@ -189,6 +257,9 @@ public class Prueba {
         }
         //Guardar Resultados
     }
+=======
+    
+>>>>>>> master
 
 //Se valida si el String ingresado es vacio
     public static String leerTexto(String mensaje) {
@@ -202,6 +273,7 @@ public class Prueba {
         return texto;
     }
 
+<<<<<<< HEAD
     public static void pedirComando(Partida partida) {
         if (partida.isTurnoRojo()) {
             System.out.print("Turno del jugador rojo. ");
@@ -261,4 +333,7 @@ public class Prueba {
             }
         }
     }
+=======
+    
+>>>>>>> master
 }

@@ -20,7 +20,7 @@ public class Sistema {
     public String mostrarLista(ArrayList lista){
         String ret="";
         for (int i=0;i<lista.size();i++){
-            ret= ret+((i+1)+"- "+lista.get(i)+"\n");
+            ret= ret+(""+(i+1)+"- "+lista.get(i)+"\n");
         }
         return ret;
     }

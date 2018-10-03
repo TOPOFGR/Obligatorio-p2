@@ -25,6 +25,8 @@ public class Partida {
     private int tipoTerm;
     private int movimientosMax;
     private int movimientosActuales;
+    private int contadorJugadas;
+    private boolean terminado;
 
     public Jugador getJugadorRojo() {
         return jugadorRojo;
@@ -121,6 +123,23 @@ public class Partida {
     public void setMovimientosActuales(int movimientosActuales) {
         this.movimientosActuales = movimientosActuales;
     }
+
+    public int getContadorJugadas() {
+        return contadorJugadas;
+    }
+
+    public void setContadorJugadas(int contadorJugadas) {
+        this.contadorJugadas = contadorJugadas;
+    }
+
+    public boolean isTerminado() {
+        return terminado;
+    }
+
+    public void setTerminado(boolean terminado) {
+        this.terminado = terminado;
+    }
+    
     
 
     public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
@@ -135,6 +154,8 @@ public class Partida {
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
         this.tipoTerm = tipoTerm;
         this.movimientosMax = movMax;
+        this.contadorJugadas=0;
+        this.terminado=false;
 
         for (int i = 0; i < tablero.length - 1; i++) {
             for (int j = 0; j < tablero[0].length - 1; j++) {
@@ -180,7 +201,7 @@ public class Partida {
                         tablero[i + sentido][j] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
-                       
+
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -219,7 +240,7 @@ public class Partida {
     }
 
     public boolean sePuedeMover(int ficha) {
-        boolean ret=false;
+        boolean ret = false;
         String turno = "Azul";
         int sentido = 1;
         if (isTurnoRojo()) {
@@ -351,16 +372,16 @@ public class Partida {
 
         return ret;
     }
-    
-    public String mostrarMovimientos(){
-        String ret="";
-        
-        for (int i = 1; i < 8; i++) {
+
+    public String mostrarMovimientos() {
+        String ret = "";
+
+        for (int i = 1; i < 9; i++) {
             if (movimientos[i]) {
-                ret+=i+" "; 
+                ret += i + " ";
             }
         }
-        
+
         return ret;
     }
 
@@ -408,43 +429,53 @@ public class Partida {
         int horizontal = ficha;
         int vertical = ficha;
         int diagonalS = ficha;
-        boolean arriba=true;
-        boolean abajo=true;
-        boolean derecha=true;
-        boolean izquierda=true;
-        int num=0;
-        while (izquierda||derecha||arriba||abajo) {            
+        boolean arriba = true;
+        boolean abajo = true;
+        boolean derecha = true;
+        boolean izquierda = true;
+        int num = 0;
+        while (izquierda || derecha || arriba || abajo) {
             num++;
-            if (fila-num==0)
-                arriba=false;
-            if (fila+num==9)
-                abajo=false;
-            if (columna+num==10)
-                derecha=false;
-            if (columna-num==0)
-                izquierda=false;
-            
-            if (arriba)
-                vertical+=tablero[fila-num][columna].getValor();
-            if (abajo)
-                vertical+=tablero[fila+num][columna].getValor();
-            if (derecha)
-                horizontal+=tablero[fila][columna+num].getValor();
-            if (izquierda)
-                horizontal+=tablero[fila][columna-num].getValor();
-            if (arriba&&izquierda)
-                diagonalP+=tablero[fila-num][columna-num].getValor();
-            if (arriba&&derecha)
-                diagonalS+=tablero[fila-num][columna+num].getValor();
-            if (abajo&&izquierda)
-                diagonalS+=tablero[fila+num][columna-num].getValor();
-            if (abajo&&derecha)
-                diagonalP+=tablero[fila+num][columna+num].getValor();
-            
+            if (fila - num == 0) {
+                arriba = false;
+            }
+            if (fila + num == 9) {
+                abajo = false;
+            }
+            if (columna + num == 10) {
+                derecha = false;
+            }
+            if (columna - num == 0) {
+                izquierda = false;
+            }
+
+            if (arriba) {
+                vertical += tablero[fila - num][columna].getValor();
+            }
+            if (abajo) {
+                vertical += tablero[fila + num][columna].getValor();
+            }
+            if (derecha) {
+                horizontal += tablero[fila][columna + num].getValor();
+            }
+            if (izquierda) {
+                horizontal += tablero[fila][columna - num].getValor();
+            }
+            if (arriba && izquierda) {
+                diagonalP += tablero[fila - num][columna - num].getValor();
+            }
+            if (arriba && derecha) {
+                diagonalS += tablero[fila - num][columna + num].getValor();
+            }
+            if (abajo && izquierda) {
+                diagonalS += tablero[fila + num][columna - num].getValor();
+            }
+            if (abajo && derecha) {
+                diagonalP += tablero[fila + num][columna + num].getValor();
+            }
+
         }
-        
-        
-        
+
         Arrays.fill(movimientos, false);
         if (vertical < 9 && vertical != ficha) {
             movimientos[vertical] = true;
@@ -458,5 +489,41 @@ public class Partida {
         if (diagonalS < 9 && diagonalS != ficha) {
             movimientos[diagonalS] = true;
         }
+    }
+
+    public boolean recibirComando(String dato) {
+        boolean ret = false;
+        if (dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
+            if (dato.length() == 2 && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {
+                int ficha = Integer.parseInt(dato.substring(0, 1));
+                if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
+                    this.moverFicha(dato);
+                    this.setHistorial(this.getHistorial() + dato + " ");
+                    ret = true;
+                }
+            }
+            if (dato.equals("VERR")) {
+                ret = true;
+                this.setVerN(false);
+            }
+            if (dato.equals("VERN")) {
+                ret = true;
+                this.setVerN(true);
+            }
+            if (dato.equals("X")) {
+                ret = true;
+                this.setTerminado(true);
+            }
+            if (dato.equals("PASAR")) {
+                ret = true;
+                if (true) {
+                    this.setContadorJugadas(0);
+                    this.cambioTurno();
+                }
+
+            }
+
+        }
+        return ret;
     }
 }
