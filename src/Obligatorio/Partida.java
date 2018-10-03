@@ -238,7 +238,7 @@ public class Partida {
 
     public void cambioTurno() {
         TurnoRojo = !TurnoRojo;
-        Arrays.fill(movimientos, 0, 7, true);
+        Arrays.fill(movimientos, 1, 9, true);
 
     }
 
