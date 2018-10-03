@@ -126,7 +126,8 @@ public class Prueba {
         String nombre = leerTexto("Ingrese Nombre");
         String alias = leerTexto("Ingrese Alias");
         while (s.ValidarAlias(alias)) {
-            alias = leerTexto("Alias no Disponible. Ingresa uno nuevo");
+            alias = leerTexto("El Alias: "+alias+" no esta disponible."
+                    + " Ingresa uno nuevo");
         }
         int edad = pedirInt("Ingrese Edad", 1, 200);
         Jugador j = new Jugador(nombre, alias, edad);
