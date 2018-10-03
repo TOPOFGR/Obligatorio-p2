@@ -75,7 +75,7 @@ public class Sistema {
     
     public boolean ValidarAlias(String alias) {
         for (int i = 0; i < this.cantidadJugadores(); i++) {
-            if (alias.equals(this.getListaJugadores().get(i).getAlias())) {
+            if (alias.equalsIgnoreCase(this.getListaJugadores().get(i).getAlias())) {
                 return true;
             }
         }
