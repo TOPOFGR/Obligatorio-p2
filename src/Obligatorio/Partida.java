@@ -287,10 +287,10 @@ public class Partida {
 
     public boolean termino() {
         boolean ret = false;
-        int fila = 5;
+        int fila = 8;
         String turno = "Azul";
         if (isTurnoRojo()) {
-            fila = 4;
+            fila = 1;
             turno = "Rojo";
         }
         switch (this.tipoTerm) {
@@ -308,24 +308,14 @@ public class Partida {
                 break;
             case 3:
                 int cantFichas = 0;
-                if (isTurnoRojo()) {
-                    for (int j = 1; j < tablero[0].length - 1; j++) {
-                        for (int i = 1; i < 5; i++) {
-                            if (tablero[i][j].getTipo().equals("Rojo")) {
+                for (int j = 1; j < tablero[0].length - 1; j++) {
+                        
+                            if (tablero[fila][j].getTipo().equals("Rojo")) {
                                 cantFichas++;
                             }
-                        }
+                        
 
                     }
-                } else {
-                    for (int j = 1; j < tablero[0].length - 1; j++) {
-                        for (int i = 5; i < tablero.length - 1; i++) {
-                            if (tablero[i][j].getTipo().equals("Azul")) {
-                                cantFichas++;
-                            }
-                        }
-                    }
-                }
                 if (cantFichas == 8) {
                     ret = true;
                 }
