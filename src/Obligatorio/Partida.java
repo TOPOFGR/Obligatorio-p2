@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  *
- * @author Santiago Rügnitz y Franco Galeano
+ * @author TOPOF
  */
 public class Partida {
 
@@ -201,6 +201,7 @@ public class Partida {
                         tablero[i + sentido][j] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
+                        this.setContadorJugadas(this.getContadorJugadas()+1);
 
                     } else {
                         System.out.println("Movimiento no válido");
@@ -211,6 +212,7 @@ public class Partida {
                         tablero[i + sentido][j + 1] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
+                        this.setContadorJugadas(this.getContadorJugadas()+1);
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -220,6 +222,7 @@ public class Partida {
                         tablero[i + sentido][j - 1] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
+                        this.setContadorJugadas(this.getContadorJugadas()+1);
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -282,44 +285,6 @@ public class Partida {
         }
     }
 
-    public void mostrarTablero() {
-        if (verN) {
-            for (int i = 1; i < tablero.length - 1; i++) {
-                String linea = "";
-                for (int j = 1; j < tablero[0].length - 1; j++) {
-
-                    if (tablero[i][j].getTipo().equals("Azul") || tablero[i][j].getTipo().equals("Rojo")) {
-                        linea += "|" + tablero[i][j];
-                    } else {
-                        linea += "| ";
-                    }
-                }
-                System.out.println(linea + "|");
-                System.out.println("+-+-+-+-+-+-+-+-+-+");
-
-            }
-
-        } else {
-            for (int i = 1; i < tablero.length - 1; i++) {
-                String linea = "";
-                for (int j = 1; j < tablero[0].length - 1; j++) {
-
-                    if (tablero[i][j].getTipo().equals("Azul") || tablero[i][j].getTipo().equals("Rojo")) {
-                        linea += tablero[i][j] + " ";
-                    } else {
-                        linea += "- ";
-                    }
-                }
-                System.out.println(linea);
-
-            }
-
-        }
-    }
-
-    public void mostrarHistorial() {
-        //soon
-    }
 
     public boolean termino() {
         boolean ret = false;
@@ -498,7 +463,6 @@ public class Partida {
                 int ficha = Integer.parseInt(dato.substring(0, 1));
                 if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
                     this.moverFicha(dato);
-                    this.setHistorial(this.getHistorial() + dato + " ");
                     ret = true;
                 }
             }
