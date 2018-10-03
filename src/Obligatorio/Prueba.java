@@ -42,9 +42,9 @@ public class Prueba {
         Sistema s = new Sistema();
         int opcion = 0;
         do {
-            opcion = pedirInt("Ingrese opción deseada \n 1)Registrar Jugador"
-                    + "\n 2) Jugar Partida \n 3) Replicar Partida\n 4)Ranking "
-                    + "\n 5)Salir del juego", 1, 5);
+            opcion = pedirInt("Ingrese opción deseada \n 1) Registrar Jugador"
+                    + "\n 2) Jugar Partida \n 3) Replicar Partida\n 4) Ranking "
+                    + "\n 5) Salir del juego", 1, 5);
             switch (opcion) {
                 case 1:
                     s.agregarJugadores(RegistrarJugador(s));
@@ -65,10 +65,10 @@ public class Prueba {
 
                     break;
                 case 5:
-                    System.out.println("Fin");
+                    System.out.println(".:GAME OVER:.");
                     break;
                 default:
-                    System.out.println("Ingrese ");
+                    System.out.println("Ingrese numero entre 1 y 5");
                     break;
             }
         } while (opcion != 5);
@@ -78,7 +78,7 @@ public class Prueba {
 //Case 1
     public static Jugador RegistrarJugador(Sistema s) {
         String nombre = leerTexto("Ingrese Nombre");
-        String alias = leerTexto("Ingrese Alias");
+        String alias = leerTexto("Ingrese Alias ");
         while (s.ValidarAlias(alias)) {
             alias = leerTexto("Alias no Disponible. Ingresa uno nuevo");
         }
