@@ -25,7 +25,7 @@ public class Partida {
     private int tipoTerm;
     private int movimientosMax;
     private int movimientosActuales;
-    private int contadorJugadas;
+    private boolean seMovio;
     private boolean terminado;
 
     public Jugador getJugadorRojo() {
@@ -124,14 +124,6 @@ public class Partida {
         this.movimientosActuales = movimientosActuales;
     }
 
-    public int getContadorJugadas() {
-        return contadorJugadas;
-    }
-
-    public void setContadorJugadas(int contadorJugadas) {
-        this.contadorJugadas = contadorJugadas;
-    }
-
     public boolean isTerminado() {
         return terminado;
     }
@@ -140,6 +132,13 @@ public class Partida {
         this.terminado = terminado;
     }
     
+    public boolean isSeMovio() {
+        return seMovio;
+    }
+
+    public void setseMovio(boolean seMovio) {
+        this.seMovio = seMovio;
+    }
     
 
     public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
@@ -154,7 +153,7 @@ public class Partida {
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
         this.tipoTerm = tipoTerm;
         this.movimientosMax = movMax;
-        this.contadorJugadas=0;
+        this.seMovio=true;
         this.terminado=false;
 
         for (int i = 0; i < tablero.length - 1; i++) {
@@ -201,7 +200,7 @@ public class Partida {
                         tablero[i + sentido][j] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
-                        this.setContadorJugadas(this.getContadorJugadas()+1);
+                        this.setseMovio(true);
 
                     } else {
                         System.out.println("Movimiento no válido");
@@ -212,7 +211,7 @@ public class Partida {
                         tablero[i + sentido][j + 1] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
-                        this.setContadorJugadas(this.getContadorJugadas()+1);
+                        this.setseMovio(true);
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -222,7 +221,7 @@ public class Partida {
                         tablero[i + sentido][j - 1] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
-                        this.setContadorJugadas(this.getContadorJugadas()+1);
+                        this.setseMovio(true);
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -480,8 +479,8 @@ public class Partida {
             }
             if (dato.equals("PASAR")) {
                 ret = true;
-                if (true) {
-                    this.setContadorJugadas(0);
+                if (this.isSeMovio()) {
+                    this.setseMovio(false);
                     this.cambioTurno();
                 }
 
