@@ -9,10 +9,10 @@ import java.util.*;
 
 /**
  *
- * @author TOPOF
+ * @author Santiago Rügnitz y Franco Galeano
  */
 public class Partida {
-    
+
     private Jugador jugadorRojo;
     private Jugador jugadorAzul;
     private Ficha[][] tablero;
@@ -23,6 +23,8 @@ public class Partida {
     private String historial;
     private boolean[] movimientos;
     private int tipoTerm;
+    private int movimientosMax;
+    private int movimientosActuales;
 
     public Jugador getJugadorRojo() {
         return jugadorRojo;
@@ -79,20 +81,61 @@ public class Partida {
     public void setFichaBorde(Ficha fichaBorde) {
         this.fichaBorde = fichaBorde;
     }
+
+    public String getHistorial() {
+        return historial;
+    }
+
+    public void setHistorial(String historial) {
+        this.historial = historial;
+    }
+
+    public boolean[] getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(boolean[] movimientos) {
+        this.movimientos = movimientos;
+    }
+
+    public int getTipoTerm() {
+        return tipoTerm;
+    }
+
+    public void setTipoTerm(int tipoTerm) {
+        this.tipoTerm = tipoTerm;
+    }
+
+    public int getMovimientosMax() {
+        return movimientosMax;
+    }
+
+    public void setMovimientosMax(int movimientosMax) {
+        this.movimientosMax = movimientosMax;
+    }
+
+    public int getMovimientosActuales() {
+        return movimientosActuales;
+    }
+
+    public void setMovimientosActuales(int movimientosActuales) {
+        this.movimientosActuales = movimientosActuales;
+    }
     
-    public Partida(Jugador jugadorRojo, Jugador jugadorAzul,int tipoTerm) {
+
+    public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
         this.tablero = new Ficha[10][11];
-        this.TurnoRojo=true;
-        this.verN=true;
-        this.fichaVacia= new Ficha("Vacio",0);
-        this.fichaBorde= new Ficha("Borde",-1);
-        this.historial= "";
-        this.movimientos = new boolean[] {true,true,true,true,true,true,true,true,true};
-        this.tipoTerm=tipoTerm;
-        
-        
+        this.TurnoRojo = true;
+        this.verN = true;
+        this.fichaVacia = new Ficha("Vacio", 0);
+        this.fichaBorde = new Ficha("Borde", -1);
+        this.historial = "";
+        this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
+        this.tipoTerm = tipoTerm;
+        this.movimientosMax = movMax;
+
         for (int i = 0; i < tablero.length - 1; i++) {
             for (int j = 0; j < tablero[0].length - 1; j++) {
                 tablero[i][j] = fichaVacia;
@@ -114,126 +157,110 @@ public class Partida {
 
         }
     }
-   
+
     public void moverFicha(String movimiento) {    //El metodo ya supone que le estan pasando un String de largo 2
         String turno = "Azul";
         int sentido = 1;
         if (isTurnoRojo()) {
             sentido = -1;
-            turno="Rojo";
-        }
-        
-        int ficha = Integer.parseInt(movimiento.substring(0,1));
-        if (movimientos[ficha]){
-            int i = 0;
-        int j = 0;
-        for (int x = 0; x < tablero.length - 1; x++) {
-            for (int y = 0; y < tablero[0].length - 1; y++) {
-                if (tablero[x][y].getValor() == ficha && tablero[x][y].getTipo().equals(turno)) {
-                    i = x;
-                    j = y;
-                }
-            }
+            turno = "Rojo";
         }
 
-        char direccion = movimiento.charAt(1);
-        
-        switch (direccion) {
-            case 'A':
-                if (tablero[i + sentido][j].getTipo().equals("Vacio")) {
-                    tablero[i + sentido][j] = tablero[i][j];
-                    tablero[i][j] = fichaVacia;
-                    mostrarTablero();
-                } else {
+        int ficha = Integer.parseInt(movimiento.substring(0, 1));
+        if (movimientos[ficha]) {
+            int[] array = encontrarPosicion(ficha);
+            int i = array[0];
+            int j = array[1];
+
+            char direccion = movimiento.charAt(1);
+
+            switch (direccion) {
+                case 'A':
+                    if (tablero[i + sentido][j].getTipo().equals("Vacio")) {
+                        tablero[i + sentido][j] = tablero[i][j];
+                        tablero[i][j] = fichaVacia;
+                        sumaLineas(ficha);
+                       
+                    } else {
+                        System.out.println("Movimiento no válido");
+                    }
+                    break;
+                case 'D':
+                    if (tablero[i + sentido][j + 1].getTipo().equals("Vacio")) {
+                        tablero[i + sentido][j + 1] = tablero[i][j];
+                        tablero[i][j] = fichaVacia;
+                        sumaLineas(ficha);
+                    } else {
+                        System.out.println("Movimiento no válido");
+                    }
+                    break;
+                case 'I':
+                    if (tablero[i + sentido][j - 1].getTipo().equals("Vacio")) {
+                        tablero[i + sentido][j - 1] = tablero[i][j];
+                        tablero[i][j] = fichaVacia;
+                        sumaLineas(ficha);
+                    } else {
+                        System.out.println("Movimiento no válido");
+                    }
+                    break;
+                default:
                     System.out.println("Movimiento no válido");
-                }
-                break;
-            case 'D':
-                if (tablero[i + sentido][j + 1].getTipo().equals("Vacio")) {
-                    tablero[i + sentido][j + 1] = tablero[i][j];
-                    tablero[i][j] = fichaVacia;
-                    mostrarTablero();
-                } else {
-                    System.out.println("Movimiento no válido");
-                }
-                break;
-            case 'I':
-                if (tablero[i + sentido][j - 1].getTipo().equals("Vacio")) {
-                    tablero[i + sentido][j - 1] = tablero[i][j];
-                    tablero[i][j] = fichaVacia;
-                    mostrarTablero();
-                } else {
-                    System.out.println("Movimiento no válido");
-                }
-                break;
-            default:
-                System.out.println("Movimiento no válido");
-        }
-        }else{
+            }
+        } else {
             System.out.println("Movimiento no válido");
         }
-        
+
     }
-    
-    
-    public void cambioTurno(){
-        TurnoRojo=!TurnoRojo;
+
+    public void cambioTurno() {
+        TurnoRojo = !TurnoRojo;
         Arrays.fill(movimientos, 0, 7, true);
-        
+
     }
-    
-    public boolean sePuedeMover(int ficha){
+
+    public boolean sePuedeMover(int ficha) {
+        boolean ret=false;
         String turno = "Azul";
         int sentido = 1;
         if (isTurnoRojo()) {
             sentido = -1;
-            turno="Rojo";
+            turno = "Rojo";
         }
-        int fila=0;
-        int columna=0;
-        
-        boolean ret = false;
-        for (int i = 0; i < tablero.length - 1; i++) {
-            for (int j = 0; j < tablero[0].length - 1; j++) {
-                if (tablero[i][j].getValor() == ficha && tablero[i][j].getTipo().equals(turno)) {
-                    fila = i;
-                    columna = j;
-                }
-            }
+        int[] aux = encontrarPosicion(ficha);
+        int fila = aux[0];
+        int columna = aux[1];
+
+        if (movimientos[ficha] && (tablero[fila + sentido][columna].getTipo().equals("Vacio") || tablero[fila + sentido][columna - 1].getTipo().equals("Vacio") || tablero[fila + sentido][columna + 1].getTipo().equals("Vacio"))) {
+            ret = true;
         }
-        if (tablero[fila+sentido][columna].getTipo().equals("Vacio") || tablero[fila+sentido][columna-1].getTipo().equals("Vacio") || tablero[fila+sentido][columna+1].getTipo().equals("Vacio")){
-            ret=true;
-        }
-        
-        
-        
+
         return ret;
-        
+
     }
-    
-    public void sumaPuntos(){
-        int rojo=0;
-        int azul=0;
+
+    public void sumaPuntos() {
+        int rojo = 0;
+        int azul = 0;
         for (int j = 1; j < tablero[0].length - 1; j++) {
             for (int i = 1; i < 5; i++) {
-                if(tablero[i][j].getTipo().equals("Rojo")){
-                    rojo+=tablero[i][j].getValor();
+                if (tablero[i][j].getTipo().equals("Rojo")) {
+                    rojo += tablero[i][j].getValor();
                 }
             }
-            for (int i = 5; i < tablero.length-1; i++) {
-                if(tablero[i][j].getTipo().equals("Azul")){
-                    azul+=tablero[i][j].getValor();
+            for (int i = 5; i < tablero.length - 1; i++) {
+                if (tablero[i][j].getTipo().equals("Azul")) {
+                    azul += tablero[i][j].getValor();
                 }
             }
         }
-        if (rojo>azul){
-            jugadorRojo.setVictorias(jugadorRojo.getVictorias()+1);
+        if (rojo > azul) {
+            jugadorRojo.setVictorias(jugadorRojo.getVictorias() + 1);
         }
-        if (azul>rojo){
-            jugadorAzul.setVictorias(jugadorAzul.getVictorias()+1);
+        if (azul > rojo) {
+            jugadorAzul.setVictorias(jugadorAzul.getVictorias() + 1);
         }
     }
-    
+
     public void mostrarTablero() {
         if (verN) {
             for (int i = 1; i < tablero.length - 1; i++) {
@@ -268,9 +295,168 @@ public class Partida {
 
         }
     }
-    
-    public void mostrarHistorial(){
+
+    public void mostrarHistorial() {
         //soon
     }
+
+    public boolean termino() {
+        boolean ret = false;
+        int fila = 5;
+        String turno = "Azul";
+        if (isTurnoRojo()) {
+            fila = 4;
+            turno = "Rojo";
+        }
+        switch (this.tipoTerm) {
+            case 1:
+                if (this.movimientosActuales == this.movimientosMax) {
+                    ret = true;
+                }
+                break;
+            case 2:
+                for (int i = 1; i < 9; i++) {
+                    if (tablero[fila][i].getTipo().equals(turno)) {
+                        ret = true;
+                    }
+                }
+                break;
+            case 3:
+                int cantFichas = 0;
+                if (isTurnoRojo()) {
+                    for (int j = 1; j < tablero[0].length - 1; j++) {
+                        for (int i = 1; i < 5; i++) {
+                            if (tablero[i][j].getTipo().equals("Rojo")) {
+                                cantFichas++;
+                            }
+                        }
+
+                    }
+                } else {
+                    for (int j = 1; j < tablero[0].length - 1; j++) {
+                        for (int i = 5; i < tablero.length - 1; i++) {
+                            if (tablero[i][j].getTipo().equals("Azul")) {
+                                cantFichas++;
+                            }
+                        }
+                    }
+                }
+                if (cantFichas == 8) {
+                    ret = true;
+                }
+
+                break;
+
+        }
+
+        return ret;
+    }
     
+    public String mostrarMovimientos(){
+        String ret="";
+        
+        for (int i = 1; i < 8; i++) {
+            if (movimientos[i]) {
+                ret+=i+" "; 
+            }
+        }
+        
+        return ret;
+    }
+
+    public boolean hayMovimientos() {
+        boolean ret = false;
+        for (int i = 0; i < movimientos.length; i++) {
+            if (movimientos[i]) {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+    public void comprobarMov() {
+        for (int i = 1; i < movimientos.length; i++) {
+            if (movimientos[i]) {
+                movimientos[i] = sePuedeMover(i);
+            }
+        }
+    }
+
+    public int[] encontrarPosicion(int ficha) {
+        int[] ret = new int[2];
+        String turno = "Azul";
+        if (isTurnoRojo()) {
+            turno = "Rojo";
+        }
+        for (int i = 0; i < tablero.length - 1; i++) {
+            for (int j = 0; j < tablero[0].length - 1; j++) {
+                if (tablero[i][j].getValor() == ficha && tablero[i][j].getTipo().equals(turno)) {
+                    ret[0] = i;
+                    ret[1] = j;
+                }
+            }
+
+        }
+        return ret;
+    }
+
+    public void sumaLineas(int ficha) {
+        int[] aux = encontrarPosicion(ficha);
+        int fila = aux[0];
+        int columna = aux[1];
+        int diagonalP = ficha;
+        int horizontal = ficha;
+        int vertical = ficha;
+        int diagonalS = ficha;
+        boolean arriba=true;
+        boolean abajo=true;
+        boolean derecha=true;
+        boolean izquierda=true;
+        int num=0;
+        while (izquierda||derecha||arriba||abajo) {            
+            num++;
+            if (fila-num==0)
+                arriba=false;
+            if (fila+num==9)
+                abajo=false;
+            if (columna+num==10)
+                derecha=false;
+            if (columna-num==0)
+                izquierda=false;
+            
+            if (arriba)
+                vertical+=tablero[fila-num][columna].getValor();
+            if (abajo)
+                vertical+=tablero[fila+num][columna].getValor();
+            if (derecha)
+                horizontal+=tablero[fila][columna+num].getValor();
+            if (izquierda)
+                horizontal+=tablero[fila][columna-num].getValor();
+            if (arriba&&izquierda)
+                diagonalP+=tablero[fila-num][columna-num].getValor();
+            if (arriba&&derecha)
+                diagonalS+=tablero[fila-num][columna+num].getValor();
+            if (abajo&&izquierda)
+                diagonalS+=tablero[fila+num][columna-num].getValor();
+            if (abajo&&derecha)
+                diagonalP+=tablero[fila+num][columna+num].getValor();
+            
+        }
+        
+        
+        
+        Arrays.fill(movimientos, false);
+        if (vertical < 9 && vertical != ficha) {
+            movimientos[vertical] = true;
+        }
+        if (horizontal < 9 && horizontal != ficha) {
+            movimientos[horizontal] = true;
+        }
+        if (diagonalP < 9 && diagonalP != ficha) {
+            movimientos[diagonalP] = true;
+        }
+        if (diagonalS < 9 && diagonalS != ficha) {
+            movimientos[diagonalS] = true;
+        }
+    }
 }

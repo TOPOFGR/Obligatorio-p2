@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author TOPOF
+ * @author Santiago Rügnitz y Franco Galeano
  */
 public class Sistema {
 

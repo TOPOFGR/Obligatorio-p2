@@ -7,7 +7,7 @@ package Obligatorio;
 
 /**
  *
- * @author Santiago
+ * @author Santiago Rügnitz y Franco Galeano
  */
 public class Ficha {
     private String tipo;
