@@ -88,14 +88,14 @@ public class Prueba {
                                 p.comprobarMov();
                                 if (p.termino()) {
                                     System.out.println("Se llegó a la condición de terminación");
-                                    p.setTerminado(false);
+                                    p.setTerminado(true);
                                 }
                             } else {
                                 p.cambioTurno();
                                 contador++;
                                 if (contador == 2) {
                                     System.out.println("Ya no hay movimientos posibles");
-                                    p.setTerminado(false);
+                                    p.setTerminado(true);
                                 }
 
                             }
