@@ -20,7 +20,7 @@ public class Sistema {
     public String mostrarLista(ArrayList lista){
         String ret="";
         for (int i=0;i<lista.size();i++){
-            ret= ret+(""+(i+1)+"- "+lista.get(i)+"\n");
+            ret= ret+((i+1)+"- "+lista.get(i)+"\n");
         }
         return ret;
     }
@@ -65,6 +65,15 @@ public class Sistema {
 
     public int cantidadRankings() {
         return this.getListaRankings().size();
+    }
+    
+    public boolean ValidarAlias(String alias) {
+        for (int i = 0; i < this.cantidadJugadores(); i++) {
+            if (alias.equals(this.getListaJugadores().get(i).getAlias())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
