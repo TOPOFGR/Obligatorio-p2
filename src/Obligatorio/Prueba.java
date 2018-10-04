@@ -101,6 +101,7 @@ public class Prueba {
                                 }
 
                             }
+                            p.setTerminado(true);
                             if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
                                 System.out.println("Ganó el jugador Rojo");
                             } else {
