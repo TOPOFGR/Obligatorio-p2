@@ -260,7 +260,7 @@ public class Partida {
         return ret;
 
     }
-
+    //Suma victorias según 
     public void sumaPuntos() {
         int rojo = 0;
         int azul = 0;

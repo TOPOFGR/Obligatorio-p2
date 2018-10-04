@@ -18,6 +18,7 @@ public class Sistema {
     private ArrayList<Partida> listaPartidas;
     private ArrayList<Jugador> listaRankings;
     
+    //Imprime la lista segun el ArrayList
     public String mostrarLista(ArrayList lista){
         String ret="";
         for (int i=0;i<lista.size();i++){
