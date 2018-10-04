@@ -140,7 +140,7 @@ public class Partida {
         this.seMovio = seMovio;
     }
     
-
+    
     public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
@@ -177,7 +177,7 @@ public class Partida {
 
         }
     }
-
+    //Método que valida los movimientos de el usuario
     public void moverFicha(String movimiento) {    //El metodo ya supone que le estan pasando un String de largo 2
         String turno = "Azul";
         int sentido = 1;
@@ -234,13 +234,13 @@ public class Partida {
         }
 
     }
-
+    //Método que se fija de que jugador es el turno
     public void cambioTurno() {
         TurnoRojo = !TurnoRojo;
         Arrays.fill(movimientos, 1, 9, true);
 
     }
-
+    //Método que valida si hay fichas 
     public boolean sePuedeMover(int ficha) {
         boolean ret = false;
         String turno = "Azul";
@@ -284,7 +284,7 @@ public class Partida {
         }
     }
 
-
+    //Verifica según el tipo de terminación si el juego finalizó
     public boolean termino() {
         boolean ret = false;
         int fila = 8;
@@ -326,7 +326,7 @@ public class Partida {
 
         return ret;
     }
-
+    //Imprime en enteros las fichas que se pueden mover
     public String mostrarMovimientos() {
         String ret = "";
 
@@ -338,7 +338,7 @@ public class Partida {
 
         return ret;
     }
-
+    //Verifica si al jugador le quedan movimientos
     public boolean hayMovimientos() {
         boolean ret = false;
         for (int i = 0; i < movimientos.length; i++) {
@@ -348,7 +348,7 @@ public class Partida {
         }
         return ret;
     }
-
+    //Comprueba si esa ficha se puede mover
     public void comprobarMov() {
         for (int i = 1; i < movimientos.length; i++) {
             if (movimientos[i]) {
@@ -356,7 +356,7 @@ public class Partida {
             }
         }
     }
-
+    //Devuelve un array con la posición en la matriz de el numero que se movió
     public int[] encontrarPosicion(int ficha) {
         int[] ret = new int[2];
         String turno = "Azul";
@@ -374,7 +374,7 @@ public class Partida {
         }
         return ret;
     }
-
+    //Verifica que otras fichas se pueden mover 
     public void sumaLineas(int ficha) {
         int[] aux = encontrarPosicion(ficha);
         int fila = aux[0];
@@ -444,7 +444,7 @@ public class Partida {
             movimientos[diagonalS] = true;
         }
     }
-
+    //Verifica que tipo de String se recibió
     public boolean recibirComando(String dato) {
         boolean ret = false;
         if (dato != null && !dato.isEmpty() && dato.trim().length() > 0) {

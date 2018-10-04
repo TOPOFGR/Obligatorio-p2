@@ -12,7 +12,7 @@ import java.util.*;
  * @author Santiago Rügnitz y Franco Galeano
  */
 public class Prueba {
-
+    //Metodo para ingressar un entero con un maximo y un mínimo
     public static int pedirInt(String mensaje, int min, int max) {
         System.out.println(mensaje);
         Scanner input = new Scanner(System.in);
@@ -116,7 +116,7 @@ public class Prueba {
                     break;
 
                 case 3:
-
+                    
                     break;
                 case 4:
                     s.ordenarDescendente();
@@ -158,7 +158,7 @@ public class Prueba {
         }
         return texto;
     }
-
+    // Metodo que imprime el tablero segun la forma que el usuario desee
     public static void mostrarTablero(Partida p) {
         Ficha[][] tablero = p.getTablero();
         if (p.isVerN()) {
