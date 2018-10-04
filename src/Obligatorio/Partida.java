@@ -466,6 +466,12 @@ public class Partida {
             if (dato.equals("X")) {
                 ret = true;
                 this.setTerminado(true);
+                if (this.isTurnoRojo()) {
+                    this.getJugadorAzul().setVictorias(this.getJugadorAzul().getVictorias()+1);
+                    
+                }else{
+                    this.getJugadorRojo().setVictorias(this.getJugadorRojo().getVictorias()+1);
+                }
             }
             if (dato.equals("PASAR")) {
                 ret = true;
