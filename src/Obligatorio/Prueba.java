@@ -108,7 +108,8 @@ public class Prueba {
 
                     break;
                 case 4:
-
+                    s.ordenarDescendente();
+                    s.mostrarLista(s.getListaPartidas());
                     break;
                 case 5:
                     System.out.println("Fin");
