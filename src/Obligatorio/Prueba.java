@@ -12,6 +12,7 @@ import java.util.*;
  * @author Santiago Rügnitz y Franco Galeano
  */
 public class Prueba {
+
     //Metodo para ingressar un entero con un maximo y un mínimo
     public static int pedirInt(String mensaje, int min, int max) {
         System.out.println(mensaje);
@@ -47,16 +48,16 @@ public class Prueba {
                     + "\n 5)Salir del juego", 1, 5);
             switch (opcion) {
                 case 1:
-                    s.agregarJugadores(RegistrarJugador(s));
+                    s.agregarRanking(RegistrarJugador(s));
                     break;
                 case 2:
-                    if (s.getListaJugadores().size() < 2) {
+                    if (s.getListaRankings().size() < 2) {
                         System.out.println("No hay suficientes jugadores registrados");
                     } else {
-                        Jugador jugadorRojo = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size()) - 1);
-                        s.getListaJugadores().remove(jugadorRojo);
-                        Jugador jugadorAzul = s.getListaJugadores().get(pedirInt("Ingrese el número del jugador azul \n" + s.mostrarLista(s.getListaJugadores()), 1, s.getListaJugadores().size()) - 1);
-                        s.getListaJugadores().add(jugadorRojo);
+                        Jugador jugadorRojo = s.getListaRankings().get(pedirInt("Ingrese el número del jugador rojo \n" + s.mostrarLista(s.getListaRankings()), 1, s.getListaRankings().size()) - 1);
+                        s.getListaRankings().remove(jugadorRojo);
+                        Jugador jugadorAzul = s.getListaRankings().get(pedirInt("Ingrese el número del jugador azul \n" + s.mostrarLista(s.getListaRankings()), 1, s.getListaRankings().size()) - 1);
+                        s.getListaRankings().add(jugadorRojo);
                         int tipoTerm = pedirInt("Ingrese el número de la forma de terminación: \n 1) Límite de movimientos  \n 2) Llegar con una pieza al lado opuesto \n 3) Llegar con todas las piezas al lado opuesto", 1, 3);
                         int movMax = Integer.MAX_VALUE;
                         if (tipoTerm == 1) {
@@ -117,7 +118,7 @@ public class Prueba {
                     break;
 
                 case 3:
-                    
+
                     break;
                 case 4:
                     s.ordenarDescendente();
@@ -159,6 +160,7 @@ public class Prueba {
         }
         return texto;
     }
+
     // Metodo que imprime el tablero segun la forma que el usuario desee
     public static void mostrarTablero(Partida p) {
         Ficha[][] tablero = p.getTablero();

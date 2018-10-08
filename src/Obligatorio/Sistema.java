@@ -14,40 +14,26 @@ import java.util.Collections;
  */
 public class Sistema {
 
-    private ArrayList<Jugador> listaJugadores;
     private ArrayList<Partida> listaPartidas;
     private ArrayList<Jugador> listaRankings;
-    
+
     //Imprime la lista segun el ArrayList
-    public String mostrarLista(ArrayList lista){
-        String ret="";
-        for (int i=0;i<lista.size();i++){
-            ret= ret+(""+(i+1)+"- "+lista.get(i)+"\n");
+    public String mostrarLista(ArrayList lista) {
+        String ret = "";
+        for (int i = 0; i < lista.size(); i++) {
+            ret = ret + ("" + (i + 1) + "- " + lista.get(i) + "\n");
         }
         return ret;
     }
 
     public Sistema() {
-        listaJugadores = new ArrayList<>();
         listaPartidas = new ArrayList<>();
         listaRankings = new ArrayList<>();
     }
-    
+
     public ArrayList<Jugador> ordenarDescendente() {
         Collections.sort(this.getListaRankings(), new RankingDescendente());
         return this.getListaRankings();
-    }
-    
-    public ArrayList<Jugador> getListaJugadores() {
-        return listaJugadores;
-    }
-
-    public void agregarJugadores(Jugador unJugador) {
-        this.getListaJugadores().add(unJugador);
-    }
-
-    public int cantidadJugadores() {
-        return this.getListaJugadores().size();
     }
 
     public ArrayList<Partida> getListaPartidas() {
@@ -73,10 +59,10 @@ public class Sistema {
     public int cantidadRankings() {
         return this.getListaRankings().size();
     }
-    
+
     public boolean ValidarAlias(String alias) {
-        for (int i = 0; i < this.cantidadJugadores(); i++) {
-            if (alias.equalsIgnoreCase(this.getListaJugadores().get(i).getAlias())) {
+        for (int i = 0; i < this.cantidadRankings(); i++) {
+            if (alias.equalsIgnoreCase(this.getListaRankings().get(i).getAlias())) {
                 return true;
             }
         }
