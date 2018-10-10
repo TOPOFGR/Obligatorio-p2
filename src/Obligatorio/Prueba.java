@@ -200,13 +200,17 @@ public class Prueba {
 
     //Case 3
     public static void replicarPartida(Sistema s) {
+        s.ordenarPartidas();
         Partida p = s.getListaPartidas().get(pedirInt("Ingrese el número de "
                 + "la partida que desea replicar\n" + s.mostrarLista(s.getListaPartidas()),
                 1, s.getListaPartidas().size()) - 1);
 
+        p.resetTablero();
         for (int i = 0; i < p.cantidadMovimientos(); i++) {
             String mov = p.getListaMovimientos().get(i);
+            p.moverFicha(mov);
             enter();
+            
         }
     }
     public static void enter() {

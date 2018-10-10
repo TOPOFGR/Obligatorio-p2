@@ -5,13 +5,16 @@
  */
 package Obligatorio;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import javafx.util.converter.LocalDateTimeStringConverter;
 
 /**
  *
  * @author Santiago Rügnitz y Franco Galeano
  */
-public class Partida extends Date{
+public class Partida {
 
     private Jugador jugadorRojo;
     private Jugador jugadorAzul;
@@ -28,6 +31,15 @@ public class Partida extends Date{
     private boolean seMovio;
     private boolean terminado;
     private ArrayList<String> listaMovimientos;
+    private LocalDateTime fecha;
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
     
     public Jugador getJugadorRojo() {
         return jugadorRojo;
@@ -159,27 +171,8 @@ public class Partida extends Date{
         this.movimientosMax = movMax;
         this.seMovio=true;
         this.terminado=false;
-
-        for (int i = 0; i < tablero.length - 1; i++) {
-            for (int j = 0; j < tablero[0].length - 1; j++) {
-                tablero[i][j] = fichaVacia;
-            }
-        }
-
-        for (int i = 0; i < tablero[0].length; i++) {
-            tablero[0][i] = fichaBorde;
-            tablero[9][i] = fichaBorde;
-        }
-        for (int i = 0; i < tablero.length; i++) {
-            tablero[i][0] = fichaBorde;
-            tablero[i][10] = fichaBorde;
-        }
-
-        for (int i = 1; i < 9; i++) {
-            tablero[1][i + 1] = new Ficha("Azul", i);
-            tablero[8][9 - i] = new Ficha("Rojo", i);
-
-        }
+        this.fecha = LocalDateTime.now();
+        this.resetTablero();
     }
     //Método que valida los movimientos de el usuario
     public void moverFicha(String movimiento) {    //El metodo ya supone que le estan pasando un String de largo 2
@@ -491,6 +484,29 @@ public class Partida extends Date{
         return ret;
     }
     
+    public void resetTablero() {
+        for (int i = 0; i < tablero.length - 1; i++) {
+            for (int j = 0; j < tablero[0].length - 1; j++) {
+                tablero[i][j] = fichaVacia;
+            }
+        }
+
+        for (int i = 0; i < tablero[0].length; i++) {
+            tablero[0][i] = fichaBorde;
+            tablero[9][i] = fichaBorde;
+        }
+        for (int i = 0; i < tablero.length; i++) {
+            tablero[i][0] = fichaBorde;
+            tablero[i][10] = fichaBorde;
+        }
+
+        for (int i = 1; i < 9; i++) {
+            tablero[1][i + 1] = new Ficha("Azul", i);
+            tablero[8][9 - i] = new Ficha("Rojo", i);
+
+        }
+    }
+    
     public ArrayList<String> getListaMovimientos() {
         return listaMovimientos;
     }
@@ -505,8 +521,10 @@ public class Partida extends Date{
 
     @Override
     public String toString() {
-        return "Partida jugada a la hora" + "";
+        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
+
+    
     
     
 }
