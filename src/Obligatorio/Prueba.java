@@ -102,8 +102,16 @@ public class Prueba {
                                 }
 
                             }
-                            p.setTerminado(true);
-                            if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
+                        }
+                        // Mejorar esto en el practico p.termino podria ya devolver el ganador creo
+                        String terminacion = "Se llegó al límite de movimientos";
+                        if(p.getTipoTerm()==2){
+                            terminacion = "Un jugador llegó al lado opuesto";
+                        }
+                        if(p.getTipoTerm()==3){
+                            terminacion = "Un jugador llegó con todas sus fichas al lado opuesto";
+                        }
+                        if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
                                 System.out.println("Ganó el jugador Rojo");
                             } else {
                                 if (victoriasAzul < p.getJugadorAzul().getVictorias()) {
@@ -112,8 +120,6 @@ public class Prueba {
                                     System.out.println("Juego terminado en empate");
                                 }
                             }
-
-                        }
                     }
                     break;
 
