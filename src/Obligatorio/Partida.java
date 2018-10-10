@@ -26,7 +26,6 @@ public class Partida {
     private boolean[] movimientos;
     private int tipoTerm;
     private int movimientosMax;
-    private int movimientosActuales;
     private boolean seMovio;
     private boolean terminado;
     private ArrayList<String> listaMovimientos;
@@ -128,14 +127,6 @@ public class Partida {
         this.movimientosMax = movimientosMax;
     }
 
-    public int getMovimientosActuales() {
-        return movimientosActuales;
-    }
-
-    public void setMovimientosActuales(int movimientosActuales) {
-        this.movimientosActuales = movimientosActuales;
-    }
-
     public boolean isTerminado() {
         return terminado;
     }
@@ -195,7 +186,7 @@ public class Partida {
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
                         this.setseMovio(true);
-
+                        this.getListaMovimientos().add(movimiento);
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -206,6 +197,7 @@ public class Partida {
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
                         this.setseMovio(true);
+                        this.getListaMovimientos().add(movimiento);
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -216,6 +208,7 @@ public class Partida {
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
                         this.setseMovio(true);
+                        this.getListaMovimientos().add(movimiento);
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -289,7 +282,7 @@ public class Partida {
         }
         switch (this.tipoTerm) {
             case 1:
-                if (this.movimientosActuales >= this.movimientosMax) {
+                if (this.getListaMovimientos().size() >= this.movimientosMax) {
                     ret = true;
                 }
                 break;
@@ -446,7 +439,6 @@ public class Partida {
                 int ficha = Integer.parseInt(dato.substring(0, 1));
                 if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
                     this.moverFicha(dato);
-                    this.agregarMovimiento(dato);
                     ret = true;
                 }
             }
@@ -508,9 +500,6 @@ public class Partida {
         return listaMovimientos;
     }
 
-    public void agregarMovimiento(String unString) {
-        this.getListaMovimientos().add(unString);
-    }
 
     public int cantidadMovimientos() {
         return this.getListaMovimientos().size();
