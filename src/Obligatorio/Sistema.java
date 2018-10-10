@@ -35,6 +35,11 @@ public class Sistema {
         Collections.sort(this.getListaRankings(), new RankingDescendente());
         return this.getListaRankings();
     }
+    
+    public ArrayList<Partida> ordenarPartidas() {
+        Collections.sort(this.getListaPartidas(), new RankingPartidas());
+        return this.getListaPartidas();
+    }
 
     public ArrayList<Partida> getListaPartidas() {
         return listaPartidas;

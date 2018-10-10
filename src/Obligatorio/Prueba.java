@@ -118,7 +118,7 @@ public class Prueba {
                     break;
 
                 case 3:
-
+                    replicarPartida(s);
                     break;
                 case 4:
                     s.ordenarDescendente();
@@ -135,7 +135,7 @@ public class Prueba {
 
     }
 
-//Case 1
+    //Case 1
     public static Jugador RegistrarJugador(Sistema s) {
         String nombre = leerTexto("Ingrese Nombre");
         String alias = leerTexto("Ingrese Alias");
@@ -148,8 +148,8 @@ public class Prueba {
         return j;
     }
 
-//Case 2
-//Se valida si el String ingresado es vacio
+    //Case 2
+    //Se valida si el String ingresado es vacio
     public static String leerTexto(String mensaje) {
         System.out.println(mensaje);
         Scanner in = new Scanner(System.in);
@@ -198,4 +198,24 @@ public class Prueba {
         }
     }
 
+    //Case 3
+    public static void replicarPartida(Sistema s) {
+        Partida p = s.getListaPartidas().get(pedirInt("Ingrese el número de "
+                + "la partida que desea replicar\n" + s.mostrarLista(s.getListaPartidas()),
+                1, s.getListaPartidas().size()) - 1);
+
+        for (int i = 0; i < p.cantidadMovimientos(); i++) {
+            String mov = p.getListaMovimientos().get(i);
+            enter();
+        }
+    }
+    public static void enter() {
+        System.out.println("Presione Enter para seguir");
+        Scanner in = new Scanner(System.in);
+        String s = in.nextLine();
+        while (!(s.trim().isEmpty())){
+            System.out.println("Solo presione Enter");
+            s = in.nextLine();
+        }
+    }
 }

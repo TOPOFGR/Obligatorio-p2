@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Santiago Rügnitz y Franco Galeano
  */
-public class Partida {
+public class Partida extends Date{
 
     private Jugador jugadorRojo;
     private Jugador jugadorAzul;
@@ -27,11 +27,12 @@ public class Partida {
     private int movimientosActuales;
     private boolean seMovio;
     private boolean terminado;
-
+    private ArrayList<String> listaMovimientos;
+    
     public Jugador getJugadorRojo() {
         return jugadorRojo;
     }
-
+    
     public void setJugadorRojo(Jugador jugadorRojo) {
         this.jugadorRojo = jugadorRojo;
     }
@@ -140,6 +141,9 @@ public class Partida {
         this.seMovio = seMovio;
     }
     
+    public Partida (){
+        listaMovimientos = new ArrayList<>();
+    }
     
     public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
         this.jugadorRojo = jugadorRojo;
@@ -452,6 +456,7 @@ public class Partida {
                 int ficha = Integer.parseInt(dato.substring(0, 1));
                 if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
                     this.moverFicha(dato);
+                    this.agregarMovimiento(dato);
                     ret = true;
                 }
             }
@@ -485,4 +490,23 @@ public class Partida {
         }
         return ret;
     }
+    
+    public ArrayList<String> getListaMovimientos() {
+        return listaMovimientos;
+    }
+
+    public void agregarMovimiento(String unString) {
+        this.getListaMovimientos().add(unString);
+    }
+
+    public int cantidadMovimientos() {
+        return this.getListaMovimientos().size();
+    }
+
+    @Override
+    public String toString() {
+        return "Partida jugada a la hora" + "";
+    }
+    
+    
 }
