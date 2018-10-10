@@ -8,7 +8,6 @@ package Obligatorio;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import javafx.util.converter.LocalDateTimeStringConverter;
 
 /**
  *
@@ -153,9 +152,6 @@ public class Partida {
         this.seMovio = seMovio;
     }
     
-    public Partida (){
-        listaMovimientos = new ArrayList<>();
-    }
     
     public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
         this.jugadorRojo = jugadorRojo;
@@ -173,6 +169,7 @@ public class Partida {
         this.terminado=false;
         this.fecha = LocalDateTime.now();
         this.resetTablero();
+        this.listaMovimientos = new ArrayList<>();
     }
     //Método que valida los movimientos de el usuario
     public void moverFicha(String movimiento) {    //El metodo ya supone que le estan pasando un String de largo 2
