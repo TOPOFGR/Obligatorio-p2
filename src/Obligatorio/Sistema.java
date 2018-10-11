@@ -30,15 +30,16 @@ public class Sistema {
         listaPartidas = new ArrayList<>();
         listaRankings = new ArrayList<>();
     }
-
-    public ArrayList<Jugador> ordenarDescendente() {
-        Collections.sort(this.getListaRankings(), new RankingDescendente());
-        return this.getListaRankings();
-    }
     
     public void ordenarPartidas() {
         this.getListaPartidas().sort((Partida p1, Partida p2) -> {
             return p1.getFecha().compareTo(p2.getFecha());
+        });
+    }
+    
+    public void ordenarRankings() {
+        this.getListaRankings().sort((Jugador j1, Jugador j2) -> {
+            return j1.getVictorias()-(j2.getVictorias());
         });
     }
 

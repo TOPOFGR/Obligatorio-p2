@@ -38,11 +38,11 @@ public class Partida {
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
-    
+
     public Jugador getJugadorRojo() {
         return jugadorRojo;
     }
-    
+
     public void setJugadorRojo(Jugador jugadorRojo) {
         this.jugadorRojo = jugadorRojo;
     }
@@ -134,7 +134,7 @@ public class Partida {
     public void setTerminado(boolean terminado) {
         this.terminado = terminado;
     }
-    
+
     public boolean isSeMovio() {
         return seMovio;
     }
@@ -142,8 +142,7 @@ public class Partida {
     public void setseMovio(boolean seMovio) {
         this.seMovio = seMovio;
     }
-    
-    
+
     public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
@@ -156,12 +155,13 @@ public class Partida {
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
         this.tipoTerm = tipoTerm;
         this.movimientosMax = movMax;
-        this.seMovio=true;
-        this.terminado=false;
+        this.seMovio = true;
+        this.terminado = false;
         this.fecha = LocalDateTime.now();
         this.resetTablero();
         this.listaMovimientos = new ArrayList<>();
     }
+
     //Método que valida los movimientos de el usuario
     public void moverFicha(String movimiento) {    //El metodo ya supone que le estan pasando un String de largo 2
         String turno = "Azul";
@@ -186,7 +186,7 @@ public class Partida {
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
                         this.setseMovio(true);
-                        this.getListaMovimientos().add(movimiento);
+                        agregarMovimiento(movimiento);
                     } else {
                         System.out.println("Movimiento no válido");
                     }
@@ -221,12 +221,14 @@ public class Partida {
         }
 
     }
+
     //Método que se fija de que jugador es el turno
     public void cambioTurno() {
         TurnoRojo = !TurnoRojo;
         Arrays.fill(movimientos, 1, 9, true);
 
     }
+
     //Método que valida si hay fichas 
     public boolean sePuedeMover(int ficha) {
         boolean ret = false;
@@ -247,6 +249,7 @@ public class Partida {
         return ret;
 
     }
+
     //Suma victorias según 
     public void sumaPuntos() {
         int rojo = 0;
@@ -296,13 +299,12 @@ public class Partida {
             case 3:
                 int cantFichas = 0;
                 for (int j = 1; j < tablero[0].length - 1; j++) {
-                        
-                            if (tablero[fila][j].getTipo().equals("Rojo")) {
-                                cantFichas++;
-                            }
-                        
 
+                    if (tablero[fila][j].getTipo().equals("Rojo")) {
+                        cantFichas++;
                     }
+
+                }
                 if (cantFichas == 8) {
                     ret = true;
                 }
@@ -313,6 +315,7 @@ public class Partida {
 
         return ret;
     }
+
     //Imprime en enteros las fichas que se pueden mover
     public String mostrarMovimientos() {
         String ret = "";
@@ -325,6 +328,7 @@ public class Partida {
 
         return ret;
     }
+
     //Verifica si al jugador le quedan movimientos
     public boolean hayMovimientos() {
         boolean ret = false;
@@ -335,6 +339,7 @@ public class Partida {
         }
         return ret;
     }
+
     //Comprueba si esa ficha se puede mover
     public void comprobarMov() {
         for (int i = 1; i < movimientos.length; i++) {
@@ -343,6 +348,7 @@ public class Partida {
             }
         }
     }
+
     //Devuelve un array con la posición en la matriz de el numero que se movió
     public int[] encontrarPosicion(int ficha) {
         int[] ret = new int[2];
@@ -361,6 +367,7 @@ public class Partida {
         }
         return ret;
     }
+
     //Verifica que otras fichas se pueden mover 
     public void sumaLineas(int ficha) {
         int[] aux = encontrarPosicion(ficha);
@@ -431,6 +438,7 @@ public class Partida {
             movimientos[diagonalS] = true;
         }
     }
+
     //Verifica que tipo de String se recibió
     public boolean recibirComando(String dato) {
         boolean ret = false;
@@ -454,10 +462,10 @@ public class Partida {
                 ret = true;
                 this.setTerminado(true);
                 if (this.isTurnoRojo()) {
-                    this.getJugadorAzul().setVictorias(this.getJugadorAzul().getVictorias()+1);
-                    
-                }else{
-                    this.getJugadorRojo().setVictorias(this.getJugadorRojo().getVictorias()+1);
+                    this.getJugadorAzul().setVictorias(this.getJugadorAzul().getVictorias() + 1);
+
+                } else {
+                    this.getJugadorRojo().setVictorias(this.getJugadorRojo().getVictorias() + 1);
                 }
             }
             if (dato.equals("PASAR")) {
@@ -472,7 +480,7 @@ public class Partida {
         }
         return ret;
     }
-    
+
     public void resetTablero() {
         for (int i = 0; i < tablero.length - 1; i++) {
             for (int j = 0; j < tablero[0].length - 1; j++) {
@@ -495,11 +503,14 @@ public class Partida {
 
         }
     }
-    
+
     public ArrayList<String> getListaMovimientos() {
         return listaMovimientos;
     }
 
+    public void agregarMovimiento(String unString) {
+        this.getListaMovimientos().add(unString);
+    }
 
     public int cantidadMovimientos() {
         return this.getListaMovimientos().size();
@@ -510,7 +521,4 @@ public class Partida {
         return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 
-    
-    
-    
 }

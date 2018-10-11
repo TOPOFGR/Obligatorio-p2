@@ -129,16 +129,23 @@ public class Prueba {
                         enter();
                     } else {
                         replicarPartida(s);
-
                     }
                     break;
+
                 case 4:
-                    s.ordenarDescendente();
-                    s.mostrarLista(s.getListaPartidas());
+                    if (s.cantidadRankings() < 1) {
+                        System.out.println("No hay Jugadores");
+                        enter();
+                    } else {
+                        s.ordenarRankings();
+                        System.out.println("" + s.mostrarLista(s.getListaRankings()));
+                    }
+
                     break;
                 case 5:
                     System.out.println("Fin");
                     break;
+
                 default:
                     System.out.println("Ingrese  número entre 1 y 5");
                     break;
@@ -171,6 +178,32 @@ public class Prueba {
             texto = in.nextLine();
         }
         return texto;
+    }
+
+    //Case 3
+    public static void replicarPartida(Sistema s) {
+        s.ordenarPartidas();
+        Partida p = s.getListaPartidas().get(pedirInt("Ingrese el número de "
+                + "la partida que desea replicar\n" + s.mostrarLista(s.getListaPartidas()),
+                0, s.getListaPartidas().size()) - 1);
+
+        p.resetTablero();
+        for (int i = 0; i < p.cantidadMovimientos(); i++) {
+            String mov = p.getListaMovimientos().get(i);
+            p.moverFicha(mov);
+            enter();
+        }
+    }
+
+    //Solo sirve para presionar enter (y que lo ingresado por el usuario sea vacio)
+    public static void enter() {
+        System.out.println("Presione Enter para seguir");
+        Scanner in = new Scanner(System.in);
+        String s = in.nextLine();
+        while (!s.trim().isEmpty()) {
+            System.out.println("Solo presione Enter");
+            s = in.nextLine();
+        }
     }
 
     // Metodo que imprime el tablero segun la forma que el usuario desee
@@ -210,29 +243,4 @@ public class Prueba {
         }
     }
 
-    //Case 3
-    public static void replicarPartida(Sistema s) {
-        s.ordenarPartidas();
-        Partida p = s.getListaPartidas().get(pedirInt("Ingrese el número de "
-                + "la partida que desea replicar\n" + s.mostrarLista(s.getListaPartidas()),
-                0, s.getListaPartidas().size())-1);
-
-        p.resetTablero();
-        for (int i = 0; i < p.cantidadMovimientos(); i++) {
-            String mov = p.getListaMovimientos().get(i);
-            p.moverFicha(mov);
-            enter();
-
-        }
-    }
-
-    public static void enter() {
-        System.out.println("Presione Enter para seguir");
-        Scanner in = new Scanner(System.in);
-        String s = in.nextLine();
-        while (!s.trim().isEmpty()) {
-            System.out.println("Solo presione Enter");
-            s = in.nextLine();
-        }
-    }
 }
