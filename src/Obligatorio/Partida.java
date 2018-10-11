@@ -226,6 +226,7 @@ public class Partida {
     public void cambioTurno() {
         TurnoRojo = !TurnoRojo;
         Arrays.fill(movimientos, 1, 9, true);
+        comprobarMov();
 
     }
 
@@ -518,7 +519,11 @@ public class Partida {
 
     @Override
     public String toString() {
-        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugada entre: " + this.getJugadorRojo().getAlias()+" y " + this.getJugadorAzul().getAlias() ;
     }
 
+    
+    
+    
+    
 }

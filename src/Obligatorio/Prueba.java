@@ -90,7 +90,7 @@ public class Prueba {
                                 }
                                 p.comprobarMov();
                                 if (p.termino()) {
-                                    System.out.println("Se llegó a la condición de terminación");
+                                    // System.out.println("Se llegó a la condición de terminación");
                                     p.setTerminado(true);
                                 }
                             } else {
@@ -104,26 +104,37 @@ public class Prueba {
                             }
                         }
                         // Mejorar esto en el practico p.termino podria ya devolver el ganador creo
+
                         String terminacion = "Se llegó al límite de movimientos";
                         if (p.getTipoTerm() == 2) {
                             terminacion = "Un jugador llegó al lado opuesto";
                         }
                         if (p.getTipoTerm() == 3) {
                             terminacion = "Un jugador llegó con todas sus fichas al lado opuesto";
+<<<<<<< Updated upstream
                         }
                         if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
                             System.out.println("Ganó el jugador Rojo de Alias " + jugadorRojo.getAlias());
                         } else {
                             if (victoriasAzul < p.getJugadorAzul().getVictorias()) {
                                 System.out.println("Ganó el jugador Azul de Alias " + jugadorAzul.getAlias());
+=======
+                            if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
+                                System.out.println("Ganó el jugador Rojo");
+>>>>>>> Stashed changes
                             } else {
-                                System.out.println("Juego terminado en empate");
+                                if (victoriasAzul < p.getJugadorAzul().getVictorias()) {
+                                    System.out.println("Ganó el jugador Azul");
+                                } else {
+                                    System.out.println("Juego terminado en empate");
+                                }
                             }
-                        }
-                    }
-                    break;
+                        }}
+                        break;
 
-                case 3:
+                    
+            
+                    case 3:
                     if (s.cantidadPartidas() < 1) {
                         System.out.println("No hay partidas registradas");
                         enter();
@@ -152,9 +163,9 @@ public class Prueba {
             }
         } while (opcion != 5);
 
-    }
+        } //Case 1
+    
 
-    //Case 1
     public static Jugador RegistrarJugador(Sistema s) {
         String nombre = leerTexto("Ingrese Nombre");
         String alias = leerTexto("Ingrese Alias");
