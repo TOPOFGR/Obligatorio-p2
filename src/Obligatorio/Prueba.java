@@ -112,10 +112,10 @@ public class Prueba {
                             terminacion = "Un jugador llegó con todas sus fichas al lado opuesto";
                         }
                         if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
-                            System.out.println("Ganó el jugador Rojo");
+                            System.out.println("Ganó el jugador Rojo de Alias " + jugadorRojo.getAlias());
                         } else {
                             if (victoriasAzul < p.getJugadorAzul().getVictorias()) {
-                                System.out.println("Ganó el jugador Azul");
+                                System.out.println("Ganó el jugador Azul de Alias " + jugadorAzul.getAlias());
                             } else {
                                 System.out.println("Juego terminado en empate");
                             }

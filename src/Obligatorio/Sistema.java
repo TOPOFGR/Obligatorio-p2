@@ -39,7 +39,7 @@ public class Sistema {
     
     public void ordenarRankings() {
         this.getListaRankings().sort((Jugador j1, Jugador j2) -> {
-            return j1.getVictorias()-(j2.getVictorias());
+            return j2.getVictorias()-(j1.getVictorias());
         });
     }
 
