@@ -43,9 +43,9 @@ public class Prueba {
         Sistema s = new Sistema();
         int opcion = 0;
         do {
-            opcion = pedirInt("Ingrese opción deseada \n 1)Registrar Jugador"
-                    + "\n 2) Jugar Partida \n 3) Replicar Partida\n 4)Ranking "
-                    + "\n 5)Salir del juego", 1, 5);
+            opcion = pedirInt("Ingrese opción deseada \n 1) Registrar Jugador"
+                    + "\n 2) Jugar Partida \n 3) Replicar Partida\n 4) Ranking "
+                    + "\n 5) Salir del juego", 1, 5);
             switch (opcion) {
                 case 1:
                     s.agregarRanking(RegistrarJugador(s));
@@ -105,26 +105,32 @@ public class Prueba {
                         }
                         // Mejorar esto en el practico p.termino podria ya devolver el ganador creo
                         String terminacion = "Se llegó al límite de movimientos";
-                        if(p.getTipoTerm()==2){
+                        if (p.getTipoTerm() == 2) {
                             terminacion = "Un jugador llegó al lado opuesto";
                         }
-                        if(p.getTipoTerm()==3){
+                        if (p.getTipoTerm() == 3) {
                             terminacion = "Un jugador llegó con todas sus fichas al lado opuesto";
                         }
                         if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
-                                System.out.println("Ganó el jugador Rojo");
+                            System.out.println("Ganó el jugador Rojo");
+                        } else {
+                            if (victoriasAzul < p.getJugadorAzul().getVictorias()) {
+                                System.out.println("Ganó el jugador Azul");
                             } else {
-                                if (victoriasAzul < p.getJugadorAzul().getVictorias()) {
-                                    System.out.println("Ganó el jugador Azul");
-                                } else {
-                                    System.out.println("Juego terminado en empate");
-                                }
+                                System.out.println("Juego terminado en empate");
                             }
+                        }
                     }
                     break;
 
                 case 3:
-                    replicarPartida(s);
+                    if (s.cantidadPartidas() < 1) {
+                        System.out.println("No hay partidas registradas");
+                        enter();
+                    } else {
+                        replicarPartida(s);
+
+                    }
                     break;
                 case 4:
                     s.ordenarDescendente();
@@ -209,21 +215,22 @@ public class Prueba {
         s.ordenarPartidas();
         Partida p = s.getListaPartidas().get(pedirInt("Ingrese el número de "
                 + "la partida que desea replicar\n" + s.mostrarLista(s.getListaPartidas()),
-                1, s.getListaPartidas().size()) - 1);
+                0, s.getListaPartidas().size())-1);
 
         p.resetTablero();
         for (int i = 0; i < p.cantidadMovimientos(); i++) {
             String mov = p.getListaMovimientos().get(i);
             p.moverFicha(mov);
             enter();
-            
+
         }
     }
+
     public static void enter() {
         System.out.println("Presione Enter para seguir");
         Scanner in = new Scanner(System.in);
         String s = in.nextLine();
-        while (!(s.trim().isEmpty())){
+        while (!s.trim().isEmpty()) {
             System.out.println("Solo presione Enter");
             s = in.nextLine();
         }
