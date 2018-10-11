@@ -65,12 +65,8 @@ public class Prueba {
                         }
                         Partida p = new Partida(jugadorRojo, jugadorAzul, tipoTerm, movMax);
                         s.agregarPartida(p);
-                        int victoriasRojo = p.getJugadorRojo().getVictorias();
-                        int victoriasAzul = p.getJugadorAzul().getVictorias();
-                        int contador = 0;
                         while (!p.isTerminado()) {
                             if (p.hayMovimientos()) {
-                                contador = 0;
                                 mostrarTablero(p);
                                 String mensaje = "";
                                 if (p.isTurnoRojo()) {
@@ -89,52 +85,31 @@ public class Prueba {
                                     }
                                 }
                                 p.comprobarMov();
-                                if (p.termino()) {
-                                    // System.out.println("Se llegó a la condición de terminación");
-                                    p.setTerminado(true);
-                                }
+                                p.termino();
                             } else {
                                 p.cambioTurno();
-                                contador++;
-                                if (contador == 2) {
-                                    System.out.println("Ya no hay movimientos posibles");
-                                    p.setTerminado(true);
-                                }
+      
 
                             }
                         }
-                        // Mejorar esto en el practico p.termino podria ya devolver el ganador creo
-
-                        String terminacion = "Se llegó al límite de movimientos";
-                        if (p.getTipoTerm() == 2) {
-                            terminacion = "Un jugador llegó al lado opuesto";
+                        if(p.getContador()==2){
+                            System.out.println("Ya no hay movimientos posibles");
                         }
-                        if (p.getTipoTerm() == 3) {
-                            terminacion = "Un jugador llegó con todas sus fichas al lado opuesto";
-<<<<<<< Updated upstream
-                        }
-                        if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
-                            System.out.println("Ganó el jugador Rojo de Alias " + jugadorRojo.getAlias());
+                        p.sumaPuntos();
+                        System.out.println("Partida terminada");
+                        if (p.getResultado().equals("Rojo")) {
+                            System.out.println("Ganó el jugador Rojo de Alias: " + jugadorRojo.getAlias());
                         } else {
-                            if (victoriasAzul < p.getJugadorAzul().getVictorias()) {
+                            if (p.getResultado().equals("Azul")) {
                                 System.out.println("Ganó el jugador Azul de Alias " + jugadorAzul.getAlias());
-=======
-                            if (victoriasRojo < p.getJugadorRojo().getVictorias()) {
-                                System.out.println("Ganó el jugador Rojo");
->>>>>>> Stashed changes
                             } else {
-                                if (victoriasAzul < p.getJugadorAzul().getVictorias()) {
-                                    System.out.println("Ganó el jugador Azul");
-                                } else {
-                                    System.out.println("Juego terminado en empate");
-                                }
+                                System.out.println("Juego terminado en empate");
                             }
-                        }}
-                        break;
+                        }
+                    }
+                    break;
 
-                    
-            
-                    case 3:
+                case 3:
                     if (s.cantidadPartidas() < 1) {
                         System.out.println("No hay partidas registradas");
                         enter();
@@ -163,9 +138,9 @@ public class Prueba {
             }
         } while (opcion != 5);
 
-        } //Case 1
-    
+    }
 
+    //Case 1
     public static Jugador RegistrarJugador(Sistema s) {
         String nombre = leerTexto("Ingrese Nombre");
         String alias = leerTexto("Ingrese Alias");
@@ -178,7 +153,6 @@ public class Prueba {
         return j;
     }
 
-    //Case 2
     //Se valida si el String ingresado es vacio
     public static String leerTexto(String mensaje) {
         System.out.println(mensaje);

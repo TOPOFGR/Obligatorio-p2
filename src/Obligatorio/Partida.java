@@ -22,7 +22,6 @@ public class Partida {
     private boolean TurnoRojo;
     private Ficha fichaVacia;
     private Ficha fichaBorde;
-    private String historial;
     private boolean[] movimientos;
     private int tipoTerm;
     private int movimientosMax;
@@ -30,6 +29,24 @@ public class Partida {
     private boolean terminado;
     private ArrayList<String> listaMovimientos;
     private LocalDateTime fecha;
+    private String resultado;
+    private int contador;
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
+    public String getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
+    }
 
     public LocalDateTime getFecha() {
         return fecha;
@@ -95,14 +112,6 @@ public class Partida {
         this.fichaBorde = fichaBorde;
     }
 
-    public String getHistorial() {
-        return historial;
-    }
-
-    public void setHistorial(String historial) {
-        this.historial = historial;
-    }
-
     public boolean[] getMovimientos() {
         return movimientos;
     }
@@ -143,6 +152,7 @@ public class Partida {
         this.seMovio = seMovio;
     }
 
+    //Contructor
     public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
@@ -151,7 +161,6 @@ public class Partida {
         this.verN = true;
         this.fichaVacia = new Ficha("Vacio", 0);
         this.fichaBorde = new Ficha("Borde", -1);
-        this.historial = "";
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
         this.tipoTerm = tipoTerm;
         this.movimientosMax = movMax;
@@ -160,10 +169,13 @@ public class Partida {
         this.fecha = LocalDateTime.now();
         this.resetTablero();
         this.listaMovimientos = new ArrayList<>();
+        this.resultado = "Empate";
+        this.contador = 0;
     }
 
-    //Método que valida los movimientos de el usuario
-    public void moverFicha(String movimiento) {    //El metodo ya supone que le estan pasando un String de largo 2
+    //Método que recibe un movimiento: si es posible devuelve true y mueve la ficha, si es imposible devuelve false
+    public boolean moverFicha(String movimiento) {
+        boolean ret = true;
         String turno = "Azul";
         int sentido = 1;
         if (isTurnoRojo()) {
@@ -187,8 +199,9 @@ public class Partida {
                         sumaLineas(ficha);
                         this.setseMovio(true);
                         agregarMovimiento(movimiento);
+                        this.setContador(0);
                     } else {
-                        System.out.println("Movimiento no válido");
+                        ret = false;
                     }
                     break;
                 case 'D':
@@ -198,8 +211,9 @@ public class Partida {
                         sumaLineas(ficha);
                         this.setseMovio(true);
                         this.getListaMovimientos().add(movimiento);
+                        this.setContador(0);
                     } else {
-                        System.out.println("Movimiento no válido");
+                        ret = false;
                     }
                     break;
                 case 'I':
@@ -209,28 +223,30 @@ public class Partida {
                         sumaLineas(ficha);
                         this.setseMovio(true);
                         this.getListaMovimientos().add(movimiento);
+                        this.setContador(0);
                     } else {
-                        System.out.println("Movimiento no válido");
+                        ret = false;
                     }
                     break;
                 default:
-                    System.out.println("Movimiento no válido");
+                    ret = false;
             }
         } else {
-            System.out.println("Movimiento no válido");
+            ret = false;
         }
-
+        return ret;
     }
 
-    //Método que se fija de que jugador es el turno
+    //Cambia de turno 
     public void cambioTurno() {
         TurnoRojo = !TurnoRojo;
         Arrays.fill(movimientos, 1, 9, true);
         comprobarMov();
+        this.setContador(this.getContador() + 1);
 
     }
 
-    //Método que valida si hay fichas 
+    //Verifica si la ficha dada tiene lugar para moverse
     public boolean sePuedeMover(int ficha) {
         boolean ret = false;
         String turno = "Azul";
@@ -251,7 +267,7 @@ public class Partida {
 
     }
 
-    //Suma victorias según 
+    //Calcula puntajes y da la victoria al jugador ganador (si hay)
     public void sumaPuntos() {
         int rojo = 0;
         int azul = 0;
@@ -269,55 +285,59 @@ public class Partida {
         }
         if (rojo > azul) {
             jugadorRojo.setVictorias(jugadorRojo.getVictorias() + 1);
+            this.setResultado("Rojo");
         }
         if (azul > rojo) {
             jugadorAzul.setVictorias(jugadorAzul.getVictorias() + 1);
+            this.setResultado("Azul");
         }
     }
 
     //Verifica según el tipo de terminación si el juego finalizó
-    public boolean termino() {
-        boolean ret = false;
+    public void termino() {
         int fila = 8;
         String turno = "Azul";
         if (isTurnoRojo()) {
             fila = 1;
             turno = "Rojo";
         }
-        switch (this.tipoTerm) {
-            case 1:
-                if (this.getListaMovimientos().size() >= this.movimientosMax) {
-                    ret = true;
-                }
-                break;
-            case 2:
-                for (int i = 1; i < 9; i++) {
-                    if (tablero[fila][i].getTipo().equals(turno)) {
-                        ret = true;
+        if (contador == 2) {
+            this.setTerminado(true);
+        } else {
+
+            switch (this.tipoTerm) {
+                case 1:
+                    if (this.getListaMovimientos().size() >= this.movimientosMax) {
+                        this.setTerminado(true);
                     }
-                }
-                break;
-            case 3:
-                int cantFichas = 0;
-                for (int j = 1; j < tablero[0].length - 1; j++) {
+                    break;
+                case 2:
+                    for (int i = 1; i < 9; i++) {
+                        if (tablero[fila][i].getTipo().equals(turno)) {
+                            this.setTerminado(true);
+                        }
+                    }
+                    break;
+                case 3:
+                    int cantFichas = 0;
+                    for (int j = 1; j < tablero[0].length - 1; j++) {
 
-                    if (tablero[fila][j].getTipo().equals("Rojo")) {
-                        cantFichas++;
+                        if (tablero[fila][j].getTipo().equals("Rojo")) {
+                            cantFichas++;
+                        }
+
+                    }
+                    if (cantFichas == 8) {
+                        this.setTerminado(true);
                     }
 
-                }
-                if (cantFichas == 8) {
-                    ret = true;
-                }
-
-                break;
-
+                    break;
+            }
         }
 
-        return ret;
     }
 
-    //Imprime en enteros las fichas que se pueden mover
+    //Devuelve un String con las fichas que se pueden mover
     public String mostrarMovimientos() {
         String ret = "";
 
@@ -341,7 +361,7 @@ public class Partida {
         return ret;
     }
 
-    //Comprueba si esa ficha se puede mover
+    //Comprueba si las fichas del array que se pueden mover tienen lugar para moverse
     public void comprobarMov() {
         for (int i = 1; i < movimientos.length; i++) {
             if (movimientos[i]) {
@@ -447,8 +467,7 @@ public class Partida {
             if (dato.length() == 2 && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {
                 int ficha = Integer.parseInt(dato.substring(0, 1));
                 if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
-                    this.moverFicha(dato);
-                    ret = true;
+                    ret = moverFicha(dato);
                 }
             }
             if (dato.equals("VERR")) {
@@ -482,6 +501,7 @@ public class Partida {
         return ret;
     }
 
+    //Pone al tablero en la posicion inicial
     public void resetTablero() {
         for (int i = 0; i < tablero.length - 1; i++) {
             for (int j = 0; j < tablero[0].length - 1; j++) {
@@ -519,11 +539,7 @@ public class Partida {
 
     @Override
     public String toString() {
-        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugada entre: " + this.getJugadorRojo().getAlias()+" y " + this.getJugadorAzul().getAlias() ;
+        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugada entre: " + this.getJugadorRojo().getAlias() + " y " + this.getJugadorAzul().getAlias();
     }
 
-    
-    
-    
-    
 }
