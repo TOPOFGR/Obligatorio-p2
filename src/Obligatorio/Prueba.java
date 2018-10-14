@@ -5,18 +5,22 @@
  */
 package Obligatorio;
 
+import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Santiago Rügnitz y Franco Galeano
  */
-public class Prueba {
+public class Prueba{
+    static Scanner input;
 
     //Metodo para ingressar un entero con un maximo y un mínimo
     public static int pedirInt(String mensaje, int min, int max) {
         System.out.println(mensaje);
-        Scanner input = new Scanner(System.in);
+        //Scanner input = new Scanner(System.in);
         boolean continuar = false;
         int dato = 0;
         while (!continuar) {
@@ -25,9 +29,11 @@ public class Prueba {
             } catch (InputMismatchException e) {
                 System.out.println("Tipo de dato incorrecto");
                 input.next();
-            } catch (Exception ex) {
-                System.out.println("Error al ingresar dato");
+            } catch (NoSuchElementException ex) {
+                System.out.println("Se acabo el txt, paso a usar consola");
+                input= new Scanner(System.in);
                 input.next();
+                
             }
             if (dato >= min && dato <= max) {
                 continuar = true;
@@ -39,7 +45,12 @@ public class Prueba {
         return dato;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
+        try {
+            input = new Scanner(new FileReader("input.txt"));
+        } catch (FileNotFoundException ex) {
+            input = new Scanner(System.in);
+        }
         Sistema s = new Sistema();
         int opcion = 0;
         do {
@@ -85,14 +96,15 @@ public class Prueba {
                                     }
                                 }
                                 p.comprobarMov();
-                                p.termino();
+                                
                             } else {
                                 p.cambioTurno();
       
 
                             }
+                            p.termino();
                         }
-                        if(p.getContador()==2){
+                        if(p.getContador()>=2){
                             System.out.println("Ya no hay movimientos posibles");
                         }
                         p.sumaPuntos();
@@ -156,12 +168,24 @@ public class Prueba {
     //Se valida si el String ingresado es vacio
     public static String leerTexto(String mensaje) {
         System.out.println(mensaje);
-        Scanner in = new Scanner(System.in);
-        String texto = in.nextLine();
+        String texto="";
+        try {
+              texto = input.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Tipo de dato incorrecto");
+                input.next();
+            } catch (NoSuchElementException ex) {
+                System.out.println("Se acabo el txt, paso a usar consola");
+                input= new Scanner(System.in);
+                input.next();
+                
+            }
+        /*Scanner input = new Scanner(System.in);
+        String texto = input.nextLine();
         while (texto.trim().isEmpty()) {
             System.out.println("Ingrese un texto válido");
-            texto = in.nextLine();
-        }
+            texto = input.nextLine();
+        }*/
         return texto;
     }
 

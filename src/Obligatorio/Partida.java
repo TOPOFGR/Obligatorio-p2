@@ -301,7 +301,7 @@ public class Partida {
             fila = 1;
             turno = "Rojo";
         }
-        if (contador == 2) {
+        if (contador >= 2) {
             this.setTerminado(true);
         } else {
 
