@@ -99,8 +99,6 @@ public class Prueba{
                                 
                             } else {
                                 p.cambioTurno();
-      
-
                             }
                             p.termino();
                         }

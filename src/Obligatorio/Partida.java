@@ -271,17 +271,16 @@ public class Partida {
     public void sumaPuntos() {
         int rojo = 0;
         int azul = 0;
-        for (int j = 1; j < tablero[0].length - 1; j++) {
-            for (int i = 1; i < 5; i++) {
-                if (tablero[i][j].getTipo().equals("Rojo")) {
-                    rojo += tablero[i][j].getValor();
-                }
+        for (int i = 1; i < 10; i++) {
+
+            if (tablero[1][i].getTipo().equals("Rojo")) {
+                rojo += tablero[1][i].getValor();
             }
-            for (int i = 5; i < tablero.length - 1; i++) {
-                if (tablero[i][j].getTipo().equals("Azul")) {
-                    azul += tablero[i][j].getValor();
-                }
+
+            if (tablero[8][i].getTipo().equals("Azul")) {
+                azul += tablero[8][i].getValor();
             }
+
         }
         if (rojo > azul) {
             jugadorRojo.setVictorias(jugadorRojo.getVictorias() + 1);
