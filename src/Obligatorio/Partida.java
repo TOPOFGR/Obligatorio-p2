@@ -158,7 +158,7 @@ public class Partida {
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
         this.tipoTerm = tipoTerm;
         this.contadorMov = movMax;
-        this.seMovio = true;
+        this.seMovio = false;
         this.terminado = false;
         this.fecha = LocalDateTime.now();
         this.reset();
