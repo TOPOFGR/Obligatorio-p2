@@ -167,7 +167,7 @@ public class Partida {
         this.seMovio = true;
         this.terminado = false;
         this.fecha = LocalDateTime.now();
-        this.resetTablero();
+        this.reset();
         this.listaMovimientos = new ArrayList<>();
         this.resultado = "Empate";
         this.contador = 0;
@@ -176,15 +176,13 @@ public class Partida {
     //Método que recibe un movimiento: si es posible devuelve true y mueve la ficha, si es imposible devuelve false
     public boolean moverFicha(String movimiento) {
         boolean ret = true;
-        String turno = "Azul";
         int sentido = 1;
         if (isTurnoRojo()) {
             sentido = -1;
-            turno = "Rojo";
         }
 
         int ficha = Integer.parseInt(movimiento.substring(0, 1));
-        if (movimientos[ficha]) {
+        if (movimientos[ficha]||this.isTerminado()) {
             int[] array = encontrarPosicion(ficha);
             int i = array[0];
             int j = array[1];
@@ -210,7 +208,7 @@ public class Partida {
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
                         this.setseMovio(true);
-                        this.getListaMovimientos().add(movimiento);
+                        this.agregarMovimiento(movimiento);
                         this.setContador(0);
                     } else {
                         ret = false;
@@ -222,7 +220,7 @@ public class Partida {
                         tablero[i][j] = fichaVacia;
                         sumaLineas(ficha);
                         this.setseMovio(true);
-                        this.getListaMovimientos().add(movimiento);
+                        this.agregarMovimiento(movimiento);
                         this.setContador(0);
                     } else {
                         ret = false;
@@ -243,6 +241,7 @@ public class Partida {
         Arrays.fill(movimientos, 1, 9, true);
         comprobarMov();
         this.setContador(this.getContador() + 1);
+        this.agregarMovimiento("CT");
 
     }
 
@@ -482,9 +481,11 @@ public class Partida {
                 this.setTerminado(true);
                 if (this.isTurnoRojo()) {
                     this.getJugadorAzul().setVictorias(this.getJugadorAzul().getVictorias() + 1);
+                    this.setResultado("Azul");
 
                 } else {
                     this.getJugadorRojo().setVictorias(this.getJugadorRojo().getVictorias() + 1);
+                    this.setResultado("Rojo");
                 }
             }
             if (dato.equals("PASAR")) {
@@ -501,7 +502,7 @@ public class Partida {
     }
 
     //Pone al tablero en la posicion inicial
-    public void resetTablero() {
+    public void reset() {
         this.setTurnoRojo(true);
         for (int i = 0; i < tablero.length - 1; i++) {
             for (int j = 0; j < tablero[0].length - 1; j++) {
@@ -539,11 +540,7 @@ public class Partida {
 
     
     public void replicarPartida(String mov) {
-        if (mov.equals("CT")) {
-            this.cambioTurno();
-        }else{
             moverFicha(mov);
-        }
     }
     
     

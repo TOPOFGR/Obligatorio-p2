@@ -191,13 +191,19 @@ public class Prueba{
         Partida p = s.getListaPartidas().get(pedirInt("Ingrese el número de "
                 + "la partida que desea replicar\n" + s.mostrarLista(s.getListaPartidas()),
                 0, s.getListaPartidas().size()) - 1);
-        p.resetTablero();
+        p.reset();
         for (int i = 0; i < p.cantidadMovimientos(); i++) {
             String mov = p.getListaMovimientos().get(i);
+            String sigmov=p.getListaMovimientos().get(i+1);
             mostrarTablero(p);
             p.replicarPartida(mov);
+            if (sigmov.equals("CT")) {
+                p.setTurnoRojo(!(p.isTurnoRojo()));
+                i++;
+            }
             enter();
         }
+        System.out.println("Réplica Finalizada ");
     }
 
     //Solo sirve para presionar enter (y que lo ingresado por el usuario sea vacio)
