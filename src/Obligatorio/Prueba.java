@@ -13,12 +13,11 @@ import java.util.*;
  * @author Santiago Rügnitz y Franco Galeano
  */
 public class Prueba{
-    static Scanner input;
 
     //Metodo para ingressar un entero con un maximo y un mínimo
     public static int pedirInt(String mensaje, int min, int max) {
         System.out.println(mensaje);
-        //Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         boolean continuar = false;
         int dato = 0;
         while (!continuar) {
@@ -27,11 +26,9 @@ public class Prueba{
             } catch (InputMismatchException e) {
                 System.out.println("Tipo de dato incorrecto");
                 input.next();
-            } catch (NoSuchElementException ex) {
-                System.out.println("Se acabo el txt, paso a usar consola");
-                input= new Scanner(System.in);
+            } catch (Exception e) {
+                System.out.println("Error al ingresar dato");
                 input.next();
-                
             }
             if (dato >= min && dato <= max) {
                 continuar = true;
@@ -44,11 +41,6 @@ public class Prueba{
     }
 
     public static void main(String[] args)  {
-        try {
-            input = new Scanner(new FileReader("input.txt"));
-        } catch (FileNotFoundException ex) {
-            input = new Scanner(System.in);
-        }
         Sistema s = new Sistema();
         int opcion = 0;
         do {
@@ -163,6 +155,7 @@ public class Prueba{
 
     //Se valida si el String ingresado es vacio
     public static String leerTexto(String mensaje) {
+        Scanner input = new Scanner(System.in);
         System.out.println(mensaje);
         String texto="";
         try {
@@ -170,18 +163,16 @@ public class Prueba{
             } catch (InputMismatchException e) {
                 System.out.println("Tipo de dato incorrecto");
                 input.next();
-            } catch (NoSuchElementException ex) {
-                System.out.println("Se acabo el txt, paso a usar consola");
+            } catch (Exception ex) {
+                System.out.println("Error al ingresar dato");
                 input= new Scanner(System.in);
                 input.next();
                 
             }
-        /*Scanner input = new Scanner(System.in);
-        String texto = input.nextLine();
         while (texto.trim().isEmpty()) {
             System.out.println("Ingrese un texto válido");
             texto = input.nextLine();
-        }*/
+        }
         return texto;
     }
 
@@ -194,7 +185,10 @@ public class Prueba{
         p.reset();
         for (int i = 0; i < p.cantidadMovimientos(); i++) {
             String mov = p.getListaMovimientos().get(i);
-            String sigmov=p.getListaMovimientos().get(i+1);
+            String sigmov="";
+            if (i+1<p.cantidadMovimientos()) {
+                sigmov=p.getListaMovimientos().get(i+1);
+            }
             mostrarTablero(p);
             p.replicarPartida(mov);
             if (sigmov.equals("CT")) {
