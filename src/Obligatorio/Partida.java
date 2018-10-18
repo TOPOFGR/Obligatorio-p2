@@ -305,7 +305,7 @@ public class Partida {
 
             switch (this.tipoTerm) {
                 case 1:
-                    if (this.getListaMovimientos().size() >= this.movimientosMax) {
+                    if (this.getContadorMov==0) {
                         this.setTerminado(true);
                     }
                     break;
