@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Obligatorio;
 
 import java.util.*;
 
-/**
- *
- * @author Santiago Rügnitz y Franco Galeano
- */
+//Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
+
 public class Prueba {
 
-    //Metodo para ingressar un entero con un maximo y un mínimo
+    //Metodo para ingresar un entero con un maximo y un mínimo
     public static int pedirInt(String mensaje, int min, int max) {
         System.out.println(mensaje);
         Scanner input = new Scanner(System.in);

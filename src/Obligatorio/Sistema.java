@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor
- */
+
 package Obligatorio;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Santiago Rügnitz y Franco Galeano
- */
+//Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
+
 public class Sistema {
 
     private ArrayList<Partida> listaPartidas;
