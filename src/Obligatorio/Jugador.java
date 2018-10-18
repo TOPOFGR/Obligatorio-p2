@@ -17,14 +17,12 @@ public class Jugador {
     private int victorias;
 
     //Constructores
-
     public Jugador(String nombre, String alias, int edad) {
         this.nombre = nombre;
         this.alias = alias;
         this.edad = edad;
-        this.victorias=0;
+        this.victorias = 0;
     }
-    
 
     public String getNombre() {
         return nombre;
@@ -57,9 +55,6 @@ public class Jugador {
     public void setVictorias(int victorias) {
         this.victorias = victorias;
     }
-    
-    
-    
 
     @Override
     public String toString() {

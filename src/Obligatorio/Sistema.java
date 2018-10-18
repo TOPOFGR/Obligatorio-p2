@@ -29,16 +29,16 @@ public class Sistema {
         listaPartidas = new ArrayList<>();
         listaRankings = new ArrayList<>();
     }
-    
+
     public void ordenarPartidas() {
         this.getListaPartidas().sort((Partida p1, Partida p2) -> {
             return p1.getFecha().compareTo(p2.getFecha());
         });
     }
-    
+
     public void ordenarRankings() {
         this.getListaRankings().sort((Jugador j1, Jugador j2) -> {
-            return j2.getVictorias()-(j1.getVictorias());
+            return j2.getVictorias() - (j1.getVictorias());
         });
     }
 

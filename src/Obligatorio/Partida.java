@@ -24,7 +24,7 @@ public class Partida {
     private Ficha fichaBorde;
     private boolean[] movimientos;
     private int tipoTerm;
-    private int movimientosMax;
+    private int contadorMov;
     private boolean seMovio;
     private boolean terminado;
     private ArrayList<String> listaMovimientos;
@@ -128,12 +128,12 @@ public class Partida {
         this.tipoTerm = tipoTerm;
     }
 
-    public int getMovimientosMax() {
-        return movimientosMax;
+    public int getContadorMov() {
+        return contadorMov;
     }
 
-    public void setMovimientosMax(int movimientosMax) {
-        this.movimientosMax = movimientosMax;
+    public void setContadorMov(int contadorMov) {
+        this.contadorMov = contadorMov;
     }
 
     public boolean isTerminado() {
@@ -163,7 +163,7 @@ public class Partida {
         this.fichaBorde = new Ficha("Borde", -1);
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
         this.tipoTerm = tipoTerm;
-        this.movimientosMax = movMax;
+        this.contadorMov = movMax;
         this.seMovio = true;
         this.terminado = false;
         this.fecha = LocalDateTime.now();
@@ -182,7 +182,7 @@ public class Partida {
         }
 
         int ficha = Integer.parseInt(movimiento.substring(0, 1));
-        if (movimientos[ficha]||this.isTerminado()) {
+        if (movimientos[ficha] || this.isTerminado()) {
             int[] array = encontrarPosicion(ficha);
             int i = array[0];
             int j = array[1];
@@ -194,10 +194,7 @@ public class Partida {
                     if (tablero[i + sentido][j].getTipo().equals("Vacio")) {
                         tablero[i + sentido][j] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
-                        sumaLineas(ficha);
-                        this.setseMovio(true);
-                        agregarMovimiento(movimiento);
-                        this.setContador(0);
+                        this.calculosFicha(ficha, i + sentido, j, movimiento);
                     } else {
                         ret = false;
                     }
@@ -206,10 +203,7 @@ public class Partida {
                     if (tablero[i + sentido][j + 1].getTipo().equals("Vacio")) {
                         tablero[i + sentido][j + 1] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
-                        sumaLineas(ficha);
-                        this.setseMovio(true);
-                        this.agregarMovimiento(movimiento);
-                        this.setContador(0);
+                        this.calculosFicha(ficha, i + sentido, j + 1, movimiento);
                     } else {
                         ret = false;
                     }
@@ -218,10 +212,7 @@ public class Partida {
                     if (tablero[i + sentido][j - 1].getTipo().equals("Vacio")) {
                         tablero[i + sentido][j - 1] = tablero[i][j];
                         tablero[i][j] = fichaVacia;
-                        sumaLineas(ficha);
-                        this.setseMovio(true);
-                        this.agregarMovimiento(movimiento);
-                        this.setContador(0);
+                        this.calculosFicha(ficha, i + sentido, j - 1, movimiento);
                     } else {
                         ret = false;
                     }
@@ -239,7 +230,7 @@ public class Partida {
     public void cambioTurno() {
         TurnoRojo = !TurnoRojo;
         Arrays.fill(movimientos, 1, 9, true);
-        comprobarMov();
+        this.comprobarMov();
         this.setContador(this.getContador() + 1);
         this.agregarMovimiento("CT");
 
@@ -305,7 +296,7 @@ public class Partida {
 
             switch (this.tipoTerm) {
                 case 1:
-                    if (this.getContadorMov==0) {
+                    if (this.getContadorMov() == 0) {
                         this.setTerminado(true);
                     }
                     break;
@@ -387,11 +378,13 @@ public class Partida {
         return ret;
     }
 
-    //Verifica que otras fichas se pueden mover 
-    public void sumaLineas(int ficha) {
-        int[] aux = encontrarPosicion(ficha);
-        int fila = aux[0];
-        int columna = aux[1];
+    //Agrega el movimiento a la lista, actualiza contadores y Verifica que otras fichas se pueden mover
+    public void calculosFicha(int ficha, int fila, int columna, String mov) {
+        this.setseMovio(true);
+        this.agregarMovimiento(mov);
+        this.setContador(0);
+        this.setContadorMov(this.getContadorMov() - 1);
+
         int diagonalP = ficha;
         int horizontal = ficha;
         int vertical = ficha;
@@ -529,21 +522,15 @@ public class Partida {
     public ArrayList<String> getListaMovimientos() {
         return listaMovimientos;
     }
-    
+
     //Agrega el movimiento a la lista, si la partida termino no hace nada
     public void agregarMovimiento(String unString) {
         if (!this.isTerminado()) {
             this.getListaMovimientos().add(unString);
         }
-        
+
     }
 
-    
-    public void replicarPartida(String mov) {
-            moverFicha(mov);
-    }
-    
-    
     public int cantidadMovimientos() {
         return this.getListaMovimientos().size();
     }
@@ -552,7 +539,5 @@ public class Partida {
     public String toString() {
         return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugada entre: " + this.getJugadorRojo().getAlias() + " y " + this.getJugadorAzul().getAlias();
     }
-
-    
 
 }

@@ -10,6 +10,7 @@ package Obligatorio;
  * @author Santiago Rügnitz y Franco Galeano
  */
 public class Ficha {
+
     private String tipo;
     private int valor;
 
@@ -34,28 +35,21 @@ public class Ficha {
         this.valor = valor;
     }
 
-    
-    
-
     @Override
     public String toString() {
-        String ret="";
-        if(tipo.equals("Rojo")){
-            ret="\033[31m"+this.getValor()+"\033[0m";
+        String ret = "";
+        if (tipo.equals("Rojo")) {
+            ret = "\033[31m" + this.getValor() + "\033[0m";
         }
-        if(tipo.equals("Azul")){
-            ret="\033[34m"+this.getValor()+"\033[0m";
-            
+        if (tipo.equals("Azul")) {
+            ret = "\033[34m" + this.getValor() + "\033[0m";
+
         }
-        if(tipo == null){
-            ret=" ";
-            
+        if (tipo == null) {
+            ret = " ";
+
         }
         return ret;
     }
-    
-    
-    
-    
-   
+
 }
