@@ -7,8 +7,6 @@ package Obligatorio;
 
 import java.io.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -193,11 +191,11 @@ public class Prueba{
         Partida p = s.getListaPartidas().get(pedirInt("Ingrese el número de "
                 + "la partida que desea replicar\n" + s.mostrarLista(s.getListaPartidas()),
                 0, s.getListaPartidas().size()) - 1);
-
         p.resetTablero();
         for (int i = 0; i < p.cantidadMovimientos(); i++) {
             String mov = p.getListaMovimientos().get(i);
-            p.moverFicha(mov);
+            mostrarTablero(p);
+            p.replicarPartida(mov);
             enter();
         }
     }

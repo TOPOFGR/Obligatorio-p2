@@ -6,7 +6,6 @@
 package Obligatorio;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  *

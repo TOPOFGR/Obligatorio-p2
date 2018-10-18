@@ -502,6 +502,7 @@ public class Partida {
 
     //Pone al tablero en la posicion inicial
     public void resetTablero() {
+        this.setTurnoRojo(true);
         for (int i = 0; i < tablero.length - 1; i++) {
             for (int j = 0; j < tablero[0].length - 1; j++) {
                 tablero[i][j] = fichaVacia;
@@ -527,11 +528,25 @@ public class Partida {
     public ArrayList<String> getListaMovimientos() {
         return listaMovimientos;
     }
-
+    
+    //Agrega el movimiento a la lista, si la partida termino no hace nada
     public void agregarMovimiento(String unString) {
-        this.getListaMovimientos().add(unString);
+        if (!this.isTerminado()) {
+            this.getListaMovimientos().add(unString);
+        }
+        
     }
 
+    
+    public void replicarPartida(String mov) {
+        if (mov.equals("CT")) {
+            this.cambioTurno();
+        }else{
+            moverFicha(mov);
+        }
+    }
+    
+    
     public int cantidadMovimientos() {
         return this.getListaMovimientos().size();
     }
@@ -540,5 +555,7 @@ public class Partida {
     public String toString() {
         return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugada entre: " + this.getJugadorRojo().getAlias() + " y " + this.getJugadorAzul().getAlias();
     }
+
+    
 
 }
