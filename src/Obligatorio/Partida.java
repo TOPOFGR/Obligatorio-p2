@@ -225,19 +225,20 @@ public class Partida {
         TurnoRojo = !TurnoRojo;
         Arrays.fill(movimientos, 1, 9, true);
         this.comprobarMov();
-        this.setContador(this.getContador() + 1);
+        if (!this.hayMovimientos()) {
+            this.setContador(this.getContador() + 1);
+        }
+        
         this.agregarMovimiento("CT");
-
+        this.setseMovio(false);
     }
 
     //Verifica si la ficha dada tiene lugar para moverse
     public boolean sePuedeMover(int ficha) {
         boolean ret = false;
-        String turno = "Azul";
         int sentido = 1;
         if (isTurnoRojo()) {
             sentido = -1;
-            turno = "Rojo";
         }
         int[] aux = encontrarPosicion(ficha);
         int fila = aux[0];
@@ -280,15 +281,15 @@ public class Partida {
     public void termino() {
         int fila = 8;
         String turno = "Azul";
-        if (isTurnoRojo()) {
+        if (this.isTurnoRojo()) {
             fila = 1;
             turno = "Rojo";
         }
-        if (contador >= 2) {
+        if (this.getContador() >= 2) {
             this.setTerminado(true);
         } else {
 
-            switch (this.tipoTerm) {
+            switch (this.getTipoTerm()) {
                 case 1:
                     if (this.getContadorMov() == 0) {
                         this.setTerminado(true);
@@ -443,6 +444,7 @@ public class Partida {
         if (diagonalS < 9 && diagonalS != ficha) {
             movimientos[diagonalS] = true;
         }
+        this.comprobarMov();
     }
 
     //Verifica que tipo de String se recibió
@@ -478,7 +480,6 @@ public class Partida {
             if (dato.equals("PASAR")) {
                 ret = true;
                 if (this.isSeMovio()) {
-                    this.setseMovio(false);
                     this.cambioTurno();
                 }
 

@@ -151,23 +151,24 @@ public class Prueba {
                         System.out.println("Texto incorrecto");
                     }
                 }
-                p.comprobarMov();
 
             } else {
                 p.cambioTurno();
             }
             p.termino();
         }
+        mostrarTablero(p);
         if (p.getContador() >= 2) {
             System.out.println("Ya no hay movimientos posibles");
         }
         p.sumaPuntos();
+        
         System.out.println("Partida terminada");
         if (p.getResultado().equals("Rojo")) {
-            System.out.println("Ganó el jugador Rojo de Alias: " + jugadorRojo.getAlias());
+            System.out.println("Ganó el jugador rojo de Alias: " + jugadorRojo.getAlias());
         } else {
             if (p.getResultado().equals("Azul")) {
-                System.out.println("Ganó el jugador Azul de Alias " + jugadorAzul.getAlias());
+                System.out.println("Ganó el jugador azul de Alias " + jugadorAzul.getAlias());
             } else {
                 System.out.println("Juego terminado en empate");
             }
