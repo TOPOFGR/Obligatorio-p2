@@ -196,6 +196,7 @@ public class Prueba {
             }
             enter();
         }
+        mostrarTablero(p);
         System.out.println("Réplica Finalizada ");
     }
 
