@@ -70,6 +70,7 @@ public class Prueba {
                 case 2:
                     if (s.getListaRankings().size() < 2) {
                         System.out.println("No hay suficientes jugadores registrados");
+                        enter();
                     } else {
                         jugar(s);
                     }
