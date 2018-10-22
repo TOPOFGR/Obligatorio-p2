@@ -140,7 +140,7 @@ public class Prueba {
                 if (p.isTurnoRojo()) {
                     mensaje += "\033[31m" + "Turno del jugador rojo. " + "\033[0m";
                 } else {
-                    mensaje += "\033[34m" + "Turno del jugador azul." + "\033[0m";
+                    mensaje += "\033[34m" + "Turno del jugador azul. " + "\033[0m";
                 }
                 mensaje += "Se pueden mover las fichas: " + p.mostrarMovimientos() + ". Recuerde que puede cambiar la forma de visualización con VERR/VERN y pasar de turno (si ya se hizo un movimiento) con PASAR";
                 boolean comandoCorrecto = false;

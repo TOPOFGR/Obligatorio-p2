@@ -146,7 +146,7 @@ public class Partida {
         this.seMovio = seMovio;
     }
 
-    //Contructor
+    //Constructor
     public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
