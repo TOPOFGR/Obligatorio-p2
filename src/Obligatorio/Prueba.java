@@ -140,7 +140,7 @@ public class Prueba {
                 } else {
                     mensaje += "\033[34m" + "Turno del jugador azul. " + "\033[0m";
                 }
-                mensaje += "Se pueden mover las fichas: " + p.mostrarMovimientos() + ". Recuerde que puede cambiar la forma de visualización con VERR/VERN y pasar de turno (si ya se hizo un movimiento) con PASAR";
+                mensaje += "Se pueden mover las fichas: " + p.mostrarMovimientos() + ". Recuerde que puede cambiar la forma de visualización con VERR/VERN, rendirse con X y pasar de turno (si ya se hizo un movimiento) con PASAR";
                 boolean comandoCorrecto = false;
                 while (!comandoCorrecto) {
                     String dato = leerTexto(mensaje);
@@ -181,6 +181,7 @@ public class Prueba {
                 + "la partida que desea replicar\n" + s.mostrarLista(s.getListaPartidas()),
                 0, s.getListaPartidas().size()) - 1);
         p.reset();
+        mostrarTablero(p);
         for (int i = 0; i < p.cantidadMovimientos(); i++) {
 
             String mov = p.getListaMovimientos().get(i);
@@ -188,14 +189,21 @@ public class Prueba {
             if (i + 1 < p.cantidadMovimientos()) {
                 sigmov = p.getListaMovimientos().get(i + 1);
             }
-            mostrarTablero(p);
+            
             p.moverFicha(mov);
+            mostrarTablero(p);
+            //if (i>0) {
+                String jugador = "azul";
+                if (p.isTurnoRojo()) {
+                    jugador = "rojo";
+                }
+
+                System.out.println("El jugador "+jugador+" movió "+p.getListaMovimientos().get(i));
+            //}
+            
             if (sigmov.equals("CT")) {
                 p.setTurnoRojo(!(p.isTurnoRojo()));
                 i++;
-            }
-            if (i > 0) {
-                System.out.println("Realizo el movimiento " + p.getListaMovimientos().get(i-1));
             }
             enter();
         }

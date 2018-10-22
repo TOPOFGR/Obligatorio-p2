@@ -532,7 +532,17 @@ public class Partida {
 
     @Override
     public String toString() {
-        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugada entre: " + this.getJugadorRojo().getAlias() + " y " + this.getJugadorAzul().getAlias();
+        String resultado = "Termino en empate";
+        if(this.getResultado().equals("Rojo")){
+            resultado = "Gano el jugador rojo";
+        }
+        if(this.getResultado().equals("Azul")){
+            resultado = "Gano el jugador azul";
+        }
+        
+        
+        
+        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugador rojo: " + this.getJugadorRojo().getAlias() + ". Jugador azul: " + this.getJugadorAzul().getAlias()+". "+resultado;
     }
 
 }
