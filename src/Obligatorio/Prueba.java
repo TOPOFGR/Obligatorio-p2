@@ -4,9 +4,10 @@ package Obligatorio;
 import java.util.*;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
-
+ 
 public class Prueba {
 
+    
     //Metodo para ingresar un entero con un maximo y un mínimo
     public static int pedirInt(String mensaje, int min, int max) {
         System.out.println(mensaje);
