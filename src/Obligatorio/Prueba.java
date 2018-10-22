@@ -1,13 +1,10 @@
-
 package Obligatorio;
 
 import java.util.*;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
- 
 public class Prueba {
 
-    
     //Metodo para ingresar un entero con un maximo y un mínimo
     public static int pedirInt(String mensaje, int min, int max) {
         System.out.println(mensaje);
@@ -164,7 +161,7 @@ public class Prueba {
             System.out.println("Ya no hay movimientos posibles");
         }
         p.sumaPuntos();
-        
+
         System.out.println("Partida terminada");
         if (p.getResultado().equals("Rojo")) {
             System.out.println("Ganó el jugador rojo de Alias: " + jugadorRojo.getAlias());
@@ -185,6 +182,7 @@ public class Prueba {
                 0, s.getListaPartidas().size()) - 1);
         p.reset();
         for (int i = 0; i < p.cantidadMovimientos(); i++) {
+
             String mov = p.getListaMovimientos().get(i);
             String sigmov = "";
             if (i + 1 < p.cantidadMovimientos()) {
@@ -195,6 +193,9 @@ public class Prueba {
             if (sigmov.equals("CT")) {
                 p.setTurnoRojo(!(p.isTurnoRojo()));
                 i++;
+            }
+            if (i > 0) {
+                System.out.println("Realizo el movimiento " + p.getListaMovimientos().get(i-1));
             }
             enter();
         }
