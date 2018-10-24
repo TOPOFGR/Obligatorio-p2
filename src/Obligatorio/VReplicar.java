@@ -14,8 +14,13 @@ public class VReplicar extends javax.swing.JFrame {
     /**
      * Creates new form VReplicar
      */
+    private Sistema modelo;
     public VReplicar() {
         initComponents();
+    }
+    public VReplicar(Sistema m) {
+        initComponents();
+        modelo=m;
     }
 
     /**
@@ -27,7 +32,7 @@ public class VReplicar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
