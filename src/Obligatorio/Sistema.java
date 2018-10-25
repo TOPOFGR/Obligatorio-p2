@@ -1,10 +1,8 @@
-
 package Obligatorio;
 
 import java.util.ArrayList;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
-
 public class Sistema {
 
     private ArrayList<Partida> listaPartidas;
@@ -67,6 +65,22 @@ public class Sistema {
             }
         }
         return false;
+    }
+
+    public boolean RegistrarJugador(String nombre, String alias, int edad) {
+        boolean ok = false;
+        if (ok) {
+            
+            while (ValidarAlias(alias)) {
+                alias = ("El Alias: " + alias + " no esta disponible."
+                        + " Ingresa uno nuevo");
+            }
+            Jugador j = new Jugador(nombre, alias, edad);
+            if (!ok) {
+                agregarRanking(j);
+            }
+        }
+        return ok;
     }
 
 }
