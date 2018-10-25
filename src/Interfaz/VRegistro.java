@@ -5,6 +5,8 @@
  */
 package Obligatorio;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Santiago
@@ -108,9 +110,21 @@ public class VRegistro extends javax.swing.JFrame {
         String nomj = nombre.getText();
         String aj = alias.getText();
         int ej = Integer.parseInt(edad.getText());
-        if (modelo.RegistrarJugador(nomj, aj, ej)) {
-            
+        switch (modelo.RegistrarJugador(nomj, aj, ej)) {
+            case 1:
+                JOptionPane.showMessageDialog(null,"Alias ya disponible","ERROR",JOptionPane.ERROR_MESSAGE);
+                break;
+
+            case 2:
+                
+                break;
+
+            case 3:
+
+                break;
         }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -147,7 +161,7 @@ public class VRegistro extends javax.swing.JFrame {
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alias;

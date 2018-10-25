@@ -67,19 +67,18 @@ public class Sistema {
         return false;
     }
 
-    public boolean RegistrarJugador(String nombre, String alias, int edad) {
-        boolean ok = false;
-        if (ok) {
-            
-            while (ValidarAlias(alias)) {
-                alias = ("El Alias: " + alias + " no esta disponible."
-                        + " Ingresa uno nuevo");
-            }
-            Jugador j = new Jugador(nombre, alias, edad);
-            if (!ok) {
-                agregarRanking(j);
-            }
+    public int RegistrarJugador(String nombre, String alias, int edad) {
+        int ok = 0;
+
+        if (ValidarAlias(alias)) {
+            ok = 1;
         }
+        Jugador j = new Jugador(nombre, alias, edad);
+        if (ok == 0) {
+            agregarRanking(j);
+
+        }
+
         return ok;
     }
 
