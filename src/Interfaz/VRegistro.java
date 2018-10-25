@@ -112,30 +112,11 @@ public class VRegistro extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nomj = nombre.getText();
         String aj = alias.getText();
-        int ej = (int) edad.getValue();
-        switch (modelo.RegistrarJugador(nomj, aj, ej)) {
-            case 0:
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, "Alias ya disponible", "ERROR", JOptionPane.ERROR_MESSAGE);
-                break;
-
-            case 2:
-                JOptionPane.showMessageDialog(null, "No se ingreso un Alias", "ERROR", JOptionPane.ERROR_MESSAGE);
-                break;
-            
-            case 3:
-                JOptionPane.showMessageDialog(null, "No se ingreso un Nombre", "ERROR", JOptionPane.ERROR_MESSAGE);
-                break;
-                
-            case 4:
-                JOptionPane.showMessageDialog(null, "No se ingreso un Nombre", "ERROR", JOptionPane.ERROR_MESSAGE);
-                break;
-            case 5:
-                
-                break;
+        int ej = (int) Integer.parseInt(edad.getText());
+        String mensaje = modelo.RegistrarJugador(nomj, aj, ej);
+        if (!mensaje.equals("")) {
+            JOptionPane.showMessageDialog(null,mensaje, "Error", JOptionPane.ERROR_MESSAGE);
         }
-
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

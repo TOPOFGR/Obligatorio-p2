@@ -69,30 +69,30 @@ public class Sistema  extends Observable{
         return false;
     }
 
-    public int RegistrarJugador(String nombre, String alias, int edad) {
-        int ok = 0;
+    public String RegistrarJugador(String nombre, String alias, int edad) {
+        String ret = "";
        
         if (ValidarAlias(alias)) {
-            ok = 1;
+            ret = "El Alias ya existe";
         }
         
         if (alias.trim().isEmpty()) {
-            ok=2;
+            ret= "No se ingresó un alias";
         }
         
         if (nombre.trim().isEmpty()) {
-            ok=3;
+            ret="No se ingresó un nombre";
         }
         if (edad>200||edad<1) {
-            ok=5;
+            ret= "La edad debe estar entre 1 y 200 (incluido)";
         }
         
         Jugador j = new Jugador(nombre, alias, edad);
-        if (ok == 0) {
+        if (ret.isEmpty()) {
             agregarRanking(j);
         }
 
-        return ok;
+        return ret;
     }
     public String[] getRankingFormat(){
         String[] ret = new String[this.listaRankings.size()];
