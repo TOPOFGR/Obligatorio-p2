@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Obligatorio;
+package Interfaz;
 
+import Obligatorio.Sistema;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,7 +44,7 @@ public class VRegistro extends javax.swing.JFrame {
         nombre = new javax.swing.JTextField();
         alias = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        edad = new javax.swing.JTextField();
+        edad = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,6 +63,8 @@ public class VRegistro extends javax.swing.JFrame {
             }
         });
 
+        edad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,7 +82,7 @@ public class VRegistro extends javax.swing.JFrame {
                     .addComponent(nombre)
                     .addComponent(alias)
                     .addComponent(edad))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,11 +97,11 @@ public class VRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(alias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(edad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(37, 37, 37)
                 .addComponent(jButton1)
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -111,16 +114,22 @@ public class VRegistro extends javax.swing.JFrame {
         String aj = alias.getText();
         int ej = Integer.parseInt(edad.getText());
         switch (modelo.RegistrarJugador(nomj, aj, ej)) {
+            case 0:
+                break;
             case 1:
-                JOptionPane.showMessageDialog(null,"Alias ya disponible","ERROR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Alias ya disponible", "ERROR", JOptionPane.ERROR_MESSAGE);
                 break;
 
             case 2:
-                
+                JOptionPane.showMessageDialog(null, "No se ingreso un Alias", "ERROR", JOptionPane.ERROR_MESSAGE);
                 break;
-
+            
             case 3:
-
+                JOptionPane.showMessageDialog(null, "No se ingreso un Nombre", "ERROR", JOptionPane.ERROR_MESSAGE);
+                break;
+                
+            case 4:
+                JOptionPane.showMessageDialog(null, "No se ingreso un Nombre", "ERROR", JOptionPane.ERROR_MESSAGE);
                 break;
         }
 
@@ -165,7 +174,7 @@ public class VRegistro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alias;
-    private javax.swing.JTextField edad;
+    private javax.swing.JFormattedTextField edad;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

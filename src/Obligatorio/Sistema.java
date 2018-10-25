@@ -69,14 +69,22 @@ public class Sistema  extends Observable{
 
     public int RegistrarJugador(String nombre, String alias, int edad) {
         int ok = 0;
-
+       
         if (ValidarAlias(alias)) {
             ok = 1;
         }
+        
+        if (alias.trim().isEmpty()) {
+            ok=2;
+        }
+        
+        if (nombre.trim().isEmpty()) {
+            ok=3;
+        }
+        
         Jugador j = new Jugador(nombre, alias, edad);
         if (ok == 0) {
             agregarRanking(j);
-
         }
 
         return ok;

@@ -1,6 +1,8 @@
 
 package Obligatorio;
 
+import Interfaz.Menu;
+
 /**
  *
  * @author Santiago
