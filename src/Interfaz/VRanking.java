@@ -24,6 +24,8 @@ public class VRanking extends javax.swing.JFrame implements Observer {
     public VRanking(Sistema m) {
         initComponents();
         modelo=m;
+        ranking.setListData(modelo.getRankingFormat());
+        modelo.addObserver(this);
     }
 
     /**

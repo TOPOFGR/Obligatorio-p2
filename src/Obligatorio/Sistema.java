@@ -52,6 +52,8 @@ public class Sistema  extends Observable{
 
     public void agregarRanking(Jugador unJugador) {
         this.getListaRankings().add(unJugador);
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public int cantidadRankings() {
