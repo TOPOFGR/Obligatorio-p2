@@ -112,7 +112,7 @@ public class VRegistro extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nomj = nombre.getText();
         String aj = alias.getText();
-        int ej = Integer.parseInt(edad.getText());
+        int ej = (int) edad.getValue();
         switch (modelo.RegistrarJugador(nomj, aj, ej)) {
             case 0:
                 break;
@@ -132,7 +132,7 @@ public class VRegistro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se ingreso un Nombre", "ERROR", JOptionPane.ERROR_MESSAGE);
                 break;
             case 5:
-                JOptionPane.showMessageDialog(null, "La edad debe estar entre 1 y 200", "ERROR", JOptionPane.ERROR_MESSAGE);
+                
                 break;
         }
 

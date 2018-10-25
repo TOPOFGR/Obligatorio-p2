@@ -4,16 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/Partida.java</file>
-            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/VRegistro.java</file>
-            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/VRanking.java</file>
-            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/Menu.java</file>
+            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Interfaz/Menu.java</file>
+            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Interfaz/VRegistro.java</file>
+            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Interfaz/VRanking.java</file>
             <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/Ficha.java</file>
             <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/Sistema.java</file>
             <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/Jugador.java</file>
             <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/Prueba.java</file>
-            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/VJuego.java</file>
+            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Interfaz/VReplicar.java</file>
             <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/Inicio.java</file>
-            <file>file:/C:/Users/Santiago/Documents/NetBeansProjects/kraken/Obligatorio-p2/src/Obligatorio/VReplicar.java</file>
         </group>
     </open-files>
 </project-private>
