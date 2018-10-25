@@ -1,9 +1,9 @@
 package Obligatorio;
 
-import java.util.ArrayList;
+import java.util.*;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
-public class Sistema {
+public class Sistema  extends Observable{
 
     private ArrayList<Partida> listaPartidas;
     private ArrayList<Jugador> listaRankings;
@@ -80,6 +80,13 @@ public class Sistema {
         }
 
         return ok;
+    }
+    public String[] getRankingFormat(){
+        String[] ret = new String[this.listaRankings.size()];
+        for (int i = 0; i < 10; i++) {
+            ret[i]=listaRankings.get(i).toString();
+        }
+        return ret;
     }
 
 }
