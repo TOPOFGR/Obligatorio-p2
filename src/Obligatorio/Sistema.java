@@ -93,7 +93,7 @@ public class Sistema  extends Observable{
     }
     public String[] getRankingFormat(){
         String[] ret = new String[this.listaRankings.size()];
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i <listaRankings.size(); i++) {
             ret[i]=listaRankings.get(i).toString();
         }
         return ret;
