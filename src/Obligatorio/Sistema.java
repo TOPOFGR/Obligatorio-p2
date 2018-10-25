@@ -83,6 +83,9 @@ public class Sistema  extends Observable{
         if (nombre.trim().isEmpty()) {
             ok=3;
         }
+        if (edad>200) {
+            ok=5;
+        }
         
         Jugador j = new Jugador(nombre, alias, edad);
         if (ok == 0) {

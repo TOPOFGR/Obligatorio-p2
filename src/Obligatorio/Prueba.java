@@ -63,6 +63,7 @@ public class Prueba {
                     + "\n 5) Salir del juego", 1, 5);
             switch (opcion) {
                 case 1:
+                    s.agregarRanking(RegistrarJugador(s));
                     break;
                 case 2:
                     if (s.getListaRankings().size() < 2) {
@@ -105,7 +106,17 @@ public class Prueba {
     }
 
     //Case 1
-    
+    public static Jugador RegistrarJugador(Sistema s) {
+        String nombre = leerTexto("Ingrese Nombre");
+        String alias = leerTexto("Ingrese Alias");
+        while (s.ValidarAlias(alias)) {
+            alias = leerTexto("El Alias: " + alias + " no esta disponible."
+                    + " Ingresa uno nuevo");
+        }
+        int edad = pedirInt("Ingrese Edad", 1, 200);
+        Jugador j = new Jugador(nombre, alias, edad);
+        return j;
+    }
 
     //Case 2
     public static void jugar(Sistema s) {
