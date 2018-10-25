@@ -83,7 +83,7 @@ public class Sistema  extends Observable{
         if (nombre.trim().isEmpty()) {
             ok=3;
         }
-        if (edad>200) {
+        if (edad>200&&edad<1) {
             ok=5;
         }
         

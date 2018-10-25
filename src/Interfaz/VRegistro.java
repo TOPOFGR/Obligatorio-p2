@@ -132,8 +132,7 @@ public class VRegistro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se ingreso un Nombre", "ERROR", JOptionPane.ERROR_MESSAGE);
                 break;
             case 5:
-                JOptionPane.showMessageDialog(null, "La edad "+edad+" es mayor "
-                        + "a 200, ingrese una edad valida", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "La edad debe estar entre 1 y 200", "ERROR", JOptionPane.ERROR_MESSAGE);
                 break;
         }
 
