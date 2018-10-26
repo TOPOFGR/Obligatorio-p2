@@ -1,9 +1,18 @@
 package Obligatorio;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
-public class Sistema  extends Observable{
+public class Sistema  extends Observable implements Serializable{
 
     private ArrayList<Partida> listaPartidas;
     private ArrayList<Jugador> listaRankings;
@@ -84,7 +93,7 @@ public class Sistema  extends Observable{
             ret="No se ingresó un nombre";
         }
         if (edad>200||edad<1) {
-            ret= "La edad debe estar entre 1 y 200 (incluido)";
+            ret= "La edad debe estar entre 1 y 200 (inclusive)";
         }
         
         Jugador j = new Jugador(nombre, alias, edad);
@@ -100,6 +109,27 @@ public class Sistema  extends Observable{
             ret[i]=listaRankings.get(i).toString();
         }
         return ret;
+    }
+    
+    public void cerrar(){
+        FileOutputStream ff = null;
+        try {
+            File f = new File("datosSistema.txt");
+            ff = new FileOutputStream("datosSistema.txt");
+            BufferedOutputStream b = new BufferedOutputStream(ff);
+            ObjectOutputStream ss = new ObjectOutputStream(b);
+            ss.writeObject(this);
+            ss.flush();
+            ss.close();
+        } catch (Exception ex) {
+            System.out.println("Error al guardar");
+        }finally {
+            try {
+                ff.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
 }

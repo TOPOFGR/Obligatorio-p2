@@ -3,7 +3,10 @@ package Obligatorio;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 
-public class Jugador {
+import java.io.Serializable;
+
+
+public class Jugador implements Serializable{
 
     private String nombre;
     private String alias;

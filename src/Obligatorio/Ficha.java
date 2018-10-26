@@ -1,11 +1,13 @@
 
 package Obligatorio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Santiago Rügnitz y Franco Galeano
  */
-public class Ficha {
+public class Ficha implements Serializable{
 
     private String tipo;
     private int valor;

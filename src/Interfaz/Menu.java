@@ -6,6 +6,8 @@
 package Interfaz;
 
 import Obligatorio.Sistema;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -23,6 +25,13 @@ public class Menu extends javax.swing.JFrame {
     public Menu(Sistema m) {
         initComponents();
         modelo=m;
+        this.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                modelo.cerrar();
+                System.exit(0);
+            }
+        });
     }
 
     /**
@@ -43,7 +52,7 @@ public class Menu extends javax.swing.JFrame {
         replicar = new javax.swing.JMenuItem();
         ranking = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setText("^_^");
 

@@ -1,13 +1,14 @@
 
 package Obligatorio;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 
-public class Partida {
+public class Partida implements Serializable{
 
     private Jugador jugadorRojo;
     private Jugador jugadorAzul;
