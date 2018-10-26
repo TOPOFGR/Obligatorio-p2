@@ -184,9 +184,7 @@ public class VJuego extends javax.swing.JFrame {
             movimiento+="D";
         }
         comando[1]=movimiento;
-        if(!modelo.recibirComando(comando)){
-            JOptionPane.showMessageDialog(null,"Movimiento imposible", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        modelo.recibirComando(comando);
         
     }
     
