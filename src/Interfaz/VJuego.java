@@ -64,7 +64,6 @@ public class VJuego extends javax.swing.JFrame {
         D = new javax.swing.JRadioButton();
         I = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         javax.swing.GroupLayout panelJuegoLayout = new javax.swing.GroupLayout(panelJuego);
@@ -173,5 +172,17 @@ public class VJuego extends javax.swing.JFrame {
         
         }
     }
+    
+    public JButton color(int fila, int columna) {
+        if (true) {
+            
+        }else{
+            
+        }
+        
+    }
+
+
+
 
 }
