@@ -5,7 +5,9 @@
  */
 package Interfaz;
 
+import Obligatorio.Partida;
 import Obligatorio.Sistema;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +25,7 @@ public class VJuego extends javax.swing.JFrame {
      */
     private Sistema modelo;
     private JButton[][] botones;
+    private Partida juego;
 
     public VJuego() {
         initComponents();
@@ -59,6 +62,7 @@ public class VJuego extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         panelJuego = new javax.swing.JPanel();
         A = new javax.swing.JRadioButton();
         D = new javax.swing.JRadioButton();
@@ -138,6 +142,7 @@ public class VJuego extends javax.swing.JFrame {
     private javax.swing.JRadioButton D;
     private javax.swing.JRadioButton I;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPanel panelJuego;
     // End of variables declaration//GEN-END:variables
 
@@ -173,14 +178,14 @@ public class VJuego extends javax.swing.JFrame {
         }
     }
     
-    public JButton color(int fila, int columna) {
-        if (true) {
-            
-        }else{
-            
-        }
-        
-    }
+//    public JButton color(int fila, int columna) {
+//        if (true) {
+//            botones [fila][columna].setBackground(Color.red);
+//        }else{
+//            
+//        }
+//        return JButton ;
+//    }
 
 
 
