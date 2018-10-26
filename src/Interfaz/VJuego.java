@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -163,16 +164,30 @@ public class VJuego extends javax.swing.JFrame {
     }
 
     private void clickBoton(int fila, int columna) {
-        String ret =botones[fila][columna].getName();
+        String[] comando = new String[2];
+        JButton boton = (JButton) panelJuego.getComponentAt(fila, columna);
+        if(boton.getBackground().getRed()==255){
+            comando[0] = "Rojo";
+        }
+        if(boton.getBackground().getBlue()==255){
+            comando[0] = "Azul";
+        }
+        String movimiento = boton.getName();
+        
         if (A.isSelected()){
-            ret+="A";
+            movimiento+="A";
         }
         if (D.isSelected()){
-            ret+="D";
+            movimiento+="D";
         }
         if (I.isSelected()){
-            ret+="D";
+            movimiento+="D";
         }
+        comando[1]=movimiento;
+        if(!modelo.recibirComando(comando)){
+            JOptionPane.showMessageDialog(null,"Movimiento imposible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
     
 //    public JButton color(int fila, int columna) {

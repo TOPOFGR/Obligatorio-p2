@@ -449,9 +449,14 @@ public class Partida implements Serializable{
     }
 
     //Verifica que tipo de String se recibió
-    public boolean recibirComando(String dato) {
+    public boolean recibirComando(String[] comando) {
         boolean ret = false;
-        if (dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
+        String turno="Azul";
+        if(isTurnoRojo()){
+            turno="Rojo";
+        }
+        String dato=comando[1];
+        if (turno.equals(comando[0])&&dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
             if (dato.length() == 2 && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {
                 int ficha = Integer.parseInt(dato.substring(0, 1));
                 if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
