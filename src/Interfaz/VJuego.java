@@ -6,6 +6,11 @@
 package Interfaz;
 
 import Obligatorio.Sistema;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 
 /**
  *
@@ -17,12 +22,31 @@ public class VJuego extends javax.swing.JFrame {
      * Creates new form VJuego
      */
     private Sistema modelo;
+    private JButton[][] botones;
+
     public VJuego() {
         initComponents();
     }
+    
+
+    
+
     public VJuego(Sistema m) {
         initComponents();
-        modelo=m;
+        modelo = m;
+        ButtonGroup btrGroup = new ButtonGroup();
+        btrGroup.add(A);
+        btrGroup.add(D);
+        btrGroup.add(I);
+        panelJuego.setLayout(new GridLayout(8, 9));
+        botones = new JButton[9][10];
+        for (int i = 1; i <= 8; i++) {
+            for (int j = 1; j <= 9; j++) {
+                JButton jButton = new JButton();
+                jButton.addActionListener(new ListenerBoton(i, j));
+                panelJuego.add(jButton);
+            }
+        }
     }
 
     /**
@@ -34,18 +58,43 @@ public class VJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        panelJuego = new javax.swing.JPanel();
+        A = new javax.swing.JRadioButton();
+        D = new javax.swing.JRadioButton();
+        I = new javax.swing.JRadioButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        javax.swing.GroupLayout panelJuegoLayout = new javax.swing.GroupLayout(panelJuego);
+        panelJuego.setLayout(panelJuegoLayout);
+        panelJuegoLayout.setHorizontalGroup(
+            panelJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 260, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        panelJuegoLayout.setVerticalGroup(
+            panelJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 230, Short.MAX_VALUE)
         );
+
+        getContentPane().add(panelJuego);
+        panelJuego.setBounds(10, 10, 260, 230);
+
+        buttonGroup1.add(A);
+        A.setText("Adelante");
+        getContentPane().add(A);
+        A.setBounds(280, 90, 82, 28);
+
+        buttonGroup1.add(D);
+        D.setText("Derecha");
+        getContentPane().add(D);
+        D.setBounds(280, 130, 80, 28);
+
+        buttonGroup1.add(I);
+        I.setText("Izquierda");
+        getContentPane().add(I);
+        I.setBounds(280, 170, 84, 28);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -86,5 +135,43 @@ public class VJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton A;
+    private javax.swing.JRadioButton D;
+    private javax.swing.JRadioButton I;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JPanel panelJuego;
     // End of variables declaration//GEN-END:variables
+
+    private class ListenerBoton implements ActionListener {
+
+        private int x;
+        private int y;
+
+        public ListenerBoton(int i, int j) {
+// en el constructor se almacena la fila y columna que se presionó
+            x = i;
+            y = j;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+// cuando se presiona un botón, se ejecutará este método
+            clickBoton(x, y);
+        }
+    }
+
+    private void clickBoton(int fila, int columna) {
+        if (A.isSelected()){
+            
+        
+        }
+        if (D.isSelected()){
+            
+        
+        }
+        if (I.isSelected()){
+            
+        
+        }
+    }
+
 }
