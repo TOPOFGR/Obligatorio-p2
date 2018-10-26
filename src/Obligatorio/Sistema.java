@@ -97,6 +97,8 @@ public class Sistema  extends Observable implements Serializable{
 
         return ret;
     }
+    
+    
     public String[] getRankingFormat(){
         String[] ret = new String[this.listaRankings.size()];
         for (int i = 0; i <listaRankings.size(); i++) {
@@ -125,5 +127,6 @@ public class Sistema  extends Observable implements Serializable{
             }
         }
     }
+    
 
 }
