@@ -23,7 +23,6 @@ public class VJuego extends javax.swing.JFrame {
     /**
      * Creates new form VJuego
      */
-    private Sistema modelo;
     private JButton[][] botones;
     private Partida juego;
 
@@ -34,9 +33,9 @@ public class VJuego extends javax.swing.JFrame {
 
     
 
-    public VJuego(Sistema m) {
+    public VJuego(Partida unJuego) {
         initComponents();
-        modelo = m;
+        juego = unJuego;
         ButtonGroup btrGroup = new ButtonGroup();
         btrGroup.add(A);
         btrGroup.add(D);

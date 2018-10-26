@@ -5,6 +5,7 @@
  */
 package Interfaz;
 
+import Obligatorio.Partida;
 import Obligatorio.Sistema;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,13 +22,15 @@ public class VPartida extends javax.swing.JFrame implements Observer {
      * Creates new form VPartida
      */
     private Sistema modelo;
+    private Partida partida;
 
     public VPartida() {
         initComponents();
     }
 
-    public VPartida(Sistema m) {
+    public VPartida(Sistema m, Partida unaPartida) {
         initComponents();
+        partida = unaPartida;
         ButtonGroup btrGroup = new ButtonGroup();
         btrGroup.add(uno);
         btrGroup.add(dos);
@@ -37,6 +40,10 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         jAzul.setListData(modelo.getRankingFormat());
         modelo.addObserver(this);
 
+    }
+
+    VPartida(Sistema modelo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -170,15 +177,18 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             while(movimientos.getText().trim().isEmpty()){
                 JOptionPane.showMessageDialog(null,"No selecciono la cantidad de Movimientos", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
+            partida.setTipoTerm(1);
         }
         if (dos.isSelected()) {
-            
+            partida.setTipoTerm(2);
         }
         if (tres.isSelected()) {
-            
+            partida.setTipoTerm(3);            
         }
         
+        
+        VJuego v = new VJuego();
+        v.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
