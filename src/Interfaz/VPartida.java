@@ -38,10 +38,6 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         jRojo.setListData(modelo.getRankingFormat());
         jAzul.setListData(modelo.getRankingFormat());
         modelo.addObserver(this);
-        if (modelo.getRankingFormat().length < 2) {
-            JOptionPane.showMessageDialog(null, "No hay suficientes jugadores", "Error", JOptionPane.ERROR_MESSAGE);
-            this.dispose();
-        }
     }
 
 

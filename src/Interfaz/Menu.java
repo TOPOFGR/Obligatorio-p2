@@ -8,6 +8,7 @@ package Interfaz;
 import Obligatorio.Sistema;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -125,8 +126,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_replicarActionPerformed
 
     private void jugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarActionPerformed
+        if (modelo.getListaRankings().size()<2) {
+            JOptionPane.showMessageDialog(null, "No hay suficientes jugadores", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
         VPartida v = new VPartida(modelo);
         v.setVisible(true);
+        }
+        
     }//GEN-LAST:event_jugarActionPerformed
 
     private void registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroActionPerformed
