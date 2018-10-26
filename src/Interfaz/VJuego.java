@@ -24,7 +24,7 @@ public class VJuego extends javax.swing.JFrame {
      * Creates new form VJuego
      */
     private JButton[][] botones;
-    private Partida juego;
+    private Partida modelo;
 
     public VJuego() {
         initComponents();
@@ -35,7 +35,7 @@ public class VJuego extends javax.swing.JFrame {
 
     public VJuego(Partida unJuego) {
         initComponents();
-        juego = unJuego;
+        modelo = unJuego;
         ButtonGroup btrGroup = new ButtonGroup();
         btrGroup.add(A);
         btrGroup.add(D);
@@ -84,19 +84,20 @@ public class VJuego extends javax.swing.JFrame {
         panelJuego.setBounds(10, 10, 260, 230);
 
         buttonGroup1.add(A);
+        A.setSelected(true);
         A.setText("Adelante");
         getContentPane().add(A);
-        A.setBounds(280, 90, 82, 28);
+        A.setBounds(280, 90, 69, 23);
 
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(280, 130, 80, 28);
+        D.setBounds(280, 130, 65, 23);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
         getContentPane().add(I);
-        I.setBounds(280, 170, 84, 28);
+        I.setBounds(280, 170, 71, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -162,17 +163,15 @@ public class VJuego extends javax.swing.JFrame {
     }
 
     private void clickBoton(int fila, int columna) {
+        String ret =botones[fila][columna].getName();
         if (A.isSelected()){
-            
-        
+            ret+="A";
         }
         if (D.isSelected()){
-            
-        
+            ret+="D";
         }
         if (I.isSelected()){
-            
-        
+            ret+="D";
         }
     }
     

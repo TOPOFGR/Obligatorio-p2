@@ -5,6 +5,7 @@
  */
 package Interfaz;
 
+import Obligatorio.Jugador;
 import Obligatorio.Partida;
 import Obligatorio.Sistema;
 import java.util.Observable;
@@ -22,15 +23,13 @@ public class VPartida extends javax.swing.JFrame implements Observer {
      * Creates new form VPartida
      */
     private Sistema modelo;
-    private Partida partida;
 
     public VPartida() {
         initComponents();
     }
 
-    public VPartida(Sistema m, Partida unaPartida) {
+    public VPartida(Sistema m) {
         initComponents();
-        partida = unaPartida;
         ButtonGroup btrGroup = new ButtonGroup();
         btrGroup.add(uno);
         btrGroup.add(dos);
@@ -42,9 +41,6 @@ public class VPartida extends javax.swing.JFrame implements Observer {
 
     }
 
-    VPartida(Sistema modelo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,22 +169,37 @@ public class VPartida extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int tipoTerm=1;
+        int movMax=Integer.MAX_VALUE;
         if (uno.isSelected()) {
             while(movimientos.getText().trim().isEmpty()){
                 JOptionPane.showMessageDialog(null,"No selecciono la cantidad de Movimientos", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            partida.setTipoTerm(1);
+            movMax= Integer.parseInt(movimientos.getText());
+            tipoTerm=1;
         }
         if (dos.isSelected()) {
-            partida.setTipoTerm(2);
+            tipoTerm=2;
         }
         if (tres.isSelected()) {
-            partida.setTipoTerm(3);            
+            tipoTerm=3;            
+        }
+        if(jRojo.isSelectionEmpty()||jAzul.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null,"No selecciono ambos jugadores", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(jRojo.getSelectedIndex()!=jAzul.getSelectedIndex()){
+            Jugador jugadorRojo = modelo.getListaRankings().get(jRojo.getSelectedIndex());
+            Jugador jugadorAzul = modelo.getListaRankings().get(jAzul.getSelectedIndex());
+            Partida p = new Partida(jugadorRojo, jugadorAzul, tipoTerm,movMax );
+            VJuego v = new VJuego(p);
+            v.setVisible(true);
+            this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null,"Se seleccionó dos veces al mismo jugador", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
         }
         
-        
-        VJuego v = new VJuego();
-        v.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
