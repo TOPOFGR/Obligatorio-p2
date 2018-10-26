@@ -190,14 +190,6 @@ public class VJuego extends javax.swing.JFrame {
         
     }
     
-//    public JButton color(int fila, int columna) {
-//        if (true) {
-//            botones [fila][columna].setBackground(Color.red);
-//        }else{
-//            
-//        }
-//        return JButton ;
-//    }
 
 
 
