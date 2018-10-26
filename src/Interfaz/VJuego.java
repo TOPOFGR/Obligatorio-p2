@@ -62,12 +62,12 @@ public class VJuego extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
         panelJuego = new javax.swing.JPanel();
         A = new javax.swing.JRadioButton();
         D = new javax.swing.JRadioButton();
         I = new javax.swing.JRadioButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         javax.swing.GroupLayout panelJuegoLayout = new javax.swing.GroupLayout(panelJuego);
@@ -142,7 +142,6 @@ public class VJuego extends javax.swing.JFrame {
     private javax.swing.JRadioButton D;
     private javax.swing.JRadioButton I;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPanel panelJuego;
     // End of variables declaration//GEN-END:variables
 
