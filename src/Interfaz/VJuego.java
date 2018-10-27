@@ -5,15 +5,18 @@
  */
 package Interfaz;
 
+import Obligatorio.Ficha;
 import Obligatorio.Partida;
 import Obligatorio.Sistema;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -46,10 +49,13 @@ public class VJuego extends javax.swing.JFrame {
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 9; j++) {
                 JButton jButton = new JButton();
+                jButton.setMargin(new Insets(-5, -5, -5, -5)); 
                 jButton.addActionListener(new ListenerBoton(i, j));
                 panelJuego.add(jButton);
+                botones[i][j] = jButton;
             }
         }
+        armarBotones();
     }
 
     /**
@@ -68,6 +74,7 @@ public class VJuego extends javax.swing.JFrame {
         I = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 600));
         getContentPane().setLayout(null);
 
         javax.swing.GroupLayout panelJuegoLayout = new javax.swing.GroupLayout(panelJuego);
@@ -165,14 +172,10 @@ public class VJuego extends javax.swing.JFrame {
 
     private void clickBoton(int fila, int columna) {
         String[] comando = new String[2];
-        JButton boton = (JButton) panelJuego.getComponentAt(fila, columna);
-        if(boton.getBackground().getRed()==255){
-            comando[0] = "Rojo";
-        }
-        if(boton.getBackground().getBlue()==255){
-            comando[0] = "Azul";
-        }
-        String movimiento = boton.getName();
+        Ficha[][] mat = modelo.getTablero();
+        Ficha f= mat[fila][columna];
+        comando[0] = f.getTipo();
+        String movimiento =""+f.getValor();
         
         if (A.isSelected()){
             movimiento+="A";
@@ -184,7 +187,35 @@ public class VJuego extends javax.swing.JFrame {
             movimiento+="D";
         }
         comando[1]=movimiento;
-        modelo.recibirComando(comando);
+        if (modelo.recibirComando(comando)) {
+            armarBotones();
+            if(modelo.isTerminado()){
+                //Aca va lo de afuera del while de prueba
+            }
+        }
+        
+    }
+    private void armarBotones(){
+        Ficha[][] mat= modelo.getTablero();
+        for (int i = 1; i < 9; i++) {
+            for (int j = 1; j < 10; j++) {
+                if (mat[i][j].getTipo().equals("Rojo")) {
+                    JButton boton = botones[i][j];
+                    boton.setBackground(Color.red);
+                    boton.setText(""+mat[i][j].getValor());
+                }
+                if (mat[i][j].getTipo().equals("Azul")) {
+                    JButton boton = botones[i][j];
+                    boton.setBackground(Color.blue);
+                    boton.setText(""+mat[i][j].getValor());
+                }
+                if (mat[i][j].getTipo().equals("Vacio")) {
+                    JButton boton = botones[i][j];
+                    boton.setBackground(Color.LIGHT_GRAY);
+                    boton.setText("");
+                }
+            }
+        }
         
     }
     

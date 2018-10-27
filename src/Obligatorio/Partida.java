@@ -218,6 +218,12 @@ public class Partida implements Serializable{
         } else {
             ret = false;
         }
+        if(ret&&!this.hayMovimientos()){
+            this.cambioTurno();
+        }
+        if (ret) {
+            this.termino();
+        }
         return ret;
     }
 
