@@ -171,6 +171,7 @@ public class VJuego extends javax.swing.JFrame {
     }
 
     private void clickBoton(int fila, int columna) {
+        //Sacar esto de aca, pasarlo a sistema y que el unico import sea sistema. acople lo menos posible
         String[] comando = new String[2];
         Ficha[][] mat = modelo.getTablero();
         Ficha f= mat[fila][columna];
@@ -184,7 +185,7 @@ public class VJuego extends javax.swing.JFrame {
             movimiento+="D";
         }
         if (I.isSelected()){
-            movimiento+="D";
+            movimiento+="I";
         }
         comando[1]=movimiento;
         if (modelo.recibirComando(comando)) {
@@ -196,6 +197,7 @@ public class VJuego extends javax.swing.JFrame {
         
     }
     private void armarBotones(){
+        //Preguntar lo de solo importar sistema
         Ficha[][] mat= modelo.getTablero();
         for (int i = 1; i < 9; i++) {
             for (int j = 1; j < 10; j++) {
