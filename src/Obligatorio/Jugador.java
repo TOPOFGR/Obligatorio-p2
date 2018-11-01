@@ -55,7 +55,7 @@ public class Jugador implements Serializable{
 
     @Override
     public String toString() {
-        return "Jugador de nombre " + this.getNombre() + ", alias " + this.getAlias() + " y de " + this.getEdad() + " años. Victorias: " + this.getVictorias();
+        return this.getNombre()+" ("+this.getAlias()+")"+","+this.getEdad()+" años. Victorias: "+this.getVictorias();
     }
 
 }
