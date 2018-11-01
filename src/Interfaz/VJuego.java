@@ -13,6 +13,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -95,17 +98,17 @@ public class VJuego extends javax.swing.JFrame {
         A.setSelected(true);
         A.setText("Adelante");
         getContentPane().add(A);
-        A.setBounds(280, 90, 69, 23);
+        A.setBounds(280, 90, 82, 28);
 
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(280, 130, 65, 23);
+        D.setBounds(280, 130, 80, 28);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
         getContentPane().add(I);
-        I.setBounds(280, 170, 71, 23);
+        I.setBounds(280, 170, 84, 28);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -221,8 +224,6 @@ public class VJuego extends javax.swing.JFrame {
         
     }
     
-
-
 
 
 }
