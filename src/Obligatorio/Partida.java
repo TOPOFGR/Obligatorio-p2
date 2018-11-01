@@ -26,6 +26,16 @@ public class Partida implements Serializable{
     private LocalDateTime fecha;
     private String resultado;
     private int contador;
+    private boolean replay;
+
+    public boolean isReplay() {
+        return replay;
+    }
+
+    public void setReplay(boolean replay) {
+        this.replay = replay;
+    }
+    
 
     public int getContador() {
         return contador;
@@ -166,6 +176,7 @@ public class Partida implements Serializable{
         this.listaMovimientos = new ArrayList<>();
         this.resultado = "Empate";
         this.contador = 0;
+        this.replay= false;
     }
 
     //Método que recibe un movimiento: si es posible devuelve true y mueve la ficha, si es imposible devuelve false
@@ -177,7 +188,7 @@ public class Partida implements Serializable{
         }
 
         int ficha = Integer.parseInt(movimiento.substring(0, 1));
-        if (movimientos[ficha] || this.isTerminado()) {
+        if (movimientos[ficha] || this.isReplay()) {
             int[] array = encontrarPosicion(ficha);
             int i = array[0];
             int j = array[1];
@@ -218,12 +229,13 @@ public class Partida implements Serializable{
         } else {
             ret = false;
         }
+        if (ret&&!this.isReplay()) {
+            this.termino();
+        }
         if(ret&&!this.hayMovimientos()){
             this.cambioTurno();
         }
-        if (ret) {
-            this.termino();
-        }
+        
         return ret;
     }
 
@@ -300,12 +312,14 @@ public class Partida implements Serializable{
                 case 1:
                     if (this.getContadorMov() == 0) {
                         this.setTerminado(true);
+                        this.sumaPuntos();
                     }
                     break;
                 case 2:
                     for (int i = 1; i < 9; i++) {
                         if (tablero[fila][i].getTipo().equals(turno)) {
                             this.setTerminado(true);
+                            this.sumaPuntos();
                         }
                     }
                     break;
@@ -320,12 +334,12 @@ public class Partida implements Serializable{
                     }
                     if (cantFichas == 8) {
                         this.setTerminado(true);
+                        this.sumaPuntos();
                     }
 
                     break;
             }
         }
-
     }
 
     //Devuelve un String con las fichas que se pueden mover
@@ -477,7 +491,7 @@ public class Partida implements Serializable{
                 ret = true;
                 this.setVerN(true);
             }
-            if (dato.equals("X")) {
+            if (dato.equals("X")&&!this.isReplay()) {
                 ret = true;
                 this.setTerminado(true);
                 if (this.isTurnoRojo()) {

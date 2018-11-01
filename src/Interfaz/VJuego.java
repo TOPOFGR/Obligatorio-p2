@@ -13,13 +13,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -36,9 +31,6 @@ public class VJuego extends javax.swing.JFrame {
     public VJuego() {
         initComponents();
     }
-    
-
-    
 
     public VJuego(Partida unJuego) {
         initComponents();
@@ -52,7 +44,7 @@ public class VJuego extends javax.swing.JFrame {
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 9; j++) {
                 JButton jButton = new JButton();
-                jButton.setMargin(new Insets(-5, -5, -5, -5)); 
+                jButton.setMargin(new Insets(-5, -5, -5, -5));
                 jButton.addActionListener(new ListenerBoton(i, j));
                 panelJuego.add(jButton);
                 botones[i][j] = jButton;
@@ -98,17 +90,17 @@ public class VJuego extends javax.swing.JFrame {
         A.setSelected(true);
         A.setText("Adelante");
         getContentPane().add(A);
-        A.setBounds(280, 90, 82, 28);
+        A.setBounds(280, 90, 69, 23);
 
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(280, 130, 80, 28);
+        D.setBounds(280, 130, 65, 23);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
         getContentPane().add(I);
-        I.setBounds(280, 170, 84, 28);
+        I.setBounds(280, 170, 71, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -174,45 +166,58 @@ public class VJuego extends javax.swing.JFrame {
     }
 
     private void clickBoton(int fila, int columna) {
-        //Sacar esto de aca, pasarlo a sistema y que el unico import sea sistema. acople lo menos posible
         String[] comando = new String[2];
         Ficha[][] mat = modelo.getTablero();
-        Ficha f= mat[fila][columna];
+        Ficha f = mat[fila][columna];
         comando[0] = f.getTipo();
-        String movimiento =""+f.getValor();
-        
-        if (A.isSelected()){
-            movimiento+="A";
+        String movimiento = "" + f.getValor();
+
+        if (A.isSelected()) {
+            movimiento += "A";
         }
-        if (D.isSelected()){
-            movimiento+="D";
+        if (D.isSelected()) {
+            movimiento += "D";
         }
-        if (I.isSelected()){
-            movimiento+="I";
+        if (I.isSelected()) {
+            movimiento += "I";
         }
-        comando[1]=movimiento;
+        comando[1] = movimiento;
         if (modelo.recibirComando(comando)) {
             armarBotones();
-            if(modelo.isTerminado()){
-                //Aca va lo de afuera del while de prueba
+            if (modelo.isTerminado()) {
+                String mensaje = "";
+
+                if (modelo.getContador() >= 2) {
+                    mensaje+=("Ya no hay movimientos posibles. ");
+                }
+                if (modelo.getResultado().equals("Rojo")) {
+                    mensaje+=("Ganó el jugador rojo de Alias: " + modelo.getJugadorRojo().getAlias());
+                } else {
+                    if (modelo.getResultado().equals("Azul")) {
+                        mensaje+=("Ganó el jugador azul de Alias " + modelo.getJugadorAzul().getAlias());
+                    } else {
+                        mensaje+=("Juego terminado en empate");
+                    }
+                }
+                VResultado v = new VResultado(mensaje,this);
+                v.setVisible(true);
             }
         }
-        
     }
-    private void armarBotones(){
-        //Preguntar lo de solo importar sistema
-        Ficha[][] mat= modelo.getTablero();
+
+    private void armarBotones() {
+        Ficha[][] mat = modelo.getTablero();
         for (int i = 1; i < 9; i++) {
             for (int j = 1; j < 10; j++) {
                 if (mat[i][j].getTipo().equals("Rojo")) {
                     JButton boton = botones[i][j];
                     boton.setBackground(Color.red);
-                    boton.setText(""+mat[i][j].getValor());
+                    boton.setText("" + mat[i][j].getValor());
                 }
                 if (mat[i][j].getTipo().equals("Azul")) {
                     JButton boton = botones[i][j];
                     boton.setBackground(Color.blue);
-                    boton.setText(""+mat[i][j].getValor());
+                    boton.setText("" + mat[i][j].getValor());
                 }
                 if (mat[i][j].getTipo().equals("Vacio")) {
                     JButton boton = botones[i][j];
@@ -221,9 +226,7 @@ public class VJuego extends javax.swing.JFrame {
                 }
             }
         }
-        
-    }
-    
 
+    }
 
 }
