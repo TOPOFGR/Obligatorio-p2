@@ -2,8 +2,6 @@ package Obligatorio;
 
 import java.io.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 public class Sistema  extends Observable implements Serializable{
@@ -123,7 +121,7 @@ public class Sistema  extends Observable implements Serializable{
             try {
                 ff.close();
             } catch (IOException ex) {
-                Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Algo salio mal");
             }
         }
     }
