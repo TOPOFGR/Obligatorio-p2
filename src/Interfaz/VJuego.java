@@ -9,12 +9,14 @@ import Obligatorio.Ficha;
 import Obligatorio.Partida;
 import Obligatorio.Sistema;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -188,18 +190,18 @@ public class VJuego extends javax.swing.JFrame {
                 String mensaje = "";
 
                 if (modelo.getContador() >= 2) {
-                    mensaje+=("Ya no hay movimientos posibles. ");
+                    mensaje += ("Ya no hay movimientos posibles. ");
                 }
                 if (modelo.getResultado().equals("Rojo")) {
-                    mensaje+=("Ganó el jugador rojo de Alias: " + modelo.getJugadorRojo().getAlias());
+                    mensaje += ("Ganó el jugador rojo de Alias: " + modelo.getJugadorRojo().getAlias());
                 } else {
                     if (modelo.getResultado().equals("Azul")) {
-                        mensaje+=("Ganó el jugador azul de Alias " + modelo.getJugadorAzul().getAlias());
+                        mensaje += ("Ganó el jugador azul de Alias " + modelo.getJugadorAzul().getAlias());
                     } else {
-                        mensaje+=("Juego terminado en empate");
+                        mensaje += ("Juego terminado en empate");
                     }
                 }
-                VResultado v = new VResultado(mensaje,this);
+                VResultado v = new VResultado(mensaje, this);
                 v.setVisible(true);
             }
         }
@@ -212,12 +214,20 @@ public class VJuego extends javax.swing.JFrame {
                 if (mat[i][j].getTipo().equals("Rojo")) {
                     JButton boton = botones[i][j];
                     boton.setBackground(Color.red);
+                    int valor = mat[i][j].getValor();
                     boton.setText("" + mat[i][j].getValor());
+                    if (modelo.getMovimientos()[valor] && modelo.isTurnoRojo()) {
+                       boton.setBackground(Color.ORANGE);
+                    }
                 }
                 if (mat[i][j].getTipo().equals("Azul")) {
                     JButton boton = botones[i][j];
                     boton.setBackground(Color.blue);
-                    boton.setText("" + mat[i][j].getValor());
+                    int valor = mat[i][j].getValor();
+                    boton.setText("" + valor);
+                    if (modelo.getMovimientos()[valor] && !modelo.isTurnoRojo()) {
+                       boton.setBackground(Color.CYAN);
+                    }
                 }
                 if (mat[i][j].getTipo().equals("Vacio")) {
                     JButton boton = botones[i][j];
