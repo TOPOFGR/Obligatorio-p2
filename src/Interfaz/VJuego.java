@@ -14,6 +14,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author Santiago
  */
-public class VJuego extends javax.swing.JFrame {
+public class VJuego extends javax.swing.JDialog {
 
     /**
      * Creates new form VJuego
@@ -36,6 +37,7 @@ public class VJuego extends javax.swing.JFrame {
 
     public VJuego(Partida unJuego) {
         initComponents();
+        this.setModal(true);
         modelo = unJuego;
         ButtonGroup btrGroup = new ButtonGroup();
         btrGroup.add(A);
@@ -53,6 +55,9 @@ public class VJuego extends javax.swing.JFrame {
             }
         }
         armarBotones();
+        if (modelo.isReplay()){
+            this.replay(modelo.getListaMovimientos());
+        }
     }
 
     /**
@@ -71,6 +76,7 @@ public class VJuego extends javax.swing.JFrame {
         I = new javax.swing.JRadioButton();
         turno = new javax.swing.JLabel();
         btnRendirse = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(400, 600));
@@ -118,6 +124,10 @@ public class VJuego extends javax.swing.JFrame {
         });
         getContentPane().add(btnRendirse);
         btnRendirse.setBounds(280, 40, 100, 23);
+
+        jButton1.setText("Siguiente Movimiento");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(20, 310, 210, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -170,6 +180,7 @@ public class VJuego extends javax.swing.JFrame {
     private javax.swing.JRadioButton I;
     private javax.swing.JButton btnRendirse;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JLabel turno;
     // End of variables declaration//GEN-END:variables
@@ -277,6 +288,9 @@ public class VJuego extends javax.swing.JFrame {
             }
         }
 
+    }
+    private void replay(ArrayList<String> movimientos){
+        
     }
 
 }

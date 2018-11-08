@@ -148,7 +148,7 @@ public class Partida implements Serializable {
     }
 
     //Constructor
-    public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax) {
+    public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax,boolean replay) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
         this.tablero = new Ficha[10][11];
@@ -165,7 +165,7 @@ public class Partida implements Serializable {
         this.listaMovimientos = new ArrayList<>();
         this.resultado = "Empate";
         this.contador = 0;
-        this.replay = false;
+        this.replay = replay;
     }
 
     //Método que recibe un movimiento: si es posible devuelve true y mueve la ficha, si es imposible devuelve false
@@ -236,8 +236,6 @@ public class Partida implements Serializable {
         if (!this.hayMovimientos()) {
             this.setContador(this.getContador() + 1);
         }
-
-        this.agregarMovimiento("CT");
         this.setseMovio(false);
     }
 
