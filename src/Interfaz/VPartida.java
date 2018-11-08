@@ -192,7 +192,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             if(jRojo.getSelectedIndex()!=jAzul.getSelectedIndex()){
             Jugador jugadorRojo = modelo.getListaRankings().get(jRojo.getSelectedIndex());
             Jugador jugadorAzul = modelo.getListaRankings().get(jAzul.getSelectedIndex());
-            Partida p = new Partida(jugadorRojo, jugadorAzul, tipoTerm,movMax );
+            Partida p = new Partida(jugadorRojo, jugadorAzul, tipoTerm,movMax,false );
             VJuego v = new VJuego(p);
             v.setVisible(true);
             this.dispose();

@@ -54,6 +54,8 @@ public class VJuego extends javax.swing.JDialog {
                 botones[i][j] = jButton;
             }
         }
+        btnCont.setVisible(false);
+        btnSigMov.setVisible(false);
         armarBotones();
         if (modelo.isReplay()){
             this.replay(modelo.getListaMovimientos());
@@ -76,7 +78,8 @@ public class VJuego extends javax.swing.JDialog {
         I = new javax.swing.JRadioButton();
         turno = new javax.swing.JLabel();
         btnRendirse = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnSigMov = new javax.swing.JButton();
+        btnCont = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(400, 600));
@@ -125,9 +128,13 @@ public class VJuego extends javax.swing.JDialog {
         getContentPane().add(btnRendirse);
         btnRendirse.setBounds(280, 40, 100, 23);
 
-        jButton1.setText("Siguiente Movimiento");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(20, 310, 210, 23);
+        btnSigMov.setText("Siguiente Movimiento");
+        getContentPane().add(btnSigMov);
+        btnSigMov.setBounds(20, 310, 210, 23);
+
+        btnCont.setText("Continuar");
+        getContentPane().add(btnCont);
+        btnCont.setBounds(200, 350, 120, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -178,9 +185,10 @@ public class VJuego extends javax.swing.JDialog {
     private javax.swing.JRadioButton A;
     private javax.swing.JRadioButton D;
     private javax.swing.JRadioButton I;
+    private javax.swing.JButton btnCont;
     private javax.swing.JButton btnRendirse;
+    private javax.swing.JButton btnSigMov;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JLabel turno;
     // End of variables declaration//GEN-END:variables
@@ -290,7 +298,12 @@ public class VJuego extends javax.swing.JDialog {
 
     }
     private void replay(ArrayList<String> movimientos){
-        
+        btnCont.setVisible(true);
+        btnSigMov.setVisible(true);
+        btnRendirse.setVisible(false);
+        A.setVisible(false);
+        I.setVisible(false);
+        D.setVisible(false);
     }
 
 }
