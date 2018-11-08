@@ -69,6 +69,8 @@ public class VJuego extends javax.swing.JFrame {
         A = new javax.swing.JRadioButton();
         D = new javax.swing.JRadioButton();
         I = new javax.swing.JRadioButton();
+        turno = new javax.swing.JLabel();
+        btnRendirse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(400, 600));
@@ -86,7 +88,7 @@ public class VJuego extends javax.swing.JFrame {
         );
 
         getContentPane().add(panelJuego);
-        panelJuego.setBounds(10, 10, 260, 230);
+        panelJuego.setBounds(10, 50, 260, 230);
 
         buttonGroup1.add(A);
         A.setSelected(true);
@@ -104,8 +106,28 @@ public class VJuego extends javax.swing.JFrame {
         getContentPane().add(I);
         I.setBounds(280, 170, 71, 23);
 
+        turno.setText("Turno del jugador");
+        getContentPane().add(turno);
+        turno.setBounds(20, 20, 170, 14);
+
+        btnRendirse.setText("Rendirse");
+        btnRendirse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRendirseActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRendirse);
+        btnRendirse.setBounds(280, 40, 100, 23);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
+        String[] s = new String[]{"X","X"};
+        s[1]="X";
+        modelo.recibirComando(s);
+        this.ventanaTerm();
+    }//GEN-LAST:event_btnRendirseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,8 +168,10 @@ public class VJuego extends javax.swing.JFrame {
     private javax.swing.JRadioButton A;
     private javax.swing.JRadioButton D;
     private javax.swing.JRadioButton I;
+    private javax.swing.JButton btnRendirse;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel panelJuego;
+    private javax.swing.JLabel turno;
     // End of variables declaration//GEN-END:variables
 
     private class ListenerBoton implements ActionListener {
@@ -186,7 +210,13 @@ public class VJuego extends javax.swing.JFrame {
         comando[1] = movimiento;
         if (modelo.recibirComando(comando)) {
             armarBotones();
-            if (modelo.isTerminado()) {
+            this.ventanaTerm();
+            
+        }
+    }
+    
+    private void ventanaTerm(){
+        if (modelo.isTerminado()) {
                 String mensaje = "";
 
                 if (modelo.getContador() >= 2) {
@@ -204,11 +234,17 @@ public class VJuego extends javax.swing.JFrame {
                 VResultado v = new VResultado(mensaje, this);
                 v.setVisible(true);
             }
-        }
     }
-
+    
     private void armarBotones() {
         Ficha[][] mat = modelo.getTablero();
+        if(modelo.isTurnoRojo()){
+            turno.setText("Turno del Jugador Rojo");
+            turno.setForeground(Color.red);
+        }else{
+            turno.setText("Turno del Jugador Azul");
+            turno.setForeground(Color.blue);
+        }
         for (int i = 1; i < 9; i++) {
             for (int j = 1; j < 10; j++) {
                 if (mat[i][j].getTipo().equals("Rojo")) {

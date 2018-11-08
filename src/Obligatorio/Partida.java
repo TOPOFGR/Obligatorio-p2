@@ -1,4 +1,3 @@
-
 package Obligatorio;
 
 import java.io.Serializable;
@@ -7,13 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
-
-public class Partida implements Serializable{
+public class Partida implements Serializable {
 
     private Jugador jugadorRojo;
     private Jugador jugadorAzul;
     private Ficha[][] tablero;
-    private boolean verN;
     private boolean TurnoRojo;
     private Ficha fichaVacia;
     private Ficha fichaBorde;
@@ -35,7 +32,6 @@ public class Partida implements Serializable{
     public void setReplay(boolean replay) {
         this.replay = replay;
     }
-    
 
     public int getContador() {
         return contador;
@@ -85,13 +81,7 @@ public class Partida implements Serializable{
         this.tablero = tablero;
     }
 
-    public boolean isVerN() {
-        return verN;
-    }
 
-    public void setVerN(boolean verN) {
-        this.verN = verN;
-    }
 
     public boolean isTurnoRojo() {
         return TurnoRojo;
@@ -163,7 +153,6 @@ public class Partida implements Serializable{
         this.jugadorAzul = jugadorAzul;
         this.tablero = new Ficha[10][11];
         this.TurnoRojo = true;
-        this.verN = true;
         this.fichaVacia = new Ficha("Vacio", 0);
         this.fichaBorde = new Ficha("Borde", -1);
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
@@ -176,7 +165,7 @@ public class Partida implements Serializable{
         this.listaMovimientos = new ArrayList<>();
         this.resultado = "Empate";
         this.contador = 0;
-        this.replay= false;
+        this.replay = false;
     }
 
     //Método que recibe un movimiento: si es posible devuelve true y mueve la ficha, si es imposible devuelve false
@@ -229,13 +218,13 @@ public class Partida implements Serializable{
         } else {
             ret = false;
         }
-        if (ret&&!this.isReplay()) {
+        if (ret && !this.isReplay()) {
             this.termino();
         }
-        if(ret&&!this.hayMovimientos()){
+        if (ret && !this.hayMovimientos()) {
             this.cambioTurno();
         }
-        
+
         return ret;
     }
 
@@ -247,7 +236,7 @@ public class Partida implements Serializable{
         if (!this.hayMovimientos()) {
             this.setContador(this.getContador() + 1);
         }
-        
+
         this.agregarMovimiento("CT");
         this.setseMovio(false);
     }
@@ -471,51 +460,36 @@ public class Partida implements Serializable{
     //Verifica que tipo de String se recibió
     public boolean recibirComando(String[] comando) {
         boolean ret = false;
-        String turno="Azul";
-        if(isTurnoRojo()){
-            turno="Rojo";
+        String turno = "Azul";
+        if (isTurnoRojo()) {
+            turno = "Rojo";
         }
-        String dato=comando[1];
-        if (turno.equals(comando[0])&&dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
+        String dato = comando[1];
+        if (turno.equals(comando[0]) && dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
             if (dato.length() == 2 && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {
                 int ficha = Integer.parseInt(dato.substring(0, 1));
                 if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
                     ret = moverFicha(dato);
                 }
             }
-            if (dato.equals("VERR")) {
-                ret = true;
-                this.setVerN(false);
-            }
-            if (dato.equals("VERN")) {
-                ret = true;
-                this.setVerN(true);
-            }
-            if (dato.equals("X")&&!this.isReplay()) {
-                ret = true;
-                this.setTerminado(true);
-                if (this.isTurnoRojo()) {
-                    this.getJugadorAzul().setVictorias(this.getJugadorAzul().getVictorias() + 1);
-                    this.setResultado("Azul");
-
-                } else {
-                    this.getJugadorRojo().setVictorias(this.getJugadorRojo().getVictorias() + 1);
-                    this.setResultado("Rojo");
-                }
-            }
-            if (dato.equals("PASAR")) {
-                ret = true;
-                if (this.isSeMovio()) {
-                    this.cambioTurno();
-                }
-
-            }
-
         }
+        if (dato.equals("X") && !this.isReplay()) {
+            ret = true;
+            this.setTerminado(true);
+            if (this.isTurnoRojo()) {
+                this.getJugadorAzul().setVictorias(this.getJugadorAzul().getVictorias() + 1);
+                this.setResultado("Azul");
+
+            } else {
+                this.getJugadorRojo().setVictorias(this.getJugadorRojo().getVictorias() + 1);
+                this.setResultado("Rojo");
+            }
+        }
+
         return ret;
     }
 
-    //Pone al tablero en la posicion inicial
+//Pone al tablero en la posicion inicial
     public void reset() {
         this.setTurnoRojo(true);
         for (int i = 0; i < tablero.length - 1; i++) {
@@ -559,16 +533,14 @@ public class Partida implements Serializable{
     @Override
     public String toString() {
         String resultado = "Termino en empate";
-        if(this.getResultado().equals("Rojo")){
+        if (this.getResultado().equals("Rojo")) {
             resultado = "Gano el jugador rojo";
         }
-        if(this.getResultado().equals("Azul")){
+        if (this.getResultado().equals("Azul")) {
             resultado = "Gano el jugador azul";
         }
-        
-        
-        
-        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugador rojo: " + this.getJugadorRojo().getAlias() + ". Jugador azul: " + this.getJugadorAzul().getAlias()+". "+resultado;
+
+        return "Fecha: " + this.getFecha().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")) + ". Jugador rojo: " + this.getJugadorRojo().getAlias() + ". Jugador azul: " + this.getJugadorAzul().getAlias() + ". " + resultado;
     }
 
 }
