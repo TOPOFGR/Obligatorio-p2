@@ -213,20 +213,24 @@ public class VJuego extends javax.swing.JFrame {
             for (int j = 1; j < 10; j++) {
                 if (mat[i][j].getTipo().equals("Rojo")) {
                     JButton boton = botones[i][j];
-                    boton.setBackground(Color.red);
+                    boton.setBackground(Color.BLACK);
                     int valor = mat[i][j].getValor();
                     boton.setText("" + mat[i][j].getValor());
+                    boton.setForeground(Color.RED);
                     if (modelo.getMovimientos()[valor] && modelo.isTurnoRojo()) {
-                       boton.setBackground(Color.ORANGE);
+                       boton.setBackground(Color.red);
+                       boton.setForeground(Color.white);
                     }
                 }
                 if (mat[i][j].getTipo().equals("Azul")) {
                     JButton boton = botones[i][j];
-                    boton.setBackground(Color.blue);
+                    boton.setBackground(Color.BLACK);
                     int valor = mat[i][j].getValor();
                     boton.setText("" + valor);
+                    boton.setForeground(Color.CYAN);
                     if (modelo.getMovimientos()[valor] && !modelo.isTurnoRojo()) {
-                       boton.setBackground(Color.CYAN);
+                       boton.setBackground(Color.blue);
+                       boton.setForeground(Color.white);
                     }
                 }
                 if (mat[i][j].getTipo().equals("Vacio")) {
