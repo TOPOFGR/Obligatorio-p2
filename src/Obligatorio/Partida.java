@@ -23,7 +23,17 @@ public class Partida implements Serializable {
     private LocalDateTime fecha;
     private String resultado;
     private int contador;
+    private int movMax;
     private boolean replay;
+
+    public int getMovMax() {
+        return movMax;
+    }
+
+    public void setMovMax(int movMax) {
+        this.movMax = movMax;
+    }
+    
 
     public boolean isReplay() {
         return replay;
@@ -137,6 +147,8 @@ public class Partida implements Serializable {
 
     public void setTerminado(boolean terminado) {
         this.terminado = terminado;
+        if(terminado)
+            this.setReplay(true);
     }
 
     public boolean isSeMovio() {
@@ -158,6 +170,7 @@ public class Partida implements Serializable {
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
         this.tipoTerm = tipoTerm;
         this.contadorMov = movMax;
+        this.movMax=movMax;
         this.seMovio = false;
         this.terminado = false;
         this.fecha = LocalDateTime.now();
@@ -384,7 +397,6 @@ public class Partida implements Serializable {
     //Agrega el movimiento a la lista, actualiza contadores y Verifica que otras fichas se pueden mover
     public void calculosFicha(int ficha, int fila, int columna, String mov) {
         this.setseMovio(true);
-        this.agregarMovimiento(mov);
         this.setContador(0);
         this.setContadorMov(this.getContadorMov() - 1);
 
@@ -456,15 +468,14 @@ public class Partida implements Serializable {
     }
 
     //Verifica que tipo de String se recibió
-    public boolean recibirComando(String[] comando) {
+    public boolean recibirComando(String dato) {
         boolean ret = false;
-        String turno = "Azul";
+        char turno = 'A';
         if (isTurnoRojo()) {
-            turno = "Rojo";
+            turno = 'R';
         }
-        String dato = comando[1];
-        if (turno.equals(comando[0]) && dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
-            if (dato.length() == 2 && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {
+        if (dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
+            if (dato.length() == 3 && dato.charAt(2)==turno && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {
                 int ficha = Integer.parseInt(dato.substring(0, 1));
                 if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
                     ret = moverFicha(dato);
@@ -482,6 +493,14 @@ public class Partida implements Serializable {
                 this.getJugadorRojo().setVictorias(this.getJugadorRojo().getVictorias() + 1);
                 this.setResultado("Rojo");
             }
+        }
+        
+        if (dato.equals("CT")&&this.isSeMovio()) {
+            this.cambioTurno();
+            ret=true;
+        }
+        if(ret){
+            agregarMovimiento(dato);
         }
 
         return ret;

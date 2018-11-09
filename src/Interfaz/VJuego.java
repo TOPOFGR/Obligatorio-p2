@@ -30,15 +30,18 @@ public class VJuego extends javax.swing.JDialog {
      */
     private JButton[][] botones;
     private Partida modelo;
+    private ArrayList<String> movimientos;
+    private Sistema sist;
 
     public VJuego() {
         initComponents();
     }
 
-    public VJuego(Partida unJuego) {
+    public VJuego(Partida unJuego,Sistema s) {
         initComponents();
         this.setModal(true);
         modelo = unJuego;
+        sist = s;
         ButtonGroup btrGroup = new ButtonGroup();
         btrGroup.add(A);
         btrGroup.add(D);
@@ -56,10 +59,10 @@ public class VJuego extends javax.swing.JDialog {
         }
         btnCont.setVisible(false);
         btnSigMov.setVisible(false);
-        armarBotones();
-        if (modelo.isReplay()){
-            this.replay(modelo.getListaMovimientos());
+        if (modelo.isReplay()) {
+            this.replay();
         }
+        armarBotones();
     }
 
     /**
@@ -80,6 +83,7 @@ public class VJuego extends javax.swing.JDialog {
         btnRendirse = new javax.swing.JButton();
         btnSigMov = new javax.swing.JButton();
         btnCont = new javax.swing.JButton();
+        btnPasar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(400, 600));
@@ -103,17 +107,17 @@ public class VJuego extends javax.swing.JDialog {
         A.setSelected(true);
         A.setText("Adelante");
         getContentPane().add(A);
-        A.setBounds(280, 90, 69, 23);
+        A.setBounds(280, 90, 110, 23);
 
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(280, 130, 65, 23);
+        D.setBounds(280, 130, 110, 23);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
         getContentPane().add(I);
-        I.setBounds(280, 170, 71, 23);
+        I.setBounds(280, 170, 110, 23);
 
         turno.setText("Turno del jugador");
         getContentPane().add(turno);
@@ -129,22 +133,59 @@ public class VJuego extends javax.swing.JDialog {
         btnRendirse.setBounds(280, 40, 100, 23);
 
         btnSigMov.setText("Siguiente Movimiento");
+        btnSigMov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSigMovActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnSigMov);
         btnSigMov.setBounds(20, 310, 210, 23);
 
         btnCont.setText("Continuar");
+        btnCont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnCont);
         btnCont.setBounds(200, 350, 120, 23);
+
+        btnPasar.setText("Pasar");
+        btnPasar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPasar);
+        btnPasar.setBounds(300, 200, 59, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
-        String[] s = new String[]{"X","X"};
-        s[1]="X";
-        modelo.recibirComando(s);
+        modelo.recibirComando("X");
         this.ventanaTerm();
     }//GEN-LAST:event_btnRendirseActionPerformed
+
+    private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
+        if (modelo.recibirComando("CT")) {
+            this.armarBotones();
+        }
+    }//GEN-LAST:event_btnPasarActionPerformed
+
+    private void btnSigMovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigMovActionPerformed
+        if (this.movimientos.size() > 0) {
+            modelo.recibirComando(this.movimientos.get(0));
+            this.movimientos.remove(0);
+            this.armarBotones();
+        }
+    }//GEN-LAST:event_btnSigMovActionPerformed
+
+    private void btnContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContActionPerformed
+        modelo.setReplay(false);
+        this.replay();
+        
+    }//GEN-LAST:event_btnContActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,6 +227,7 @@ public class VJuego extends javax.swing.JDialog {
     private javax.swing.JRadioButton D;
     private javax.swing.JRadioButton I;
     private javax.swing.JButton btnCont;
+    private javax.swing.JButton btnPasar;
     private javax.swing.JButton btnRendirse;
     private javax.swing.JButton btnSigMov;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -211,56 +253,60 @@ public class VJuego extends javax.swing.JDialog {
     }
 
     private void clickBoton(int fila, int columna) {
-        String[] comando = new String[2];
-        Ficha[][] mat = modelo.getTablero();
-        Ficha f = mat[fila][columna];
-        comando[0] = f.getTipo();
-        String movimiento = "" + f.getValor();
+        if (!modelo.isReplay()) {
+            String comando = "";
+            Ficha[][] mat = modelo.getTablero();
+            Ficha f = mat[fila][columna];
 
-        if (A.isSelected()) {
-            movimiento += "A";
-        }
-        if (D.isSelected()) {
-            movimiento += "D";
-        }
-        if (I.isSelected()) {
-            movimiento += "I";
-        }
-        comando[1] = movimiento;
-        if (modelo.recibirComando(comando)) {
-            armarBotones();
-            this.ventanaTerm();
-            
-        }
-    }
-    
-    private void ventanaTerm(){
-        if (modelo.isTerminado()) {
-                String mensaje = "";
+            comando += f.getValor();
 
-                if (modelo.getContador() >= 2) {
-                    mensaje += ("Ya no hay movimientos posibles. ");
-                }
-                if (modelo.getResultado().equals("Rojo")) {
-                    mensaje += ("Ganó el jugador rojo de Alias: " + modelo.getJugadorRojo().getAlias());
-                } else {
-                    if (modelo.getResultado().equals("Azul")) {
-                        mensaje += ("Ganó el jugador azul de Alias " + modelo.getJugadorAzul().getAlias());
-                    } else {
-                        mensaje += ("Juego terminado en empate");
-                    }
-                }
-                VResultado v = new VResultado(mensaje, this);
-                v.setVisible(true);
+            if (A.isSelected()) {
+                comando += "A";
             }
+            if (D.isSelected()) {
+                comando += "D";
+            }
+            if (I.isSelected()) {
+                comando += "I";
+            }
+            comando += f.getTipo().charAt(0);
+            if (modelo.recibirComando(comando)) {
+                armarBotones();
+                this.ventanaTerm();
+
+            }
+        }
+
     }
-    
+
+    private void ventanaTerm() {
+        if (modelo.isTerminado()) {
+            String mensaje = "";
+
+            if (modelo.getContador() >= 2) {
+                mensaje += ("Ya no hay movimientos posibles. ");
+            }
+            if (modelo.getResultado().equals("Rojo")) {
+                mensaje += ("Ganó el jugador rojo de Alias: " + modelo.getJugadorRojo().getAlias());
+            } else {
+                if (modelo.getResultado().equals("Azul")) {
+                    mensaje += ("Ganó el jugador azul de Alias " + modelo.getJugadorAzul().getAlias());
+                } else {
+                    mensaje += ("Juego terminado en empate");
+                }
+            }
+            JOptionPane.showMessageDialog(null, mensaje, "Juego terminado", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+
+        }
+    }
+
     private void armarBotones() {
         Ficha[][] mat = modelo.getTablero();
-        if(modelo.isTurnoRojo()){
+        if (modelo.isTurnoRojo()) {
             turno.setText("Turno del Jugador Rojo");
             turno.setForeground(Color.red);
-        }else{
+        } else {
             turno.setText("Turno del Jugador Azul");
             turno.setForeground(Color.blue);
         }
@@ -273,8 +319,8 @@ public class VJuego extends javax.swing.JDialog {
                     boton.setText("" + mat[i][j].getValor());
                     boton.setForeground(Color.RED);
                     if (modelo.getMovimientos()[valor] && modelo.isTurnoRojo()) {
-                       boton.setBackground(Color.red);
-                       boton.setForeground(Color.white);
+                        boton.setBackground(Color.red);
+                        boton.setForeground(Color.white);
                     }
                 }
                 if (mat[i][j].getTipo().equals("Azul")) {
@@ -284,8 +330,8 @@ public class VJuego extends javax.swing.JDialog {
                     boton.setText("" + valor);
                     boton.setForeground(Color.CYAN);
                     if (modelo.getMovimientos()[valor] && !modelo.isTurnoRojo()) {
-                       boton.setBackground(Color.blue);
-                       boton.setForeground(Color.white);
+                        boton.setBackground(Color.blue);
+                        boton.setForeground(Color.white);
                     }
                 }
                 if (mat[i][j].getTipo().equals("Vacio")) {
@@ -297,13 +343,23 @@ public class VJuego extends javax.swing.JDialog {
         }
 
     }
-    private void replay(ArrayList<String> movimientos){
-        btnCont.setVisible(true);
-        btnSigMov.setVisible(true);
-        btnRendirse.setVisible(false);
-        A.setVisible(false);
-        I.setVisible(false);
-        D.setVisible(false);
+
+    private void replay() {
+        boolean esReplay = modelo.isReplay();
+        btnCont.setVisible(esReplay);
+        btnSigMov.setVisible(esReplay);
+        btnRendirse.setVisible(!esReplay);
+        A.setVisible(!esReplay);
+        I.setVisible(!esReplay);
+        D.setVisible(!esReplay);
+        btnPasar.setVisible(!esReplay);
+        if (esReplay) {
+            movimientos = (ArrayList<String>) modelo.getListaMovimientos().clone();
+            Partida p = new Partida(modelo.getJugadorRojo(), modelo.getJugadorAzul(), modelo.getTipoTerm(), modelo.getMovMax(), true);
+            this.modelo = p;
+        } else {
+            sist.agregarPartida(modelo);
+        }
     }
 
 }
