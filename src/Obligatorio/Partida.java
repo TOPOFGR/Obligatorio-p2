@@ -282,18 +282,22 @@ public class Partida implements Serializable {
 
         }
         if (rojo > azul) {
-            if (!this.isReplay()) {
-                jugadorRojo.setVictorias(jugadorRojo.getVictorias() + 1);
-            }
             this.setResultado("Rojo");
+            this.agregarVictoria(jugadorRojo);
         }
         if (azul > rojo) {
-            if (!this.isReplay()) {
-                jugadorAzul.setVictorias(jugadorAzul.getVictorias() + 1);
-            }
             this.setResultado("Azul");
+            this.agregarVictoria(jugadorAzul);
         }
+        
         this.setReplay(true);
+    }
+
+    //Aumenta en uno la cantidad de victorias (si corresponde)
+    public void agregarVictoria(Jugador jugador) {
+        if (!this.isReplay()) {
+                jugador.setVictorias(jugador.getVictorias() + 1);
+        }
     }
 
     //Verifica según el tipo de terminación si el juego finalizó
@@ -482,19 +486,19 @@ public class Partida implements Serializable {
                 }
             }
         }
-        if (dato.equals("X") && !this.isReplay()) {
+        if (dato.equals("X")) {
             agregarMovimiento(dato);
             ret = true;
             this.setTerminado(true);
-            this.setReplay(true);
             if (this.isTurnoRojo()) {
-                this.getJugadorAzul().setVictorias(this.getJugadorAzul().getVictorias() + 1);
                 this.setResultado("Azul");
-
+                this.agregarVictoria(this.getJugadorAzul());
             } else {
-                this.getJugadorRojo().setVictorias(this.getJugadorRojo().getVictorias() + 1);
                 this.setResultado("Rojo");
+                this.agregarVictoria(this.getJugadorRojo());
             }
+
+            this.setReplay(true);
         }
 
         if (dato.equals("CT") && this.isSeMovio()) {
