@@ -33,7 +33,6 @@ public class Partida implements Serializable {
     public void setMovMax(int movMax) {
         this.movMax = movMax;
     }
-    
 
     public boolean isReplay() {
         return replay;
@@ -91,8 +90,6 @@ public class Partida implements Serializable {
         this.tablero = tablero;
     }
 
-
-
     public boolean isTurnoRojo() {
         return TurnoRojo;
     }
@@ -147,8 +144,6 @@ public class Partida implements Serializable {
 
     public void setTerminado(boolean terminado) {
         this.terminado = terminado;
-        if(terminado)
-            this.setReplay(true);
     }
 
     public boolean isSeMovio() {
@@ -160,7 +155,7 @@ public class Partida implements Serializable {
     }
 
     //Constructor
-    public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax,boolean replay) {
+    public Partida(Jugador jugadorRojo, Jugador jugadorAzul, int tipoTerm, int movMax, boolean replay) {
         this.jugadorRojo = jugadorRojo;
         this.jugadorAzul = jugadorAzul;
         this.tablero = new Ficha[10][11];
@@ -170,7 +165,7 @@ public class Partida implements Serializable {
         this.movimientos = new boolean[]{true, true, true, true, true, true, true, true, true};
         this.tipoTerm = tipoTerm;
         this.contadorMov = movMax;
-        this.movMax=movMax;
+        this.movMax = movMax;
         this.seMovio = false;
         this.terminado = false;
         this.fecha = LocalDateTime.now();
@@ -231,13 +226,13 @@ public class Partida implements Serializable {
         } else {
             ret = false;
         }
-        if (ret && !this.isReplay()) {
+        if (ret) {
+            agregarMovimiento(movimiento);
             this.termino();
+            if (!this.hayMovimientos()) {
+                this.cambioTurno();
+            }
         }
-        if (ret && !this.hayMovimientos()) {
-            this.cambioTurno();
-        }
-
         return ret;
     }
 
@@ -287,13 +282,18 @@ public class Partida implements Serializable {
 
         }
         if (rojo > azul) {
-            jugadorRojo.setVictorias(jugadorRojo.getVictorias() + 1);
+            if (!this.isReplay()) {
+                jugadorRojo.setVictorias(jugadorRojo.getVictorias() + 1);
+            }
             this.setResultado("Rojo");
         }
         if (azul > rojo) {
-            jugadorAzul.setVictorias(jugadorAzul.getVictorias() + 1);
+            if (!this.isReplay()) {
+                jugadorAzul.setVictorias(jugadorAzul.getVictorias() + 1);
+            }
             this.setResultado("Azul");
         }
+        this.setReplay(true);
     }
 
     //Verifica según el tipo de terminación si el juego finalizó
@@ -475,7 +475,7 @@ public class Partida implements Serializable {
             turno = 'R';
         }
         if (dato != null && !dato.isEmpty() && dato.trim().length() > 0) {
-            if (dato.length() == 3 && dato.charAt(2)==turno && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {
+            if (dato.length() == 3 && dato.charAt(2) == turno && Character.isDigit(dato.charAt(0)) && Character.isLetter(dato.charAt(1))) {
                 int ficha = Integer.parseInt(dato.substring(0, 1));
                 if (ficha > 0 && ficha < 9 && this.sePuedeMover(ficha)) {
                     ret = moverFicha(dato);
@@ -483,8 +483,10 @@ public class Partida implements Serializable {
             }
         }
         if (dato.equals("X") && !this.isReplay()) {
+            agregarMovimiento(dato);
             ret = true;
             this.setTerminado(true);
+            this.setReplay(true);
             if (this.isTurnoRojo()) {
                 this.getJugadorAzul().setVictorias(this.getJugadorAzul().getVictorias() + 1);
                 this.setResultado("Azul");
@@ -494,13 +496,11 @@ public class Partida implements Serializable {
                 this.setResultado("Rojo");
             }
         }
-        
-        if (dato.equals("CT")&&this.isSeMovio()) {
-            this.cambioTurno();
-            ret=true;
-        }
-        if(ret){
+
+        if (dato.equals("CT") && this.isSeMovio()) {
             agregarMovimiento(dato);
+            this.cambioTurno();
+            ret = true;
         }
 
         return ret;

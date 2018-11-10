@@ -21,6 +21,7 @@ public class Inicio {
         }else{ 
             s=new Sistema(); 
         } 
+        
         Menu v = new Menu(s);
         v.setVisible(true);
         

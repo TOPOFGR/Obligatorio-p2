@@ -178,6 +178,9 @@ public class VJuego extends javax.swing.JDialog {
             modelo.recibirComando(this.movimientos.get(0));
             this.movimientos.remove(0);
             this.armarBotones();
+            if (movimientos.size()==0){
+                this.ventanaTerm();
+            }
         }
     }//GEN-LAST:event_btnSigMovActionPerformed
 
