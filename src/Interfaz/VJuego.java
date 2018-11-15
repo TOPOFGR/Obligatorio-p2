@@ -37,9 +37,9 @@ public class VJuego extends javax.swing.JDialog {
         initComponents();
     }
 
-    public VJuego(Partida unJuego,Sistema s) {
+    public VJuego(Partida unJuego, Sistema s) {
         initComponents();
-        this.setModal(true);
+        setPreferredSize(new java.awt.Dimension(501, 568));
         modelo = unJuego;
         sist = s;
         ButtonGroup btrGroup = new ButtonGroup();
@@ -86,42 +86,43 @@ public class VJuego extends javax.swing.JDialog {
         btnPasar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 600));
+        setModal(true);
+        setPreferredSize(new java.awt.Dimension(540, 610));
         getContentPane().setLayout(null);
 
         javax.swing.GroupLayout panelJuegoLayout = new javax.swing.GroupLayout(panelJuego);
         panelJuego.setLayout(panelJuegoLayout);
         panelJuegoLayout.setHorizontalGroup(
             panelJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
         panelJuegoLayout.setVerticalGroup(
             panelJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
         getContentPane().add(panelJuego);
-        panelJuego.setBounds(10, 50, 260, 230);
+        panelJuego.setBounds(10, 40, 490, 430);
 
         buttonGroup1.add(A);
         A.setSelected(true);
         A.setText("Adelante");
         getContentPane().add(A);
-        A.setBounds(280, 90, 110, 23);
+        A.setBounds(40, 490, 110, 28);
 
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(280, 130, 110, 23);
+        D.setBounds(150, 490, 110, 28);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
         getContentPane().add(I);
-        I.setBounds(280, 170, 110, 23);
+        I.setBounds(260, 490, 110, 28);
 
         turno.setText("Turno del jugador");
         getContentPane().add(turno);
-        turno.setBounds(20, 20, 170, 14);
+        turno.setBounds(20, 20, 170, 16);
 
         btnRendirse.setText("Rendirse");
         btnRendirse.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +131,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnRendirse);
-        btnRendirse.setBounds(280, 40, 100, 23);
+        btnRendirse.setBounds(220, 520, 100, 32);
 
         btnSigMov.setText("Siguiente Movimiento");
         btnSigMov.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +140,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSigMov);
-        btnSigMov.setBounds(20, 310, 210, 23);
+        btnSigMov.setBounds(10, 520, 210, 32);
 
         btnCont.setText("Continuar");
         btnCont.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +149,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnCont);
-        btnCont.setBounds(200, 350, 120, 23);
+        btnCont.setBounds(330, 520, 120, 32);
 
         btnPasar.setText("Pasar");
         btnPasar.addActionListener(new java.awt.event.ActionListener() {
@@ -157,9 +158,10 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnPasar);
-        btnPasar.setBounds(300, 200, 59, 23);
+        btnPasar.setBounds(380, 490, 90, 32);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
@@ -178,7 +180,7 @@ public class VJuego extends javax.swing.JDialog {
             modelo.recibirComando(this.movimientos.get(0));
             this.movimientos.remove(0);
             this.armarBotones();
-            if (movimientos.size()==0){
+            if (movimientos.size() == 0) {
                 this.ventanaTerm();
             }
         }
@@ -187,7 +189,7 @@ public class VJuego extends javax.swing.JDialog {
     private void btnContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContActionPerformed
         modelo.setReplay(false);
         this.replay();
-        
+
     }//GEN-LAST:event_btnContActionPerformed
 
     /**
