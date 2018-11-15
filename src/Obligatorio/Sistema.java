@@ -125,6 +125,14 @@ public class Sistema  extends Observable implements Serializable{
             }
         }
     }
+
+    public String[] getListaPartidasFormat(){
+        String[] ret = new String[this.listaPartidas.size()];
+        for (int i = 0; i <this.listaPartidas.size(); i++) {
+            ret[i]=this.listaPartidas.get(i).toString();
+        }
+        return ret;
+    }
     
 
 }
