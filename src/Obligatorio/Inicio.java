@@ -3,6 +3,8 @@ package Obligatorio;
 
 import Interfaz.Menu;
 import java.io.*;
+import org.eclipse.persistence.sessions.serializers.JSONSerializer;
+
 /**
  *
  * @author Santiago
@@ -24,7 +26,6 @@ public class Inicio {
         
         Menu v = new Menu(s);
         v.setVisible(true);
-        
     }
  
     

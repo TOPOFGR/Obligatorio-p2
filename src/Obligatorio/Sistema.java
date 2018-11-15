@@ -108,7 +108,6 @@ public class Sistema  extends Observable implements Serializable{
     public void cerrar(){
         FileOutputStream ff = null;
         try {
-            File f = new File("datosSistema.txt");
             ff = new FileOutputStream("datosSistema.txt");
             BufferedOutputStream b = new BufferedOutputStream(ff);
             ObjectOutputStream ss = new ObjectOutputStream(b);
