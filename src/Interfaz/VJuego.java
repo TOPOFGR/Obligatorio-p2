@@ -39,7 +39,6 @@ public class VJuego extends javax.swing.JDialog {
 
     public VJuego(Partida unJuego, Sistema s) {
         initComponents();
-        setPreferredSize(new java.awt.Dimension(501, 568));
         modelo = unJuego;
         sist = s;
         ButtonGroup btrGroup = new ButtonGroup();
