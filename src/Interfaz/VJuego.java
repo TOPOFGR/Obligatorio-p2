@@ -14,6 +14,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -41,6 +43,7 @@ public class VJuego extends javax.swing.JDialog {
         initComponents();
         modelo = unJuego;
         sist = s;
+        formaCerrar();
         ButtonGroup btrGroup = new ButtonGroup();
         btrGroup.add(A);
         btrGroup.add(D);
@@ -83,8 +86,9 @@ public class VJuego extends javax.swing.JDialog {
         btnSigMov = new javax.swing.JButton();
         btnCont = new javax.swing.JButton();
         btnPasar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setModal(true);
         setPreferredSize(new java.awt.Dimension(540, 610));
         getContentPane().setLayout(null);
@@ -107,21 +111,21 @@ public class VJuego extends javax.swing.JDialog {
         A.setSelected(true);
         A.setText("Adelante");
         getContentPane().add(A);
-        A.setBounds(40, 490, 110, 28);
+        A.setBounds(40, 490, 110, 23);
 
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(150, 490, 110, 28);
+        D.setBounds(150, 490, 110, 23);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
         getContentPane().add(I);
-        I.setBounds(260, 490, 110, 28);
+        I.setBounds(260, 490, 110, 23);
 
         turno.setText("Turno del jugador");
         getContentPane().add(turno);
-        turno.setBounds(20, 20, 170, 16);
+        turno.setBounds(20, 20, 170, 14);
 
         btnRendirse.setText("Rendirse");
         btnRendirse.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +134,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnRendirse);
-        btnRendirse.setBounds(220, 520, 100, 32);
+        btnRendirse.setBounds(220, 520, 100, 23);
 
         btnSigMov.setText("Siguiente Movimiento");
         btnSigMov.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +143,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSigMov);
-        btnSigMov.setBounds(10, 520, 210, 32);
+        btnSigMov.setBounds(10, 520, 210, 23);
 
         btnCont.setText("Continuar");
         btnCont.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +152,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnCont);
-        btnCont.setBounds(330, 520, 120, 32);
+        btnCont.setBounds(330, 520, 120, 23);
 
         btnPasar.setText("Pasar");
         btnPasar.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +161,11 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnPasar);
-        btnPasar.setBounds(380, 490, 90, 32);
+        btnPasar.setBounds(380, 490, 90, 23);
+
+        jLabel1.setText("Cerrar la ventana cuenta como rendirse");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(300, 20, 230, 14);
 
         pack();
         setLocationRelativeTo(null);
@@ -179,7 +187,7 @@ public class VJuego extends javax.swing.JDialog {
             modelo.recibirComando(this.movimientos.get(0));
             this.movimientos.remove(0);
             this.armarBotones();
-            if (movimientos.size() == 0) {
+            if (movimientos.isEmpty()) {
                 this.ventanaTerm();
             }
         }
@@ -235,6 +243,7 @@ public class VJuego extends javax.swing.JDialog {
     private javax.swing.JButton btnRendirse;
     private javax.swing.JButton btnSigMov;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JLabel turno;
     // End of variables declaration//GEN-END:variables
@@ -364,6 +373,19 @@ public class VJuego extends javax.swing.JDialog {
         } else {
             sist.agregarPartida(modelo);
         }
+    }
+    
+    private void formaCerrar(){
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                modelo.recibirComando("X");
+                if(!modelo.isReplay()){
+                    ((VJuego)e.getWindow()).ventanaTerm();
+                }
+                e.getWindow().dispose();
+            }
+});
     }
 
 }
