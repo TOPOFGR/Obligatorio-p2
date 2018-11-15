@@ -40,7 +40,6 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         modelo.addObserver(this);
     }
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,9 +61,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         tres = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        movimientos = new javax.swing.JSlider();
-        jSpinner1 = new javax.swing.JSpinner();
+        spinnerMov = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,13 +75,28 @@ public class VPartida extends javax.swing.JFrame implements Observer {
 
         buttonGroup1.add(uno);
         uno.setText("Limite de Movimientos");
+        uno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unoActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(dos);
         dos.setSelected(true);
         dos.setText("Llegar con una pieza al otro lado");
+        dos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dosActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(tres);
         tres.setText("Llegar con todas las piezas al lado opuesto");
+        tres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tresActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Jugar Partida");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,13 +107,9 @@ public class VPartida extends javax.swing.JFrame implements Observer {
 
         jLabel3.setText("Forma de terminación");
 
-        jLabel4.setText("Cantidad de Movimientos");
-
-        movimientos.setMaximum(10000);
-
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(10, 1, 112, 1));
-        jSpinner1.setEditor(new javax.swing.JSpinner.NumberEditor(jSpinner1, ""));
-        jSpinner1.setEnabled(false);
+        spinnerMov.setModel(new javax.swing.SpinnerNumberModel(10, 1, 112, 1));
+        spinnerMov.setEditor(new javax.swing.JSpinner.NumberEditor(spinnerMov, ""));
+        spinnerMov.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,21 +132,16 @@ public class VPartida extends javax.swing.JFrame implements Observer {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(127, 127, 127)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dos)
-                            .addComponent(tres))
-                        .addGap(138, 138, 138)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(movimientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dos)
+                        .addComponent(tres))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(306, 306, 306)
                         .addComponent(jButton1))
-                    .addComponent(uno))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(uno)
+                        .addGap(30, 30, 30)
+                        .addComponent(spinnerMov, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(139, 148, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -155,22 +158,19 @@ public class VPartida extends javax.swing.JFrame implements Observer {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dos)
-                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(dos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(movimientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(52, 52, 52)
+                        .addGap(78, 78, 78)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tres, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(uno)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(uno)
+                            .addComponent(spinnerMov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -178,39 +178,49 @@ public class VPartida extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int tipoTerm=1;
-        int movMax=Integer.MAX_VALUE;
+        int tipoTerm = 1;
+        int movMax = Integer.MAX_VALUE;
         if (uno.isSelected()) {
-            while(movimientos.getValue()==0){
-                JOptionPane.showMessageDialog(null,"No selecciono la cantidad de Movimientos", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            movMax= movimientos.getValue();
-            tipoTerm=1;
+            movMax = (Integer) spinnerMov.getValue();
+            tipoTerm = 1;
         }
         if (dos.isSelected()) {
-            tipoTerm=2;
+            tipoTerm = 2;
         }
         if (tres.isSelected()) {
-            tipoTerm=3;            
+            tipoTerm = 3;
         }
-        if(jRojo.isSelectionEmpty()||jAzul.isSelectionEmpty()){
-            JOptionPane.showMessageDialog(null,"No selecciono ambos jugadores", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
-            if(jRojo.getSelectedIndex()!=jAzul.getSelectedIndex()){
-            Jugador jugadorRojo = modelo.getListaRankings().get(jRojo.getSelectedIndex());
-            Jugador jugadorAzul = modelo.getListaRankings().get(jAzul.getSelectedIndex());
-            Partida p = new Partida(jugadorRojo, jugadorAzul, tipoTerm,movMax,false );
-            modelo.agregarPartida(p);
-            VJuego v = new VJuego(p,modelo);
-            v.setVisible(true);
-            this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(null,"Se seleccionó dos veces al mismo jugador", "Error", JOptionPane.ERROR_MESSAGE);
+        if (jRojo.isSelectionEmpty() || jAzul.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "No selecciono ambos jugadores", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (jRojo.getSelectedIndex() != jAzul.getSelectedIndex()) {
+                Jugador jugadorRojo = modelo.getListaRankings().get(jRojo.getSelectedIndex());
+                Jugador jugadorAzul = modelo.getListaRankings().get(jAzul.getSelectedIndex());
+                Partida p = new Partida(jugadorRojo, jugadorAzul, tipoTerm, movMax, false);
+                modelo.agregarPartida(p);
+                VJuego v = new VJuego(p, modelo);
+                v.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Se seleccionó dos veces al mismo jugador", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void unoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoActionPerformed
+        this.spinnerMov.setEnabled(true);
+    }//GEN-LAST:event_unoActionPerformed
+
+    private void dosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosActionPerformed
+        this.spinnerMov.setEnabled(false);
+    }//GEN-LAST:event_dosActionPerformed
+
+    private void tresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tresActionPerformed
+        this.spinnerMov.setEnabled(false);
+
+    }//GEN-LAST:event_tresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,12 +272,10 @@ public class VPartida extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JList<String> jRojo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSlider movimientos;
+    private javax.swing.JSpinner spinnerMov;
     private javax.swing.JRadioButton tres;
     private javax.swing.JRadioButton uno;
     // End of variables declaration//GEN-END:variables
