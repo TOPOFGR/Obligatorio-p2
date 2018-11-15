@@ -179,6 +179,7 @@ public class VJuego extends javax.swing.JDialog {
 
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
         modelo.recibirComando("X");
+        PonerMusica("Rendirse");
         this.ventanaTerm();
     }//GEN-LAST:event_btnRendirseActionPerformed
 
@@ -189,10 +190,10 @@ public class VJuego extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPasarActionPerformed
 
     public Clip clip;
-    public void PonerMusica(String archivo) {
+    public void PonerMusica(String musica) {
         try {
             clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Sonidos/" + archivo +".wav")));
+            clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Sonidos/" + musica +".wav")));
             clip.start();
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
 
