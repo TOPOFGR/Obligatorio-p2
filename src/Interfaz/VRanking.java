@@ -9,7 +9,6 @@ import Obligatorio.Sistema;
 import com.google.gson.Gson;
 import java.util.Observable;
 import java.util.Observer;
-import org.eclipse.persistence.sessions.serializers.JSONSerializer;
 
 
 /**
