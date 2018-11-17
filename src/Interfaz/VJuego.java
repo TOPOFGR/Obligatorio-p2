@@ -16,7 +16,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -173,6 +179,7 @@ public class VJuego extends javax.swing.JDialog {
 
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
         modelo.recibirComando("X");
+        PonerMusica("Rendirse");
         this.ventanaTerm();
     }//GEN-LAST:event_btnRendirseActionPerformed
 
@@ -182,6 +189,16 @@ public class VJuego extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnPasarActionPerformed
 
+    public Clip clip;
+    public void PonerMusica(String musica) {
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Sonidos/" + musica +".wav")));
+            clip.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+
+        }
+    }
     private void btnSigMovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigMovActionPerformed
         if (this.movimientos.size() > 0) {
             modelo.recibirComando(this.movimientos.get(0));
@@ -374,18 +391,18 @@ public class VJuego extends javax.swing.JDialog {
             sist.agregarPartida(modelo);
         }
     }
-    
-    private void formaCerrar(){
+
+    private void formaCerrar() {
         this.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e){
+            public void windowClosing(WindowEvent e) {
                 modelo.recibirComando("X");
-                if(!modelo.isReplay()){
-                    ((VJuego)e.getWindow()).ventanaTerm();
+                if (!modelo.isReplay()) {
+                    ((VJuego) e.getWindow()).ventanaTerm();
                 }
                 e.getWindow().dispose();
             }
-});
+        });
     }
 
 }

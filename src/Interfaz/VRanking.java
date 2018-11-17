@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import java.util.Observable;
 import java.util.Observer;
 
-
 /**
  *
  * @author Santiago
@@ -21,12 +20,14 @@ public class VRanking extends javax.swing.JFrame implements Observer {
      * Creates new form VRanking
      */
     private Sistema modelo;
+
     public VRanking() {
         initComponents();
     }
+
     public VRanking(Sistema m) {
         initComponents();
-        modelo=m;
+        modelo = m;
         ranking.setListData(modelo.getRankingFormat());
         modelo.addObserver(this);
     }

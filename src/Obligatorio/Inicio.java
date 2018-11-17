@@ -26,8 +26,4 @@ public class Inicio {
         Menu v = new Menu(s);
         v.setVisible(true);
     }
- 
-    
-        
-        
 }
