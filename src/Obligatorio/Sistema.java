@@ -1,10 +1,13 @@
 package Obligatorio;
 
+import com.google.gson.Gson;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
-public class Sistema  extends Observable implements Serializable{
+public class Sistema extends Observable implements Serializable {
 
     private ArrayList<Partida> listaPartidas;
     private ArrayList<Jugador> listaRankings;
@@ -72,22 +75,22 @@ public class Sistema  extends Observable implements Serializable{
 
     public String RegistrarJugador(String nombre, String alias, int edad) {
         String ret = "";
-       
+
         if (ValidarAlias(alias)) {
             ret = "El Alias ya existe";
         }
-        
+
         if (alias.trim().isEmpty()) {
-            ret= "No se ingresó un alias";
+            ret = "No se ingresó un alias";
         }
-        
+
         if (nombre.trim().isEmpty()) {
-            ret="No se ingresó un nombre";
+            ret = "No se ingresó un nombre";
         }
-        if (edad>200||edad<1) {
-            ret= "La edad debe estar entre 1 y 200 (inclusive)";
+        if (edad > 200 || edad < 1) {
+            ret = "La edad debe estar entre 1 y 200 (inclusive)";
         }
-        
+
         Jugador j = new Jugador(nombre, alias, edad);
         if (ret.isEmpty()) {
             agregarRanking(j);
@@ -95,17 +98,16 @@ public class Sistema  extends Observable implements Serializable{
 
         return ret;
     }
-    
-    
-    public String[] getRankingFormat(){
+
+    public String[] getRankingFormat() {
         String[] ret = new String[this.listaRankings.size()];
-        for (int i = 0; i <listaRankings.size(); i++) {
-            ret[i]=listaRankings.get(i).toString();
+        for (int i = 0; i < listaRankings.size(); i++) {
+            ret[i] = listaRankings.get(i).toString();
         }
         return ret;
     }
-    
-    public void cerrar(){
+
+    public void cerrar() {
         FileOutputStream ff = null;
         try {
             ff = new FileOutputStream("datosSistema.txt");
@@ -116,7 +118,7 @@ public class Sistema  extends Observable implements Serializable{
             ss.close();
         } catch (Exception ex) {
             System.out.println("Error al guardar");
-        }finally {
+        } finally {
             try {
                 ff.close();
             } catch (IOException ex) {
@@ -125,13 +127,32 @@ public class Sistema  extends Observable implements Serializable{
         }
     }
 
-    public String[] getListaPartidasFormat(){
+    public String[] getListaPartidasFormat() {
         String[] ret = new String[this.listaPartidas.size()];
-        for (int i = 0; i <this.listaPartidas.size(); i++) {
-            ret[i]=this.listaPartidas.get(i).toString();
+        for (int i = 0; i < this.listaPartidas.size(); i++) {
+            ret[i] = this.listaPartidas.get(i).toString();
         }
         return ret;
     }
-    
+
+    public void guardarJugadores(String path) {
+        String json = new Gson().toJson(this.getListaRankings());
+        path += File.separator + "listaJugadores.JSON";
+        System.out.println(path);
+        File f = new File(path);
+        try {
+            FileOutputStream fOut = new FileOutputStream(f);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(json);
+            myOutWriter.close();
+            fOut.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Error al guardar lista jugadores");
+        } catch (IOException ex) {
+            System.out.println("Error al guardar lista jugadores");
+
+        }
+
+    }
 
 }
