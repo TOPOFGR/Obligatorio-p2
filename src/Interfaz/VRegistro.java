@@ -6,12 +6,7 @@
 package Interfaz;
 
 import Obligatorio.Sistema;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import javax.swing.JOptionPane;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 /**
  *

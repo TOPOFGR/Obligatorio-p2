@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioSystem;
@@ -96,7 +95,6 @@ public class VJuego extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setModal(true);
-        setPreferredSize(new java.awt.Dimension(540, 610));
         getContentPane().setLayout(null);
 
         javax.swing.GroupLayout panelJuegoLayout = new javax.swing.GroupLayout(panelJuego);
@@ -117,21 +115,21 @@ public class VJuego extends javax.swing.JDialog {
         A.setSelected(true);
         A.setText("Adelante");
         getContentPane().add(A);
-        A.setBounds(40, 490, 110, 23);
+        A.setBounds(40, 490, 110, 28);
 
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(150, 490, 110, 23);
+        D.setBounds(150, 490, 110, 28);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
         getContentPane().add(I);
-        I.setBounds(260, 490, 110, 23);
+        I.setBounds(260, 490, 110, 28);
 
         turno.setText("Turno del jugador");
         getContentPane().add(turno);
-        turno.setBounds(20, 20, 170, 14);
+        turno.setBounds(20, 20, 170, 16);
 
         btnRendirse.setText("Rendirse");
         btnRendirse.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +138,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnRendirse);
-        btnRendirse.setBounds(220, 520, 100, 23);
+        btnRendirse.setBounds(220, 520, 100, 32);
 
         btnSigMov.setText("Siguiente Movimiento");
         btnSigMov.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +147,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSigMov);
-        btnSigMov.setBounds(10, 520, 210, 23);
+        btnSigMov.setBounds(10, 520, 210, 32);
 
         btnCont.setText("Continuar");
         btnCont.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +156,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnCont);
-        btnCont.setBounds(330, 520, 120, 23);
+        btnCont.setBounds(330, 520, 120, 32);
 
         btnPasar.setText("Pasar");
         btnPasar.addActionListener(new java.awt.event.ActionListener() {
@@ -167,15 +165,27 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnPasar);
-        btnPasar.setBounds(380, 490, 90, 23);
+        btnPasar.setBounds(380, 490, 90, 32);
 
         jLabel1.setText("Cerrar la ventana cuenta como rendirse");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(300, 20, 230, 14);
+        jLabel1.setBounds(240, 20, 230, 16);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    public Clip clip;
+
+    public void PonerMusica(String musica) {
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Sonidos/" + musica + ".wav")));
+            clip.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+
+        }
+    }
 
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
         modelo.recibirComando("X");
@@ -189,16 +199,6 @@ public class VJuego extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnPasarActionPerformed
 
-    public Clip clip;
-    public void PonerMusica(String musica) {
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Sonidos/" + musica +".wav")));
-            clip.start();
-        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-
-        }
-    }
     private void btnSigMovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigMovActionPerformed
         if (this.movimientos.size() > 0) {
             modelo.recibirComando(this.movimientos.get(0));
@@ -206,6 +206,8 @@ public class VJuego extends javax.swing.JDialog {
             this.armarBotones();
             if (movimientos.isEmpty()) {
                 this.ventanaTerm();
+            } else {
+                PonerMusica("Movimiento");
             }
         }
     }//GEN-LAST:event_btnSigMovActionPerformed
@@ -299,6 +301,7 @@ public class VJuego extends javax.swing.JDialog {
             if (I.isSelected()) {
                 comando += "I";
             }
+            PonerMusica("Movimiento");
             comando += f.getTipo().charAt(0);
             if (modelo.recibirComando(comando)) {
                 armarBotones();
@@ -318,11 +321,14 @@ public class VJuego extends javax.swing.JDialog {
             }
             if (modelo.getResultado().equals("Rojo")) {
                 mensaje += ("Ganó el jugador rojo de Alias: " + modelo.getJugadorRojo().getAlias());
+                PonerMusica("Victoria");
             } else {
                 if (modelo.getResultado().equals("Azul")) {
                     mensaje += ("Ganó el jugador azul de Alias " + modelo.getJugadorAzul().getAlias());
+                    PonerMusica("Victoria");
                 } else {
                     mensaje += ("Juego terminado en empate");
+                    PonerMusica("Empate");
                 }
             }
             JOptionPane.showMessageDialog(null, mensaje, "Juego terminado", JOptionPane.INFORMATION_MESSAGE);
@@ -399,6 +405,7 @@ public class VJuego extends javax.swing.JDialog {
                 modelo.recibirComando("X");
                 if (!modelo.isReplay()) {
                     ((VJuego) e.getWindow()).ventanaTerm();
+
                 }
                 e.getWindow().dispose();
             }

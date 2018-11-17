@@ -8,11 +8,8 @@ package Interfaz;
 import Obligatorio.Jugador;
 import Obligatorio.Partida;
 import Obligatorio.Sistema;
-import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
