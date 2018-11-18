@@ -318,9 +318,10 @@ public class VJuego extends javax.swing.JDialog {
             if (I.isSelected()) {
                 comando += "I";
             }
-            PonerMusica("Movimiento");
+            
             comando += f.getTipo().charAt(0);
             if (modelo.recibirComando(comando)) {
+                PonerMusica("Movimiento");
                 armarBotones();
                 this.ventanaTerm();
 
