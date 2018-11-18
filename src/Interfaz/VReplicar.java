@@ -15,6 +15,7 @@ public class VReplicar extends javax.swing.JFrame {
     public VReplicar(Sistema m) {
         initComponents();
         modelo=m;
+        modelo.ordenarPartidas();
         listaPartidas.setListData(modelo.getListaPartidasFormat());
     }
 
