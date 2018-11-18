@@ -138,7 +138,6 @@ public class Sistema extends Observable implements Serializable {
     public void guardarJugadores(String path) {
         String json = new Gson().toJson(this.getListaRankings());
         path += File.separator + "listaJugadores.JSON";
-        System.out.println(path);
         File f = new File(path);
         try {
             FileOutputStream fOut = new FileOutputStream(f);
