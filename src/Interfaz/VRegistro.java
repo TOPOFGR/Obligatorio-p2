@@ -8,10 +8,7 @@ package Interfaz;
 import Obligatorio.Sistema;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Santiago
- */
+//Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 public class VRegistro extends javax.swing.JFrame {
 
     /**

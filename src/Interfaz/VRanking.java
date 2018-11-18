@@ -9,10 +9,7 @@ import Obligatorio.Sistema;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- *
- * @author Santiago
- */
+//Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 public class VRanking extends javax.swing.JFrame implements Observer {
 
     /**

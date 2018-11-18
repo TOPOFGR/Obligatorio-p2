@@ -9,7 +9,6 @@ import Obligatorio.Ficha;
 import Obligatorio.Partida;
 import Obligatorio.Sistema;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -28,10 +27,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Santiago
- */
+//Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
+
 public class VJuego extends javax.swing.JDialog {
 
     /**
