@@ -4,10 +4,8 @@ package Obligatorio;
 import Interfaz.Menu;
 import java.io.*;
 
-/**
- *
- * @author Santiago
- */
+//Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
+
 public class Inicio {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException { 

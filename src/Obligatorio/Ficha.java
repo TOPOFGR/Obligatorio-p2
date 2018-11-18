@@ -3,10 +3,7 @@ package Obligatorio;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Santiago Rügnitz y Franco Galeano
- */
+//Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 public class Ficha implements Serializable{
 
     private String tipo;
