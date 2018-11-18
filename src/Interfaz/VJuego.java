@@ -52,6 +52,7 @@ public class VJuego extends javax.swing.JDialog {
         btrGroup.add(A);
         btrGroup.add(D);
         btrGroup.add(I);
+        cerrar.setForeground(Color.WHITE);
         panelJuego.setLayout(new GridLayout(8, 9));
         botones = new JButton[9][10];
         for (int i = 1; i <= 8; i++) {
@@ -82,7 +83,6 @@ public class VJuego extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         panelJuego = new javax.swing.JPanel();
-        A = new javax.swing.JRadioButton();
         D = new javax.swing.JRadioButton();
         I = new javax.swing.JRadioButton();
         turno = new javax.swing.JLabel();
@@ -90,7 +90,9 @@ public class VJuego extends javax.swing.JDialog {
         btnSigMov = new javax.swing.JButton();
         btnCont = new javax.swing.JButton();
         btnPasar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        cerrar = new javax.swing.JLabel();
+        A = new javax.swing.JRadioButton();
+        fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(534, 600));
@@ -115,21 +117,15 @@ public class VJuego extends javax.swing.JDialog {
         getContentPane().add(panelJuego);
         panelJuego.setBounds(10, 40, 490, 430);
 
-        buttonGroup1.add(A);
-        A.setSelected(true);
-        A.setText("Adelante");
-        getContentPane().add(A);
-        A.setBounds(40, 490, 110, 28);
-
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(150, 490, 110, 28);
+        D.setBounds(240, 490, 110, 28);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
         getContentPane().add(I);
-        I.setBounds(260, 490, 110, 28);
+        I.setBounds(40, 490, 110, 28);
 
         turno.setText("Turno del jugador");
         getContentPane().add(turno);
@@ -171,9 +167,20 @@ public class VJuego extends javax.swing.JDialog {
         getContentPane().add(btnPasar);
         btnPasar.setBounds(380, 490, 90, 32);
 
-        jLabel1.setText("Cerrar la ventana cuenta como rendirse");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(240, 20, 230, 16);
+        cerrar.setText("Cerrar la ventana cuenta como rendirse");
+        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(cerrar);
+        cerrar.setBounds(240, 20, 230, 16);
+
+        buttonGroup1.add(A);
+        A.setSelected(true);
+        A.setText("Adelante");
+        getContentPane().add(A);
+        A.setBounds(150, 490, 110, 28);
+
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Juego.jpg"))); // NOI18N
+        getContentPane().add(fondo);
+        fondo.setBounds(0, 0, 540, 590);
 
         pack();
         setLocationRelativeTo(null);
@@ -271,7 +278,8 @@ public class VJuego extends javax.swing.JDialog {
     private javax.swing.JButton btnRendirse;
     private javax.swing.JButton btnSigMov;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel cerrar;
+    private javax.swing.JLabel fondo;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JLabel turno;
     // End of variables declaration//GEN-END:variables
