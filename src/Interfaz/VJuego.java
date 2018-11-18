@@ -188,7 +188,7 @@ public class VJuego extends javax.swing.JDialog {
 
     public Clip clip;
 
-    public void PonerMusica(String musica) {
+    public void ponerMusica(String musica) {
         try {
             clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Sonidos/" + musica + ".wav")));
@@ -200,7 +200,7 @@ public class VJuego extends javax.swing.JDialog {
 
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
         modelo.recibirComando("X");
-        PonerMusica("Rendirse");
+        ponerMusica("Rendirse");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
@@ -223,7 +223,7 @@ public class VJuego extends javax.swing.JDialog {
             if (movimientos.isEmpty()) {
                 this.ventanaTerm();
             } else {
-                PonerMusica("Movimiento");
+                ponerMusica("Movimiento");
             }
         }
     }//GEN-LAST:event_btnSigMovActionPerformed
@@ -321,10 +321,11 @@ public class VJuego extends javax.swing.JDialog {
             
             comando += f.getTipo().charAt(0);
             if (modelo.recibirComando(comando)) {
-                PonerMusica("Movimiento");
+                ponerMusica("Movimiento");
                 armarBotones();
                 this.ventanaTerm();
-
+            }else{
+                ponerMusica("Invalido");
             }
         }
 
@@ -339,14 +340,14 @@ public class VJuego extends javax.swing.JDialog {
             }
             if (modelo.getResultado().equals("Rojo")) {
                 mensaje += ("Ganó el jugador rojo de Alias: " + modelo.getJugadorRojo().getAlias());
-                PonerMusica("Victoria");
+                ponerMusica("Victoria");
             } else {
                 if (modelo.getResultado().equals("Azul")) {
                     mensaje += ("Ganó el jugador azul de Alias " + modelo.getJugadorAzul().getAlias());
-                    PonerMusica("Victoria");
+                    ponerMusica("Victoria");
                 } else {
                     mensaje += ("Juego terminado en empate");
-                    PonerMusica("Empate");
+                    ponerMusica("Empate");
                 }
             }
             JOptionPane.showMessageDialog(null, mensaje, "Juego terminado", JOptionPane.INFORMATION_MESSAGE);
