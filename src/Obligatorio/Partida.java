@@ -320,7 +320,7 @@ public class Partida implements Serializable {
                     }
                     break;
                 case 2:
-                    for (int i = 1; i < 9; i++) {
+                    for (int i = 1; i < 10; i++) {
                         if (tablero[fila][i].getTipo().equals(turno)) {
                             this.setTerminado(true);
                             this.sumaPuntos();
