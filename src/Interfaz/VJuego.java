@@ -18,6 +18,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -94,8 +96,13 @@ public class VJuego extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(534, 600));
         setModal(true);
+        setResizable(false);
+        setSize(new java.awt.Dimension(540, 580));
         getContentPane().setLayout(null);
+
+        panelJuego.setPreferredSize(new java.awt.Dimension(560, 600));
 
         javax.swing.GroupLayout panelJuegoLayout = new javax.swing.GroupLayout(panelJuego);
         panelJuego.setLayout(panelJuegoLayout);
@@ -190,6 +197,11 @@ public class VJuego extends javax.swing.JDialog {
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
         modelo.recibirComando("X");
         PonerMusica("Rendirse");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(VJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.ventanaTerm();
     }//GEN-LAST:event_btnRendirseActionPerformed
 
