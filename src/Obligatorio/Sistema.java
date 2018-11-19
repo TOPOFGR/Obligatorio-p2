@@ -1,6 +1,6 @@
 package Obligatorio;
 
-//import com.google.gson.Gson;
+import com.google.gson.Gson;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -136,13 +136,13 @@ public class Sistema extends Observable implements Serializable {
     }
 
     public void guardarJugadores(String path) {
-//        String json = new Gson().toJson(this.getListaRankings());
+        String json = new Gson().toJson(this.getListaRankings());
         path += File.separator + "listaJugadores.JSON";
         File f = new File(path);
         try {
             FileOutputStream fOut = new FileOutputStream(f);
             OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-       //     myOutWriter.append(json);
+            myOutWriter.append(json);
             myOutWriter.close();
             fOut.close();
         } catch (FileNotFoundException ex) {

@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -230,6 +231,7 @@ public class VJuego extends javax.swing.JDialog {
 
     private void btnContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContActionPerformed
         modelo.setReplay(false);
+        modelo.setFecha(LocalDateTime.now());
         this.replay();
 
     }//GEN-LAST:event_btnContActionPerformed
