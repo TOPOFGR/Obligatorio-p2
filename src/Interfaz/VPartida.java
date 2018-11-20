@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 
@@ -28,6 +29,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         btrGroup.add(dos);
         btrGroup.add(tres);
         modelo = m;
+        ((JSpinner.DefaultEditor)spinnerMov.getEditor()).getTextField().setEditable(false);
         jRojo.setListData(modelo.getRankingFormat());
         jAzul.setListData(modelo.getRankingFormat());
         modelo.addObserver(this);
@@ -95,7 +97,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(uno);
-        uno.setBounds(10, 280, 150, 23);
+        uno.setBounds(10, 280, 220, 23);
 
         buttonGroup1.add(dos);
         dos.setSelected(true);
@@ -106,7 +108,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(dos);
-        dos.setBounds(10, 220, 190, 23);
+        dos.setBounds(10, 220, 270, 23);
 
         buttonGroup1.add(tres);
         tres.setText("Llegar con todas las piezas al lado opuesto");
@@ -116,7 +118,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(tres);
-        tres.setBounds(10, 250, 240, 23);
+        tres.setBounds(10, 250, 270, 23);
 
         jButton1.setText("Jugar Partida");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +137,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         spinnerMov.setModel(new javax.swing.SpinnerNumberModel(10, 1, 112, 1));
         spinnerMov.setEnabled(false);
         getContentPane().add(spinnerMov);
-        spinnerMov.setBounds(180, 280, 40, 20);
+        spinnerMov.setBounds(240, 280, 40, 20);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Registrar.jpeg"))); // NOI18N
         getContentPane().add(jLabel4);
