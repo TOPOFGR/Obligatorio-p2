@@ -3,13 +3,13 @@ package Interfaz;
 import Obligatorio.Jugador;
 import Obligatorio.Partida;
 import Obligatorio.Sistema;
+import java.util.InputMismatchException;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
-
 public class VPartida extends javax.swing.JFrame implements Observer {
 
     /**
@@ -32,10 +32,6 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         jAzul.setListData(modelo.getRankingFormat());
         modelo.addObserver(this);
     }
-    
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,17 +54,33 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         tres = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        spinnerMov = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(629, 380));
+        setResizable(false);
+        setSize(new java.awt.Dimension(629, 375));
+        getContentPane().setLayout(null);
 
         jScrollPane1.setViewportView(jRojo);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(54, 69, 259, 131);
+
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Jugador Rojo");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(60, 50, 75, 16);
 
         jScrollPane2.setViewportView(jAzul);
 
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(350, 70, 259, 131);
+
+        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
         jLabel2.setText("Jugador Azul");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(350, 50, 74, 16);
 
         buttonGroup1.add(uno);
         uno.setText("Limite de Movimientos");
@@ -77,6 +89,8 @@ public class VPartida extends javax.swing.JFrame implements Observer {
                 unoActionPerformed(evt);
             }
         });
+        getContentPane().add(uno);
+        uno.setBounds(10, 280, 159, 28);
 
         buttonGroup1.add(dos);
         dos.setSelected(true);
@@ -86,6 +100,8 @@ public class VPartida extends javax.swing.JFrame implements Observer {
                 dosActionPerformed(evt);
             }
         });
+        getContentPane().add(dos);
+        dos.setBounds(10, 220, 215, 28);
 
         buttonGroup1.add(tres);
         tres.setText("Llegar con todas las piezas al lado opuesto");
@@ -94,6 +110,8 @@ public class VPartida extends javax.swing.JFrame implements Observer {
                 tresActionPerformed(evt);
             }
         });
+        getContentPane().add(tres);
+        tres.setBounds(10, 250, 276, 28);
 
         jButton1.setText("Jugar Partida");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -101,75 +119,17 @@ public class VPartida extends javax.swing.JFrame implements Observer {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(270, 310, 150, 32);
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Forma de terminación");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(60, 200, 124, 16);
 
-        spinnerMov.setModel(new javax.swing.SpinnerNumberModel(10, 1, 112, 1));
-        spinnerMov.setEditor(new javax.swing.JSpinner.NumberEditor(spinnerMov, ""));
-        spinnerMov.setEnabled(false);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(237, 237, 237))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(dos)
-                        .addComponent(tres))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(306, 306, 306)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(uno)
-                        .addGap(30, 30, 30)
-                        .addComponent(spinnerMov, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(139, 148, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(dos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tres, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(uno)
-                            .addComponent(spinnerMov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Registrar.jpeg"))); // NOI18N
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(0, -30, 630, 410);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -177,8 +137,12 @@ public class VPartida extends javax.swing.JFrame implements Observer {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int tipoTerm = 1;
         int movMax = Integer.MAX_VALUE;
+        String cantMov = "";
         if (uno.isSelected()) {
-            movMax = (Integer) spinnerMov.getValue();
+            cantMov = JOptionPane.showInputDialog("Ingrese cantidad de Movimientos");
+            while (validarMov(cantMov)) {
+                cantMov = JOptionPane.showInputDialog("Debe ingresar una cantidad de Movimientos");
+            }
             tipoTerm = 1;
         }
         if (dos.isSelected()) {
@@ -201,21 +165,31 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             } else {
                 JOptionPane.showMessageDialog(null, "Se seleccionó dos veces al mismo jugador", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public boolean validarMov(String mov) {
+        boolean ok = true;
+        try{
+            int movi = Integer.parseInt(mov);
+            if (movi<1) {
+                ok = false;
+            }
+            if (mov.isEmpty()) {
+                ok=false;
+            }
+        }catch(Exception e){
+            ok = false;
+        }
+        return ok;
+    }
     private void unoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoActionPerformed
-        this.spinnerMov.setEnabled(true);
     }//GEN-LAST:event_unoActionPerformed
 
     private void dosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosActionPerformed
-        this.spinnerMov.setEnabled(false);
     }//GEN-LAST:event_dosActionPerformed
 
     private void tresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tresActionPerformed
-        this.spinnerMov.setEnabled(false);
 
     }//GEN-LAST:event_tresActionPerformed
 
@@ -269,10 +243,10 @@ public class VPartida extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JList<String> jRojo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner spinnerMov;
     private javax.swing.JRadioButton tres;
     private javax.swing.JRadioButton uno;
     // End of variables declaration//GEN-END:variables

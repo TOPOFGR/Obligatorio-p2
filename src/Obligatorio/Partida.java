@@ -236,7 +236,7 @@ public class Partida implements Serializable {
         return ret;
     }
 
-    //Cambia de turno 
+    //Cambia de turno
     public void cambioTurno() {
         TurnoRojo = !TurnoRojo;
         Arrays.fill(movimientos, 1, 9, true);
