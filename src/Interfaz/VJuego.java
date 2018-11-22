@@ -409,6 +409,7 @@ public class VJuego extends javax.swing.JDialog {
         A.setVisible(!esReplay);
         I.setVisible(!esReplay);
         D.setVisible(!esReplay);
+        cerrar.setVisible(!esReplay);
         btnPasar.setVisible(!esReplay);
         if (esReplay) {
             movimientos = (ArrayList<String>) modelo.getListaMovimientos().clone();
