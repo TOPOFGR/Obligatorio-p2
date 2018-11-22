@@ -113,6 +113,10 @@ public class VRegistro extends javax.swing.JFrame {
         String mensaje = modelo.RegistrarJugador(nomj, aj, ej);
         if (!mensaje.equals("")) {
             JOptionPane.showMessageDialog(null,mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            nombre.setText("");
+            alias.setText("");
+            edad.setText("");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
