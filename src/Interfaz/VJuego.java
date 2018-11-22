@@ -29,7 +29,6 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
-
 public class VJuego extends javax.swing.JDialog {
 
     /**
@@ -200,9 +199,9 @@ public class VJuego extends javax.swing.JDialog {
     }
 
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
-        
+
         this.rendirse();
-        
+
     }//GEN-LAST:event_btnRendirseActionPerformed
 
     private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
@@ -229,7 +228,7 @@ public class VJuego extends javax.swing.JDialog {
         modelo.setReplay(false);
         modelo.setFecha(LocalDateTime.now());
         this.replay();
-      
+
 
     }//GEN-LAST:event_btnContActionPerformed
 
@@ -317,13 +316,13 @@ public class VJuego extends javax.swing.JDialog {
             if (I.isSelected()) {
                 comando += "I";
             }
-            
+
             comando += f.getTipo().charAt(0);
             if (modelo.recibirComando(comando)) {
                 ponerMusica("Movimiento");
                 armarBotones();
                 this.ventanaTerm();
-            }else{
+            } else {
                 ponerMusica("Invalido");
             }
         }
@@ -420,16 +419,17 @@ public class VJuego extends javax.swing.JDialog {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                modelo.recibirComando("X");
                 if (!modelo.isReplay()) {
                     ((VJuego) e.getWindow()).rendirse();
 
+                } else {
+                    e.getWindow().dispose();
                 }
-                e.getWindow().dispose();
             }
         });
     }
-    private void rendirse(){
+
+    private void rendirse() {
         modelo.recibirComando("X");
         ponerMusica("Rendirse");
         try {
