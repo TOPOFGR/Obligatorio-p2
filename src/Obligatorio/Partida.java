@@ -229,9 +229,16 @@ public class Partida implements Serializable {
         if (ret) {
             agregarMovimiento(movimiento);
             this.termino();
-            if (!this.hayMovimientos()) {
+//            if (!this.hayMovimientos()) {
+//                this.cambioTurno();
+//            }
+            while(!this.hayMovimientos()&&this.contador<=2){
                 this.cambioTurno();
+                
             }
+            if(this.contador>=2){
+                    this.termino();
+                }
         }
         return ret;
     }
@@ -310,6 +317,7 @@ public class Partida implements Serializable {
         }
         if (this.getContador() >= 2) {
             this.setTerminado(true);
+            this.sumaPuntos();
         } else {
 
             switch (this.getTipoTerm()) {

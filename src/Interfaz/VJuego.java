@@ -200,14 +200,9 @@ public class VJuego extends javax.swing.JDialog {
     }
 
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
-        modelo.recibirComando("X");
-        ponerMusica("Rendirse");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(VJuego.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.ventanaTerm();
+        
+        this.rendirse();
+        
     }//GEN-LAST:event_btnRendirseActionPerformed
 
     private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
@@ -230,9 +225,11 @@ public class VJuego extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSigMovActionPerformed
 
     private void btnContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContActionPerformed
+
         modelo.setReplay(false);
         modelo.setFecha(LocalDateTime.now());
         this.replay();
+      
 
     }//GEN-LAST:event_btnContActionPerformed
 
@@ -330,7 +327,6 @@ public class VJuego extends javax.swing.JDialog {
                 ponerMusica("Invalido");
             }
         }
-
     }
 
     private void ventanaTerm() {
@@ -426,12 +422,22 @@ public class VJuego extends javax.swing.JDialog {
             public void windowClosing(WindowEvent e) {
                 modelo.recibirComando("X");
                 if (!modelo.isReplay()) {
-                    ((VJuego) e.getWindow()).ventanaTerm();
+                    ((VJuego) e.getWindow()).rendirse();
 
                 }
                 e.getWindow().dispose();
             }
         });
+    }
+    private void rendirse(){
+        modelo.recibirComando("X");
+        ponerMusica("Rendirse");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(VJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.ventanaTerm();
     }
 
 }
