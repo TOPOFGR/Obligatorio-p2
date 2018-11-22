@@ -63,7 +63,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         spinnerMov = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(629, 380));
         setResizable(false);
         setSize(new java.awt.Dimension(629, 375));
