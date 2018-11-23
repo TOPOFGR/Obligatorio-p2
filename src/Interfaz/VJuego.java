@@ -334,7 +334,21 @@ public class VJuego extends javax.swing.JDialog {
 
             if (modelo.getContador() >= 2) {
                 mensaje += ("Ya no hay movimientos posibles. ");
+            } else {
+                ArrayList<String> lista = modelo.getListaMovimientos();
+                if ((lista.get(lista.size() - 1).equals("X"))) {
+                    if (modelo.getResultado().equals("Rojo")) {
+                        mensaje += "El jugador azul se rindió. ";
+                    } else {
+                        mensaje += "El jugador rojo se rindió. ";
+                    }
+                } else {
+                    if (modelo.getTipoTerm() == 1) {
+                        mensaje += "Se alcanzó el límite de movimientos. ";
+                    }
+                }
             }
+
             if (modelo.getResultado().equals("Rojo")) {
                 mensaje += ("Ganó el jugador rojo de Alias: " + modelo.getJugadorRojo().getAlias());
                 ponerMusica("Victoria");
