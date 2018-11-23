@@ -354,19 +354,6 @@ public class Partida implements Serializable {
         }
     }
 
-    //Devuelve un String con las fichas que se pueden mover
-    public String mostrarMovimientos() {
-        String ret = "";
-
-        for (int i = 1; i < 9; i++) {
-            if (movimientos[i]) {
-                ret += i + " ";
-            }
-        }
-
-        return ret;
-    }
-
     //Verifica si al jugador le quedan movimientos
     public boolean hayMovimientos() {
         boolean ret = false;
