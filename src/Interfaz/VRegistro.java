@@ -40,7 +40,7 @@ public class VRegistro extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
         alias = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
         edad = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -53,10 +53,10 @@ public class VRegistro extends javax.swing.JFrame {
 
         jLabel4.setText("Ingrese Edad");
 
-        jButton1.setText("Registrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegistrarActionPerformed(evt);
             }
         });
 
@@ -74,7 +74,7 @@ public class VRegistro extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(102, 102, 102)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
+                    .addComponent(btnRegistrar)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nombre)
                     .addComponent(alias)
@@ -99,14 +99,14 @@ public class VRegistro extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(edad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addComponent(jButton1)
+                .addComponent(btnRegistrar)
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         String nomj = nombre.getText();
         String aj = alias.getText();
         int ej=0;
@@ -121,7 +121,7 @@ public class VRegistro extends javax.swing.JFrame {
             alias.setText("");
             edad.setText("");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,8 +161,8 @@ public class VRegistro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alias;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JFormattedTextField edad;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

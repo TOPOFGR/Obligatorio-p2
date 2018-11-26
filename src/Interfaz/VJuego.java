@@ -327,7 +327,7 @@ public class VJuego extends javax.swing.JDialog {
             }
         }
     }
-
+    //Arma el mensaje del final de la partida, lo muestra y cierra la partida
     private void ventanaTerm() {
         if (modelo.isTerminado()) {
             String mensaje = "";
@@ -366,7 +366,8 @@ public class VJuego extends javax.swing.JDialog {
 
         }
     }
-
+    
+    //Cambia las propiedades de los botones en funcion de la matriz de fichas
     private void armarBotones() {
         Ficha[][] mat = modelo.getTablero();
         if (modelo.isTurnoRojo()) {
@@ -409,7 +410,8 @@ public class VJuego extends javax.swing.JDialog {
         }
 
     }
-
+    
+    //Prepara la ventana para replicar la partida o para continuarla.
     private void replay() {
         boolean esReplay = modelo.isReplay();
         btnCont.setVisible(esReplay);
@@ -428,7 +430,8 @@ public class VJuego extends javax.swing.JDialog {
             sist.agregarPartida(modelo);
         }
     }
-
+    
+    //Hace que si se cierra la ventana mientras se esta jugando se llame a rendirse() 
     private void formaCerrar() {
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -442,7 +445,8 @@ public class VJuego extends javax.swing.JDialog {
             }
         });
     }
-
+    
+    //Hace que el jugador actual se rinda
     private void rendirse() {
         modelo.recibirComando("X");
         ponerMusica("Rendirse");

@@ -8,6 +8,7 @@ package Interfaz;
 import Obligatorio.Sistema;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JOptionPane;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 public class VRanking extends javax.swing.JFrame implements Observer {
@@ -97,11 +98,15 @@ public class VRanking extends javax.swing.JFrame implements Observer {
         }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+
         selector.showSaveDialog(null);
+        if(selector.getSelectedFile() == null){
+            JOptionPane.showMessageDialog(null, "No se seleccionó un lugar para guardarlo", "Error", JOptionPane.ERROR_MESSAGE);
+        }else {
         String path = selector.getSelectedFile().getAbsolutePath();
-        
         modelo.guardarJugadores(path);
+        }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

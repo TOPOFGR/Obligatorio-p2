@@ -3,8 +3,6 @@ package Obligatorio;
 import com.google.gson.Gson;
 import java.io.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 //Autores: Santiago Rügnitz(215381) y Franco Galeano(230996)
 public class Sistema extends Observable implements Serializable {
@@ -97,7 +95,7 @@ public class Sistema extends Observable implements Serializable {
         }
         return ret;
     }
-
+    //Método para guardarse a si mismo antes de cerrar la aplicación
     public void cerrar() {
         FileOutputStream ff = null;
         try {
