@@ -72,22 +72,22 @@ public class VPartida extends javax.swing.JFrame implements Observer {
         jScrollPane1.setViewportView(jRojo);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(54, 69, 258, 130);
+        jScrollPane1.setBounds(54, 69, 259, 131);
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Jugador Rojo");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(60, 50, 100, 14);
+        jLabel1.setBounds(60, 50, 100, 16);
 
         jScrollPane2.setViewportView(jAzul);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(350, 70, 258, 130);
+        jScrollPane2.setBounds(350, 70, 259, 131);
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 255));
         jLabel2.setText("Jugador Azul");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(350, 50, 120, 14);
+        jLabel2.setBounds(350, 50, 120, 16);
 
         buttonGroup1.add(uno);
         uno.setText("Limite de Movimientos");
@@ -97,7 +97,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(uno);
-        uno.setBounds(10, 280, 220, 23);
+        uno.setBounds(10, 280, 220, 28);
 
         buttonGroup1.add(dos);
         dos.setSelected(true);
@@ -108,7 +108,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(dos);
-        dos.setBounds(10, 220, 270, 23);
+        dos.setBounds(10, 220, 270, 28);
 
         buttonGroup1.add(tres);
         tres.setText("Llegar con todas las piezas al lado opuesto");
@@ -118,7 +118,7 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(tres);
-        tres.setBounds(10, 250, 270, 23);
+        tres.setBounds(10, 250, 270, 28);
 
         jButton1.setText("Jugar Partida");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -127,17 +127,17 @@ public class VPartida extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(270, 310, 150, 23);
+        jButton1.setBounds(270, 310, 150, 32);
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Forma de terminación");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(30, 200, 190, 14);
+        jLabel3.setBounds(30, 200, 190, 16);
 
         spinnerMov.setModel(new javax.swing.SpinnerNumberModel(10, 1, 112, 1));
         spinnerMov.setEnabled(false);
         getContentPane().add(spinnerMov);
-        spinnerMov.setBounds(240, 280, 40, 20);
+        spinnerMov.setBounds(240, 280, 40, 26);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Registrar.jpeg"))); // NOI18N
         getContentPane().add(jLabel4);
