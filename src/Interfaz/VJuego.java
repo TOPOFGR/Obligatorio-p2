@@ -120,7 +120,7 @@ public class VJuego extends javax.swing.JDialog {
         buttonGroup1.add(D);
         D.setText("Derecha");
         getContentPane().add(D);
-        D.setBounds(240, 490, 110, 28);
+        D.setBounds(260, 490, 110, 28);
 
         buttonGroup1.add(I);
         I.setText("Izquierda");
@@ -191,7 +191,7 @@ public class VJuego extends javax.swing.JDialog {
     public void ponerMusica(String musica) {
         try {
             clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Sonidos/" + musica + ".wav")));
+            clip.open(AudioSystem.getAudioInputStream(getClass().getResource("/Sonidos/" + musica + ".wav")));
             clip.start();
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
 
