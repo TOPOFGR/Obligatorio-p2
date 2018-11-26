@@ -109,11 +109,14 @@ public class VRegistro extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nomj = nombre.getText();
         String aj = alias.getText();
-        int ej = (int) Integer.parseInt(edad.getText());
+        int ej=0;
+        if (!edad.getText().isEmpty()) {
+            ej = (int) Integer.parseInt(edad.getText());
+        }
         String mensaje = modelo.RegistrarJugador(nomj, aj, ej);
         if (!mensaje.equals("")) {
-            JOptionPane.showMessageDialog(null,mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+            JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             nombre.setText("");
             alias.setText("");
             edad.setText("");

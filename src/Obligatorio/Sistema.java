@@ -66,7 +66,9 @@ public class Sistema extends Observable implements Serializable {
 
     public String RegistrarJugador(String nombre, String alias, int edad) {
         String ret = "";
-
+        if (edad > 200 || edad < 1) {
+            ret = "La edad debe estar entre 1 y 200 (inclusive)";
+        }
         if (ValidarAlias(alias)) {
             ret = "El Alias ya existe";
         }
@@ -78,9 +80,7 @@ public class Sistema extends Observable implements Serializable {
         if (nombre.trim().isEmpty()) {
             ret = "No se ingresó un nombre";
         }
-        if (edad > 200 || edad < 1) {
-            ret = "La edad debe estar entre 1 y 200 (inclusive)";
-        }
+        
 
         Jugador j = new Jugador(nombre, alias, edad);
         if (ret.isEmpty()) {
